@@ -1,0 +1,275 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2319C0211C0CF60300E0F7BC /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 2319C0201C0CF60300E0F7BC /* main.c */; };
+		2319C0291C0D0B3800E0F7BC /* vehicleParser.c in Sources */ = {isa = PBXBuildFile; fileRef = 2319C0271C0D0B3800E0F7BC /* vehicleParser.c */; };
+		2319C02C1C0D0B4800E0F7BC /* messageParser.c in Sources */ = {isa = PBXBuildFile; fileRef = 2319C02A1C0D0B4800E0F7BC /* messageParser.c */; };
+		2319C02F1C0D12AB00E0F7BC /* socketComm.c in Sources */ = {isa = PBXBuildFile; fileRef = 2319C02D1C0D12AB00E0F7BC /* socketComm.c */; };
+		2319C0321C0D12B700E0F7BC /* radioComm.c in Sources */ = {isa = PBXBuildFile; fileRef = 2319C0301C0D12B700E0F7BC /* radioComm.c */; };
+		2319C0351C0D134D00E0F7BC /* stationActions.c in Sources */ = {isa = PBXBuildFile; fileRef = 2319C0331C0D134D00E0F7BC /* stationActions.c */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2319C01B1C0CF60300E0F7BC /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		2319C01D1C0CF60300E0F7BC /* rasPi-EmergencyStation */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "rasPi-EmergencyStation"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2319C0201C0CF60300E0F7BC /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		2319C0271C0D0B3800E0F7BC /* vehicleParser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vehicleParser.c; sourceTree = "<group>"; };
+		2319C0281C0D0B3800E0F7BC /* vehicleParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vehicleParser.h; sourceTree = "<group>"; };
+		2319C02A1C0D0B4800E0F7BC /* messageParser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = messageParser.c; path = ../messageParser.c; sourceTree = "<group>"; };
+		2319C02B1C0D0B4800E0F7BC /* messageParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = messageParser.h; path = ../messageParser.h; sourceTree = "<group>"; };
+		2319C02D1C0D12AB00E0F7BC /* socketComm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = socketComm.c; sourceTree = "<group>"; };
+		2319C02E1C0D12AB00E0F7BC /* socketComm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = socketComm.h; sourceTree = "<group>"; };
+		2319C0301C0D12B700E0F7BC /* radioComm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = radioComm.c; sourceTree = "<group>"; };
+		2319C0311C0D12B700E0F7BC /* radioComm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = radioComm.h; sourceTree = "<group>"; };
+		2319C0331C0D134D00E0F7BC /* stationActions.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stationActions.c; sourceTree = "<group>"; };
+		2319C0341C0D134D00E0F7BC /* stationActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stationActions.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2319C01A1C0CF60300E0F7BC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2319C0141C0CF60300E0F7BC = {
+			isa = PBXGroup;
+			children = (
+				2319C01F1C0CF60300E0F7BC /* rasPi-EmergencyStation */,
+				2319C01E1C0CF60300E0F7BC /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2319C01E1C0CF60300E0F7BC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2319C01D1C0CF60300E0F7BC /* rasPi-EmergencyStation */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2319C01F1C0CF60300E0F7BC /* rasPi-EmergencyStation */ = {
+			isa = PBXGroup;
+			children = (
+				2319C0201C0CF60300E0F7BC /* main.c */,
+				2319C0271C0D0B3800E0F7BC /* vehicleParser.c */,
+				2319C0281C0D0B3800E0F7BC /* vehicleParser.h */,
+				2319C02A1C0D0B4800E0F7BC /* messageParser.c */,
+				2319C0331C0D134D00E0F7BC /* stationActions.c */,
+				2319C0341C0D134D00E0F7BC /* stationActions.h */,
+				2319C02D1C0D12AB00E0F7BC /* socketComm.c */,
+				2319C02E1C0D12AB00E0F7BC /* socketComm.h */,
+				2319C0301C0D12B700E0F7BC /* radioComm.c */,
+				2319C0311C0D12B700E0F7BC /* radioComm.h */,
+				2319C02B1C0D0B4800E0F7BC /* messageParser.h */,
+			);
+			path = "rasPi-EmergencyStation";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2319C01C1C0CF60300E0F7BC /* rasPi-EmergencyStation */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2319C0241C0CF60300E0F7BC /* Build configuration list for PBXNativeTarget "rasPi-EmergencyStation" */;
+			buildPhases = (
+				2319C0191C0CF60300E0F7BC /* Sources */,
+				2319C01A1C0CF60300E0F7BC /* Frameworks */,
+				2319C01B1C0CF60300E0F7BC /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "rasPi-EmergencyStation";
+			productName = "rasPi-EmergencyStation";
+			productReference = 2319C01D1C0CF60300E0F7BC /* rasPi-EmergencyStation */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2319C0151C0CF60300E0F7BC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0710;
+				ORGANIZATIONNAME = "Gorka Olalde Mendia";
+				TargetAttributes = {
+					2319C01C1C0CF60300E0F7BC = {
+						CreatedOnToolsVersion = 7.1.1;
+					};
+				};
+			};
+			buildConfigurationList = 2319C0181C0CF60300E0F7BC /* Build configuration list for PBXProject "rasPi-EmergencyStation" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 2319C0141C0CF60300E0F7BC;
+			productRefGroup = 2319C01E1C0CF60300E0F7BC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2319C01C1C0CF60300E0F7BC /* rasPi-EmergencyStation */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2319C0191C0CF60300E0F7BC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2319C0351C0D134D00E0F7BC /* stationActions.c in Sources */,
+				2319C0321C0D12B700E0F7BC /* radioComm.c in Sources */,
+				2319C0211C0CF60300E0F7BC /* main.c in Sources */,
+				2319C02C1C0D0B4800E0F7BC /* messageParser.c in Sources */,
+				2319C02F1C0D12AB00E0F7BC /* socketComm.c in Sources */,
+				2319C0291C0D0B3800E0F7BC /* vehicleParser.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		2319C0221C0CF60300E0F7BC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		2319C0231C0CF60300E0F7BC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		2319C0251C0CF60300E0F7BC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		2319C0261C0CF60300E0F7BC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2319C0181C0CF60300E0F7BC /* Build configuration list for PBXProject "rasPi-EmergencyStation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2319C0221C0CF60300E0F7BC /* Debug */,
+				2319C0231C0CF60300E0F7BC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2319C0241C0CF60300E0F7BC /* Build configuration list for PBXNativeTarget "rasPi-EmergencyStation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2319C0251C0CF60300E0F7BC /* Debug */,
+				2319C0261C0CF60300E0F7BC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2319C0151C0CF60300E0F7BC /* Project object */;
+}
