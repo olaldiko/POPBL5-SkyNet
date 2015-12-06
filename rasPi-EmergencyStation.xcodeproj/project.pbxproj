@@ -13,6 +13,7 @@
 		2319C02F1C0D12AB00E0F7BC /* socketComm.c in Sources */ = {isa = PBXBuildFile; fileRef = 2319C02D1C0D12AB00E0F7BC /* socketComm.c */; };
 		2319C0321C0D12B700E0F7BC /* radioComm.c in Sources */ = {isa = PBXBuildFile; fileRef = 2319C0301C0D12B700E0F7BC /* radioComm.c */; };
 		2319C0351C0D134D00E0F7BC /* stationActions.c in Sources */ = {isa = PBXBuildFile; fileRef = 2319C0331C0D134D00E0F7BC /* stationActions.c */; };
+		23FEF6051C14B0EA00F2D1AA /* msgBuffers.c in Sources */ = {isa = PBXBuildFile; fileRef = 23FEF6031C14B0EA00F2D1AA /* msgBuffers.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -40,6 +41,8 @@
 		2319C0311C0D12B700E0F7BC /* radioComm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = radioComm.h; sourceTree = "<group>"; };
 		2319C0331C0D134D00E0F7BC /* stationActions.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stationActions.c; sourceTree = "<group>"; };
 		2319C0341C0D134D00E0F7BC /* stationActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stationActions.h; sourceTree = "<group>"; };
+		23FEF6031C14B0EA00F2D1AA /* msgBuffers.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = msgBuffers.c; sourceTree = "<group>"; };
+		23FEF6041C14B0EA00F2D1AA /* msgBuffers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = msgBuffers.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +82,8 @@
 				2319C0331C0D134D00E0F7BC /* stationActions.c */,
 				2319C0341C0D134D00E0F7BC /* stationActions.h */,
 				2319C02D1C0D12AB00E0F7BC /* socketComm.c */,
+				23FEF6031C14B0EA00F2D1AA /* msgBuffers.c */,
+				23FEF6041C14B0EA00F2D1AA /* msgBuffers.h */,
 				2319C02E1C0D12AB00E0F7BC /* socketComm.h */,
 				2319C0301C0D12B700E0F7BC /* radioComm.c */,
 				2319C0311C0D12B700E0F7BC /* radioComm.h */,
@@ -143,6 +148,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23FEF6051C14B0EA00F2D1AA /* msgBuffers.c in Sources */,
 				2319C0351C0D134D00E0F7BC /* stationActions.c in Sources */,
 				2319C0321C0D12B700E0F7BC /* radioComm.c in Sources */,
 				2319C0211C0CF60300E0F7BC /* main.c in Sources */,
