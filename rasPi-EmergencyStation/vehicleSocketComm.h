@@ -6,8 +6,8 @@
 //  Copyright © 2015 Gorka Olalde Mendia. All rights reserved.
 //
 
-#ifndef socketComm_h
-#define socketComm_h
+#ifndef vehicleSocketComm_h
+#define vehicleSocketComm_h
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,21 +17,24 @@
 #include <pthread.h>
 #include <semaphore.h>
 #include "messageParser.h"
+#include "msgBuffers.h"
 
 #define SRV_PORT 5000
 #define SRV_MAXBUFF 5000
+#define MAX_IN_MSGS 50;
+typedef struct VSC_SERVER_STAT{
+	int serverSocket;
+	int port;
+	struct sockaddr_in serverSocketStruct;
+	int sockSize;
+	char* serverBuffer;
+}VSC_SERVER_STAT, *VSC_PSERVER_STAT;
 
 
+pthread_t listenThread;
 
-
-int serverSocket = 0;
-struct sockaddr_in serverSocketStruct;
-int sockSize = sizeof(struct sockaddr_in);
-char* serverBuffer;
-
-int SC_serverStartup(int port);
-int SC_listenMessages();
-void* SC_receiverThreadFunc(void* args);
-void SC_treatIncomingMsg(PMESSAGE msg);
+VSC_SERVER_STAT vehicleServerStat;
+int VSC_serverStartup(int port);
+void* VSC_receiverThreadFunc(void* args);
 
 #endif /* socketComm_h */

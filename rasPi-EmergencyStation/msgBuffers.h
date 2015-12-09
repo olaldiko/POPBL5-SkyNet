@@ -10,12 +10,13 @@
 #define msgBuffers_h
 
 #include <stdio.h>
-#include "messageParser.h"
 #include <pthread.h>
 #include <assert.h>
+#include "messageParser.h"
+
 
 typedef struct MSGQUEUE {
-	PMESSAGE msg;
+	struct MESSAGE *msg;
 	struct MSGQUEUE *next;
 }MSGQUEUE, *PMSGQUEUE;
 
@@ -28,6 +29,8 @@ typedef struct MSGBUFF {
 	PMSGQUEUE head;
 }MSGBUFF, *PMSGBUFF;
 
-
+PMSGBUFF MB_initBuffer(int maxVals);
+void MB_putMessage(PMSGBUFF buffer, struct MESSAGE *msg);
+struct MESSAGE* MB_getMessage(PMSGBUFF buffer);
 
 #endif /* msgBuffers_h */

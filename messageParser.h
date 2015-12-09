@@ -16,6 +16,9 @@
 #include <arpa/inet.h>
 #include <sys/socket.h>
 #include <semaphore.h>
+#include "msgBuffers.h"
+#include "vehicleSocketComm.h"
+
 #define MSG_MAXLEN 500
 #define MSG_IDSIZE 10
 #define MSG_TYPESIZE 10
@@ -38,6 +41,9 @@ typedef struct MESSAGE{
     
 }MESSAGE, *PMESSAGE;
 
+
+struct MSGBUFF* receivedMsgBuff;
+
 void MP_initMsgStruc(PMESSAGE msg, int msgSize);
 int  MP_parseMessage(PMESSAGE msg);
 
@@ -54,5 +60,5 @@ void MP_parseVehicleStat(PMESSAGE msg);
 void MP_parseVehicleACK(PMESSAGE msg);
 void MP_parseVehicleNACK(PMESSAGE msg);
 
-
+void MP_wipeMessage(PMESSAGE msg);
 #endif /* serverParser_h */

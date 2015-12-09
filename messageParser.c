@@ -9,14 +9,14 @@
 #include "messageParser.h"
 
 void MP_initMsgStruc(PMESSAGE msg, int msgSize) {
-    msg->source   = 0;
-    msg->msgSize     = msgSize;
-    msg->fullMsg     = calloc(msgSize, sizeof(char));
-    msg->id          = calloc(MSG_IDSIZE, sizeof(char));
-    msg->dataType        = calloc(MSG_TYPESIZE, sizeof(char));
-    msg->data        = calloc(msgSize-MSG_IDSIZE-MSG_TYPESIZE, sizeof(char));
-    msg->waitACK     = 0;
-    msg->ackReceived = 0;
+    msg->source			= 0;
+    msg->msgSize		= msgSize;
+    msg->fullMsg		= calloc(msgSize, sizeof(char));
+    msg->id				= calloc(MSG_IDSIZE, sizeof(char));
+    msg->dataType       = calloc(MSG_TYPESIZE, sizeof(char));
+    msg->data			= calloc(msgSize-MSG_IDSIZE-MSG_TYPESIZE, sizeof(char));
+    msg->waitACK		= 0;
+    msg->ackReceived	= 0;
 }
 
 int MP_parseMessage(PMESSAGE msg) {
@@ -48,4 +48,21 @@ int MP_parseMessage(PMESSAGE msg) {
     }
 }
 
+void* MP_ParserThread(void* args) {
+	int state = 1;
+	while (state) {
+	PMESSAGE msg = MB_getMessage(receivedMsgBuff);
+	MP_parseMessage(msg);
+	}
+	pthread_exit(NULL);
+	return 0;
+}
 
+
+void MP_wipeMessage(PMESSAGE msg) {
+	free(msg->fullMsg);
+	free(msg->data);
+	free(msg->dataType);
+	free(msg->id);
+	free(msg);
+}
