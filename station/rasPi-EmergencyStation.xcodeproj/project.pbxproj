@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		2319C0211C0CF60300E0F7BC /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 2319C0201C0CF60300E0F7BC /* main.c */; };
-		2319C02C1C0D0B4800E0F7BC /* messageParser.c in Sources */ = {isa = PBXBuildFile; fileRef = 2319C02A1C0D0B4800E0F7BC /* messageParser.c */; };
 		2319C0321C0D12B700E0F7BC /* radioComm.c in Sources */ = {isa = PBXBuildFile; fileRef = 2319C0301C0D12B700E0F7BC /* radioComm.c */; };
 		2319C0351C0D134D00E0F7BC /* stationActions.c in Sources */ = {isa = PBXBuildFile; fileRef = 2319C0331C0D134D00E0F7BC /* stationActions.c */; };
+		23D4474C1C1A13D1004F0FA3 /* messageParser.c in Sources */ = {isa = PBXBuildFile; fileRef = 23D4474A1C1A13D1004F0FA3 /* messageParser.c */; };
 		23D943E91C18AA690030866A /* tcpServerSocketComm.c in Sources */ = {isa = PBXBuildFile; fileRef = 23D943E71C18AA690030866A /* tcpServerSocketComm.c */; };
 		23D943EC1C18DD380030866A /* tcpVehicleSocketComm.c in Sources */ = {isa = PBXBuildFile; fileRef = 23D943EA1C18DD380030866A /* tcpVehicleSocketComm.c */; };
 		23D943EF1C18DD570030866A /* mcastVehicleDiscovery.c in Sources */ = {isa = PBXBuildFile; fileRef = 23D943ED1C18DD570030866A /* mcastVehicleDiscovery.c */; };
@@ -32,14 +32,14 @@
 /* Begin PBXFileReference section */
 		2319C01D1C0CF60300E0F7BC /* rasPi-EmergencyStation */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "rasPi-EmergencyStation"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2319C0201C0CF60300E0F7BC /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
-		2319C02A1C0D0B4800E0F7BC /* messageParser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = messageParser.c; path = ../messageParser.c; sourceTree = "<group>"; };
-		2319C02B1C0D0B4800E0F7BC /* messageParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = messageParser.h; path = ../messageParser.h; sourceTree = "<group>"; };
 		2319C02D1C0D12AB00E0F7BC /* vehicleSocketComm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vehicleSocketComm.c; sourceTree = "<group>"; };
 		2319C02E1C0D12AB00E0F7BC /* vehicleSocketComm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vehicleSocketComm.h; sourceTree = "<group>"; };
 		2319C0301C0D12B700E0F7BC /* radioComm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = radioComm.c; sourceTree = "<group>"; };
 		2319C0311C0D12B700E0F7BC /* radioComm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = radioComm.h; sourceTree = "<group>"; };
 		2319C0331C0D134D00E0F7BC /* stationActions.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stationActions.c; sourceTree = "<group>"; };
 		2319C0341C0D134D00E0F7BC /* stationActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stationActions.h; sourceTree = "<group>"; };
+		23D4474A1C1A13D1004F0FA3 /* messageParser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = messageParser.c; sourceTree = "<group>"; };
+		23D4474B1C1A13D1004F0FA3 /* messageParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = messageParser.h; sourceTree = "<group>"; };
 		23D943E71C18AA690030866A /* tcpServerSocketComm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tcpServerSocketComm.c; sourceTree = "<group>"; };
 		23D943E81C18AA690030866A /* tcpServerSocketComm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tcpServerSocketComm.h; sourceTree = "<group>"; };
 		23D943EA1C18DD380030866A /* tcpVehicleSocketComm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tcpVehicleSocketComm.c; sourceTree = "<group>"; };
@@ -127,12 +127,12 @@
 		23D943F31C18DDF60030866A /* MessageManaging */ = {
 			isa = PBXGroup;
 			children = (
-				2319C02A1C0D0B4800E0F7BC /* messageParser.c */,
+				23D4474A1C1A13D1004F0FA3 /* messageParser.c */,
+				23D4474B1C1A13D1004F0FA3 /* messageParser.h */,
 				2319C0331C0D134D00E0F7BC /* stationActions.c */,
 				2319C0341C0D134D00E0F7BC /* stationActions.h */,
 				23FEF6031C14B0EA00F2D1AA /* msgBuffers.c */,
 				23FEF6041C14B0EA00F2D1AA /* msgBuffers.h */,
-				2319C02B1C0D0B4800E0F7BC /* messageParser.h */,
 			);
 			name = MessageManaging;
 			sourceTree = "<group>";
@@ -195,11 +195,11 @@
 			files = (
 				23D943EC1C18DD380030866A /* tcpVehicleSocketComm.c in Sources */,
 				23D943E91C18AA690030866A /* tcpServerSocketComm.c in Sources */,
+				23D4474C1C1A13D1004F0FA3 /* messageParser.c in Sources */,
 				23FEF6051C14B0EA00F2D1AA /* msgBuffers.c in Sources */,
 				2319C0351C0D134D00E0F7BC /* stationActions.c in Sources */,
 				2319C0321C0D12B700E0F7BC /* radioComm.c in Sources */,
 				2319C0211C0CF60300E0F7BC /* main.c in Sources */,
-				2319C02C1C0D0B4800E0F7BC /* messageParser.c in Sources */,
 				23D943EF1C18DD570030866A /* mcastVehicleDiscovery.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
