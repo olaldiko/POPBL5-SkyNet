@@ -20,9 +20,9 @@
 #include "msgBuffers.h"
 #include "messageParser.h"
 
-#define SRV_ADDRESS "srv1.skynet.olaldiko.mooo.com"
-#define SRV_PORT 5000
-#define SRV_BUFLEN 500
+#define SSC_SRV_ADDRESS "srv1.skynet.olaldiko.mooo.com"
+#define SSC_SRV_PORT 5000
+#define SSC_SRV_BUFLEN 1024
 typedef struct SSC_STAT {
 	int serverSocket;
 	struct sockaddr_in serverSocketStruct;

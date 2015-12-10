@@ -7,3 +7,8 @@
 //
 
 #include "tcpVehicleSocketComm.h"
+
+void VSC_initVehicleServer() {
+	
+	
+}
