@@ -28,7 +28,7 @@ typedef struct MESSAGE{
     int source; //0-Server, 1-Vehicle
     int msgType;    //0-Incoming, 1-IncomingACK,, 2-Outgoing 3-OutgoingACK
     in_addr_t srcAddress;
-    struct sockaddr_in clientSocket;
+    struct sockaddr_in* clientSocket;
     int msgSize;
     char* fullMsg;
     char* id;

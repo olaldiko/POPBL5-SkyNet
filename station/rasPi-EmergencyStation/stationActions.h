@@ -20,6 +20,8 @@ typedef struct SA_VEHICLE_DATA {
 	int id;
 	struct in_addr ipAddress;
 	struct sockaddr_in clientSocket;
+	pthread_t clientThread;
+	
 }SA_VEHICLE_DATA, *SA_PVEHICLE_DATA;
 
 typedef struct SA_VEHICLE_ELEM {

@@ -61,6 +61,9 @@ void SSC_sendMessageToServer(PMESSAGE msg) {
 	send(serverSocketStat.serverSocket, msg->fullMsg, strlen(msg->fullMsg), 0);
 }
 
+/*****************************
+*TO-DO: Make SSC_listenToServerMsg() common to server and client.
+*****************************/
 void SSC_listenToServerMsg() {
 	int msgLength = 0;
 	int inMsg = 0;
@@ -69,6 +72,7 @@ void SSC_listenToServerMsg() {
 	char* etxPos;
 	char* msgBuff = NULL;
 	PMESSAGE msg;
+	struct sockaddr_in* clientSocket;
 	while (((msgLength = recv(serverSocketStat.serverSocket, serverSocketStat.buffer,SSC_SRV_BUFLEN , 0)) > 0) && serverSocketStat.state == 1) {
 		if (msgLength < SSC_SRV_BUFLEN && inMsg == 0) {
 			msg = calloc(1, sizeof(MESSAGE));
@@ -97,7 +101,11 @@ void SSC_listenToServerMsg() {
 					msg = calloc(1, sizeof(MESSAGE));
 					MP_initMsgStruc(msg, sizeof(msgBuff));
 					strcpy(msg->fullMsg, msgBuff);
-					free(msgBuff);
+					clientSocket = calloc(1, sizeof(struct sockaddr_in));
+					
+					getpeername(serverSocketStat.serverSocket, (struct sockaddr*)&clientSocket, (socklen_t*)&serverSocketStat.sockSize);
+					msg->clientSocket = clientSocket;
+					MB_putMessage(receivedMsgBuff, msg);
 				} else {															//Else copy all contents and continue reading.
 					realloc(msgBuff, ((strlen(msgBuff)*sizeof(char) + 1) + SSC_SRV_BUFLEN));
 					strcat(msgBuff, serverSocketStat.buffer);

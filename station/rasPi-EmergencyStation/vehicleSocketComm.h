@@ -8,7 +8,7 @@
 
 #ifndef vehicleSocketComm_h
 #define vehicleSocketComm_h
-
+/*
 #include <stdio.h>
 #include <stdlib.h>
 #include <netinet/in.h>
@@ -36,5 +36,6 @@ pthread_t listenThread;
 VSC_SERVER_STAT vehicleServerStat;
 int VSC_serverStartup(int port);
 void* VSC_receiverThreadFunc(void* args);
-
+*/
 #endif /* socketComm_h */
+

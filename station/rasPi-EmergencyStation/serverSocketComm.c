@@ -5,7 +5,7 @@
 //  Created by Gorka Olalde Mendia on 7/12/15.
 //  Copyright © 2015 Gorka Olalde Mendia. All rights reserved.
 //
-
+/*
 #include "serverSocketComm.h"
 
 void SSC_initServerConnection() {
@@ -70,5 +70,7 @@ void* serverSenderThreadFunc(void * args) {
 	}
 	pthread_exit(NULL);
 }
+ 
+ */
 
 

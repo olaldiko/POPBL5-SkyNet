@@ -10,7 +10,6 @@
 
 
 void SA_treatIDMessage(PMESSAGE msg) {
-	MB_putMessage(&SSC_serverSendBuffer, msg);
 }
 
 void SA_treadIDReqMessage(PMESSAGE msg) {
@@ -18,7 +17,6 @@ void SA_treadIDReqMessage(PMESSAGE msg) {
 }
 
 void SA_treadLOCMessage(PMESSAGE msg) {
-	MB_putMessage(&SSC_serverSendBuffer, msg);
 	
 }
 
@@ -74,4 +72,21 @@ SA_PVEHICLE_DATA SA_searchVehicle(int id, struct in_addr address) {
 	}
 	pthread_mutex_unlock(&vehicleList.mtx);
 	return retVal;
+}
+int SA_countVehiclesInList() {
+	int retVal = 0;
+	SA_PVEHICLE_ELEM queueCursor;
+	pthread_mutex_lock(&vehicleList.mtx);
+	if (vehicleList.head == NULL) {
+		return 0;
+	}
+	for (queueCursor = vehicleList.head; queueCursor != NULL; queueCursor = queueCursor->next, retVal++);
+	pthread_mutex_unlock(&vehicleList.mtx);
+	return retVal;
+}
+SA_PVEHICLE_DATA SA_getVehicleByIndex(int index) {
+	int i = 0;
+	SA_PVEHICLE_ELEM queueCursor;
+	for (queueCursor = vehicleList.head, i = 0; i < index && queueCursor != NULL; queueCursor = queueCursor->next, i++);
+	return &queueCursor->vehicle;
 }
