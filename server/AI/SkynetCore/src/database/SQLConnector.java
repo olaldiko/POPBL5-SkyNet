@@ -6,6 +6,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import org.postgresql.*;
+
+@SuppressWarnings("unused")
 public class SQLConnector implements Serializable {
 
 	private static final long serialVersionUID = 1L;

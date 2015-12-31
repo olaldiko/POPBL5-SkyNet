@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 import ui.MainWindow;
 
@@ -20,17 +21,21 @@ public class Logger implements Serializable {
 	public static final int FATAL = 4;
 	public static final String[] logLevels = {"[DEBUG]","[INFO]","[WARN]","[ERROR]","[FATAL]"};
 	
-	String logPath;
-	int minLogLevel;
-	long oldFileLimit;
+	public String logPath;
+	public int minLogLevel;
+	public long oldFileLimit;
 	
 	transient MainWindow window;
 	transient FileWriter out;
 
+	public Logger(List<String> settings) {
+		this(settings.toArray());
+	}
+	
 	public Logger(Object[] settings) {
 		logPath = (String) settings[0];
-		minLogLevel = (Integer) settings[1];
-		oldFileLimit = (Long) settings[2];
+		minLogLevel = Integer.valueOf((String)settings[1]);
+		oldFileLimit = Long.valueOf((String)settings[2]);
 	}
 	
 	public void init(MainWindow w) throws IOException {
@@ -54,12 +59,16 @@ public class Logger implements Serializable {
 	
 	public void log(String msg, int logLevel) {
 		msg = getDatetime() + " " + logLevels[logLevel] + " -> " + msg + "\n";
-		if(window!=null) window.update(msg);
-		try {
-			out.write(msg);
-			out.flush();
-		} catch (IOException e) {
-			e.printStackTrace();
+		synchronized(this) {
+			if(window!=null) window.update(msg);
+			if(logLevel>=minLogLevel) {
+				try {
+					out.write(msg);
+					out.flush();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 	

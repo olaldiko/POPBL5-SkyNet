@@ -3,7 +3,6 @@ package ui;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.WindowListener;
-import java.io.Serializable;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -49,21 +48,6 @@ public class MainWindow extends JFrame {
 		settings.posY = getLocation().y;
 		settings.dimX = getSize().width;
 		settings.dimY = getSize().height;
-		System.out.println(getSize().width+":"+getSize().height);
-	}
-	
-	public class MainWindowSettings implements Serializable {
-		private static final long serialVersionUID = 1L;
-		public int posX;
-		public int posY;
-		public int dimX;
-		public int dimY;
-		public MainWindowSettings(int[] settings) {
-			posX = settings[0];
-			posY = settings[1];
-			dimX = settings[2];
-			dimY = settings[3];
-		}
 	}
 	
 }

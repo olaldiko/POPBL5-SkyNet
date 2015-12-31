@@ -89,4 +89,8 @@ private final String[][] result;
 		return s;
 	}
 	
+	public String[][] toStringMatrix() {
+		return result.clone();
+	}
+	
 }

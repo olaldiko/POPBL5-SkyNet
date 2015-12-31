@@ -7,7 +7,7 @@ public class RandomSolver implements Solver, Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	public RandomSolver(List<Object> settings) {
+	public RandomSolver(List<String> settings) {
 		
 	}
 

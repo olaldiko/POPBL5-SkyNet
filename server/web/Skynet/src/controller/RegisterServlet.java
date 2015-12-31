@@ -21,7 +21,7 @@ import domain.UserFacade;
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String PAGE_REGISTER = "/pages/registrarse.jsp";
-	private static final String PAGE_REGISTERED = "/pages/registrado.jsp";
+	private static final String PAGE_REGISTERED = "/pages/mensaje.jsp";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -45,7 +45,7 @@ public class RegisterServlet extends HttpServlet {
 			switch(event) {
 			case "Registrarse":
 				next_page = PAGE_REGISTERED;
-				request.setAttribute("registerMsg", registrarse(request));
+				request.setAttribute("mensaje", registrarse(request));
 				break;
 			}
 		}

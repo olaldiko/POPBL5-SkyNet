@@ -7,7 +7,7 @@ public class AStarSolver implements Solver, Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	public AStarSolver(List<Object> settings) {
+	public AStarSolver(List<String> settings) {
 		
 	}
 	

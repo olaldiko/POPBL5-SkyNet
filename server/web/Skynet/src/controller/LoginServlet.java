@@ -19,6 +19,8 @@ import domain.UserFacade;
 @WebServlet("/Login")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private static final String PAGE_AVISOS = "/Avisos";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -37,7 +39,7 @@ public class LoginServlet extends HttpServlet {
 		
 		UserFacade uf = null;
 		User user = null;
-		String nextPage = "/Avisos";
+		String nextPage = PAGE_AVISOS;
 		
 		if(request.getSession().getAttribute("page")!=null) nextPage = (String)request.getSession().getAttribute("page");
 		try {

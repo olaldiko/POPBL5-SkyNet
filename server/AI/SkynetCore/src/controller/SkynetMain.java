@@ -8,11 +8,13 @@ import javax.swing.JOptionPane;
 import ui.MainWindow;
 import configuration.Configuration;
 import configuration.Logger;
+import connections.ServletConnectionManager;
 
 public class SkynetMain implements WindowListener {
 	
 	MainWindow window;
 	Logger log;
+	ServletConnectionManager servletConn;
 
 	public static void main(String[] args) {
 		SkynetMain p = new SkynetMain();
@@ -20,6 +22,8 @@ public class SkynetMain implements WindowListener {
 	}
 
 	public void start() {
+		
+		//Configuration
 		
 		boolean defaultLoaded = false;
 		
@@ -36,6 +40,8 @@ public class SkynetMain implements WindowListener {
 			}
 		}
 		
+		//Window
+		
 		window = new MainWindow(this);
 		window.setVisible(true);
 		
@@ -46,6 +52,11 @@ public class SkynetMain implements WindowListener {
 			e.printStackTrace();
 		}
 		log.log(defaultLoaded ? "Default configuration loaded":"Configuration loaded from file");
+		
+		//Tasks
+		
+		servletConn = new ServletConnectionManager();
+		
 	}
 	
 	/////////////////WINDOW LISTENER/////////////////
@@ -61,6 +72,7 @@ public class SkynetMain implements WindowListener {
 		}
 		
 		log.log("Window closing, application terminated");
+		System.exit(0);
 	}
 	public void windowDeactivated(WindowEvent e) {}
 	public void windowDeiconified(WindowEvent e) {}
