@@ -12,13 +12,15 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <pthread.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
 #include <semaphore.h>
 #include "msgBuffers.h"
-#include "vehicleSocketComm.h"
-
+#include "tcpVehicleSocketComm.h"
+#include "stationActions.h"
+#include <unistd.h>
 #define MSG_MAXLEN 500
 #define MSG_IDSIZE 10
 #define MSG_TYPESIZE 10
@@ -26,19 +28,17 @@
 
 typedef struct MESSAGE{
     int source; //0-Server, 1-Vehicle
-    int msgType;    //0-Incoming, 1-IncomingACK,, 2-Outgoing 3-OutgoingACK
     in_addr_t srcAddress;
-    struct sockaddr_in* clientSocket;
+	int clientSocket;
+    struct sockaddr_in* clientSocketStruct;
+	pthread_t handlingThread;
+	int isFirstMsg;
     int msgSize;
     char* fullMsg;
     char* id;
     char* dataType;
     char* data;
-    int waitACK;
-    sem_t ackSem;
-    struct MESSAGE* ackMsg;
-    int ackReceived;
-    
+	char* msgCounter;
 }MESSAGE, *PMESSAGE;
 
 

@@ -38,7 +38,7 @@ void VSC_initVehicleServer() {
 void VSC_acceptConnections() {
 	int clientSock;
 	pthread_t *thread;
-	while (accept(vehicleServerStat.serverSocket, (struct sockaddr*)&vehicleServerStat.serverSocketStruct, (socklen_t*)&vehicleServerStat.sockSize)) {
+	while ((clientSock = accept(vehicleServerStat.serverSocket, (struct sockaddr*)&vehicleServerStat.serverSocketStruct, (socklen_t*)&vehicleServerStat.sockSize))) {
 		thread = calloc(1, sizeof(pthread_t));
 		pthread_create(thread, NULL, clientHandlerThreadFunc, (void *)clientSock);
 	}
@@ -52,16 +52,18 @@ void* clientHandlerThreadFunc(void* args) {
 	char* etxPos;
 	int inMsg = 0;
 	int stxFound = 0;
+	int firstMessage = 1;
 	PMESSAGE msg;
 	struct sockaddr_in* clientSocketStruct;
 	int sockSize = sizeof(struct sockaddr_in);
-	
 	while ((msgLength = (int)recv(clientSock, msgBuff, VSC_SOCKBUF_LEN, 0)) != -1) {
 		if (msgLength < VSC_SOCKBUF_LEN && inMsg == 0) {
 			msg = calloc(1, sizeof(MESSAGE));
 			MP_initMsgStruc(msg, msgLength);
 			strcpy(msg->fullMsg, vehicleServerStat.buffer);
 			memset(vehicleServerStat.buffer, 0, VSC_SOCKBUF_LEN);
+			msg->isFirstMsg = firstMessage;
+			firstMessage = 0;
 			MB_putMessage(receivedMsgBuff, msg);
 			memset(vehicleServerStat.buffer, 0, VSC_SOCKBUF_LEN);
 		} else {
@@ -69,7 +71,7 @@ void* clientHandlerThreadFunc(void* args) {
 				if((stxPos = strchr(vehicleServerStat.buffer, '\x02')) != NULL) {	//If STX found, copy socket buffer to inner buffer and start reading
 					inMsg = 1;
 					msgBuff = calloc(VSC_SOCKBUF_LEN, sizeof(char));
-					strcpy(msgBuff, stxPos+1);
+					strcpy(msgBuff, stxPos);
 					memset(vehicleServerStat.buffer, 0, VSC_SOCKBUF_LEN);
 					stxFound = 1;
 				} else {
@@ -78,21 +80,23 @@ void* clientHandlerThreadFunc(void* args) {
 			} else if(inMsg == 1 && stxFound == 1) {								//If we are reading a message
 				if ((etxPos = strchr(vehicleServerStat.buffer, '\x03')) != NULL) {   //If we found ETX, copy contents and end reading.
 					realloc(msgBuff, ((strlen(msgBuff)*sizeof(char) + 1) + (etxPos-vehicleServerStat.buffer)));
-					strncat(msgBuff, vehicleServerStat.buffer, ((etxPos-1) - vehicleServerStat.buffer));
+					strncat(msgBuff, vehicleServerStat.buffer, (etxPos - vehicleServerStat.buffer));
 					inMsg = 0;
 					stxFound = 0;
 					msg = calloc(1, sizeof(MESSAGE));
 					MP_initMsgStruc(msg, sizeof(msgBuff));
 					strcpy(msg->fullMsg, msgBuff);
-					
-					getpeername(clientSock, (struct sockaddr*)&clientSocketStruct, (socklen_t*)&sockSize);
-					msg->clientSocket = clientSocketStruct;
-					
+					if (firstMessage == 1) {
+						msg->isFirstMsg = firstMessage;
+						getpeername(clientSock, (struct sockaddr*)&clientSocketStruct, (socklen_t*)&sockSize);
+						msg->clientSocketStruct = clientSocketStruct;
+						msg->clientSocket = clientSock;
+						msg->handlingThread = pthread_self();
+						firstMessage = 0;
+					}
+					firstMessage = 0;
 					MB_putMessage(receivedMsgBuff, msg);
-					
 					free(msgBuff);
-					//TO-DO: Close the connection and destroy? Or mantain open? Add the thread to msg struct?
-					
 				} else {															//Else copy all contents and continue reading.
 					realloc(msgBuff, ((strlen(msgBuff)*sizeof(char) + 1) + VSC_SOCKBUF_LEN));
 					strcat(msgBuff, vehicleServerStat.buffer);
@@ -101,4 +105,14 @@ void* clientHandlerThreadFunc(void* args) {
 		}
 	}
 	pthread_exit(NULL);
+}
+
+int VSC_SendMessageToVehicle(PMESSAGE msg, SA_PVEHICLE_DATA vehicle) {
+	if (send(vehicle->clientSocket, msg->fullMsg, sizeof(msg->fullMsg), NULL) == -1) {
+		fprintf(stderr, "Error sending message: %s, address: %s, socket: %d", msg->fullMsg, inet_ntoa(msg->clientSocketStruct->sin_addr), msg->clientSocket);
+		return -1;
+	} else {
+		MP_wipeMessage(msg);
+		return 0;
+	}
 }

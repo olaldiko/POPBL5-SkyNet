@@ -20,7 +20,7 @@
 #include "msgBuffers.h"
 #include "messageParser.h"
 #include "stationActions.h"
-#endif /* tcpVehicleSocketComm_h */
+
 
 #define VSC_SRV_PORT 6000
 #define VSC_MAXPENDING 10
@@ -40,5 +40,7 @@ typedef struct VSC_STAT {
 void VSC_initVehicleServer();
 void VSC_acceptConnections();
 void* clientHandlerThreadFunc(void* args);
-
+int VSC_SendMessageToVehicle(PMESSAGE msg, SA_PVEHICLE_DATA vehicle);
 VSC_STAT vehicleServerStat;
+
+#endif /* tcpVehicleSocketComm_h */

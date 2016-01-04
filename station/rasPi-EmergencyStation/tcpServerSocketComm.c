@@ -72,7 +72,7 @@ void SSC_listenToServerMsg() {
 	char* etxPos;
 	char* msgBuff = NULL;
 	PMESSAGE msg;
-	struct sockaddr_in* clientSocket;
+	struct sockaddr_in* clientSocketStruct;
 	while (((msgLength = recv(serverSocketStat.serverSocket, serverSocketStat.buffer,SSC_SRV_BUFLEN , 0)) > 0) && serverSocketStat.state == 1) {
 		if (msgLength < SSC_SRV_BUFLEN && inMsg == 0) {
 			msg = calloc(1, sizeof(MESSAGE));
@@ -86,7 +86,7 @@ void SSC_listenToServerMsg() {
 				if((stxPos = strchr(serverSocketStat.buffer, '\x02')) != NULL) {	//If STX found, copy socket buffer to inner buffer and start reading
 					inMsg = 1;
 					msgBuff = calloc(SSC_SRV_BUFLEN, sizeof(char));
-					strcpy(msgBuff, stxPos+1);
+					strcpy(msgBuff, stxPos);
 					memset(serverSocketStat.buffer, 0, SSC_SRV_BUFLEN);
 					stxFound = 1;
 				} else {
@@ -95,16 +95,16 @@ void SSC_listenToServerMsg() {
 			} else if(inMsg == 1 && stxFound == 1) {								//If we are reading a message
 				if ((etxPos = strchr(serverSocketStat.buffer, '\x03')) != NULL) {   //If we found ETX, copy contents and end reading.
 					realloc(msgBuff, ((strlen(msgBuff)*sizeof(char) + 1) + (etxPos-serverSocketStat.buffer)));
-					strncat(msgBuff, serverSocketStat.buffer, ((etxPos-1) - serverSocketStat.buffer));
+					strncat(msgBuff, serverSocketStat.buffer, (etxPos - serverSocketStat.buffer));
 					inMsg = 0;
 					stxFound = 0;
 					msg = calloc(1, sizeof(MESSAGE));
 					MP_initMsgStruc(msg, sizeof(msgBuff));
 					strcpy(msg->fullMsg, msgBuff);
-					clientSocket = calloc(1, sizeof(struct sockaddr_in));
+					clientSocketStruct = calloc(1, sizeof(struct sockaddr_in));
 					
-					getpeername(serverSocketStat.serverSocket, (struct sockaddr*)&clientSocket, (socklen_t*)&serverSocketStat.sockSize);
-					msg->clientSocket = clientSocket;
+					getpeername(serverSocketStat.serverSocket, (struct sockaddr*)&clientSocketStruct, (socklen_t*)&serverSocketStat.sockSize);
+					msg->clientSocketStruct = clientSocketStruct;
 					MB_putMessage(receivedMsgBuff, msg);
 				} else {															//Else copy all contents and continue reading.
 					realloc(msgBuff, ((strlen(msgBuff)*sizeof(char) + 1) + SSC_SRV_BUFLEN));
