@@ -8,6 +8,8 @@
 
 #include "tcpServerSocketComm.h"
 
+SSC_STAT serverSocketStat;
+MSGBUFF SSC_serverSendBuffer;
 
 void SSC_initServerConnection() {
 	int waitTime = 1;
@@ -15,45 +17,51 @@ void SSC_initServerConnection() {
 	serverSocketStat.sockSize = sizeof(struct sockaddr_in);
 	serverSocketStat.serverInfo = NULL;
 	serverSocketStat.serverSocket = socket(AF_INET, SOCK_STREAM, 0);
+	if (serverSocketStat.serverSocket < 0) {
+		perror("Error creating socket");
+	}
 	while (!serverSocketStat.serverInfo) {
 		printf("Trying to search server IP address....\n");
 		serverSocketStat.serverInfo = gethostbyname(SSC_SRV_ADDRESS);
 		if (serverSocketStat.serverInfo == NULL) {
-			printf("Host unreachable\n");
+			perror("Host unreachable\n");
 			sleep(waitTime);
 			waitTime <<= 1;
 		}
 	}
-	printf("Server IP address: %s\n", serverSocketStat.serverInfo->h_addr_list[0]);
+	
 	serverSocketStat.serverSocketStruct.sin_family = AF_INET;
 	serverSocketStat.serverSocketStruct.sin_len = sizeof(struct sockaddr_in);
-	inet_aton(serverSocketStat.serverInfo->h_addr_list[0], (struct in_addr *)&serverSocketStat.serverSocketStruct.sin_addr.s_addr);
+	bcopy((char *)serverSocketStat.serverInfo->h_addr_list[0], (char *)&serverSocketStat.clientSocketStruct.sin_addr.s_addr,serverSocketStat.serverInfo->h_length);
 	serverSocketStat.serverSocketStruct.sin_port = htons(SSC_SRV_PORT);
 	SSC_makeServerConnection();
 	
 }
 
 void SSC_initServerConnThreads() {
-	pthread_create(&serverSocketStat.listenThread, NULL, msgListenerThreadFunc, NULL);
-	pthread_create(&serverSocketStat.sendThread, NULL, msgSenderThreadFunc, NULL);
+	pthread_create(&serverSocketStat.listenThread, NULL, SSC_msgListenerThreadFunc, NULL);
+	pthread_create(&serverSocketStat.sendThread, NULL, SSC_msgSenderThreadFunc, NULL);
 }
 
-void SSC_stopServerConnThreads() {
+void SSC_stopServerConn() {
 	serverSocketStat.state = 0;
-	pthread_cancel(serverSocketStat.listenThread);
-	pthread_cancel(serverSocketStat.sendThread);
-	//TO-DO: Improve thread termination
+	shutdown(serverSocketStat.serverSocket, SHUT_RDWR);
+	close(serverSocketStat.serverSocket);
+	pthread_join(serverSocketStat.listenThread, NULL);
+	pthread_join(serverSocketStat.sendThread, NULL);
 }
 
 void SSC_makeServerConnection() {
 	int waitTime = 1;
-	close(serverSocketStat.serverSocket);
 	while (connect(serverSocketStat.serverSocket, (struct sockaddr *)&serverSocketStat.serverSocketStruct, serverSocketStat.sockSize) == -1) {
-		printf("Trying to connect to server...\n");
+		perror("Error connecting to server");
 		sleep(waitTime);
 		waitTime <<= 1;
-		close(serverSocketStat.serverSocket); //Advanced Programming in the Unix Enviorement, page 607,
-											  //for testing in OSX, as after failed conexions, in *nix the socket is in an undefined state.
+		close(serverSocketStat.serverSocket); //Advanced Programming in the Unix Enviorement, page 607, for testing in OSX, as after failed conexions, in *nix the socket is in an undefined state.
+		serverSocketStat.serverSocket = socket(AF_INET, SOCK_STREAM, 0);
+		if (serverSocketStat.serverSocket < 0) {
+			perror("Error creating socket");
+		}
 	}
 }
 
@@ -61,9 +69,7 @@ void SSC_sendMessageToServer(PMESSAGE msg) {
 	send(serverSocketStat.serverSocket, msg->fullMsg, strlen(msg->fullMsg), 0);
 }
 
-/*****************************
-*TO-DO: Make SSC_listenToServerMsg() common to server and client.
-*****************************/
+
 void SSC_listenToServerMsg() {
 	int msgLength = 0;
 	int inMsg = 0;
@@ -115,7 +121,7 @@ void SSC_listenToServerMsg() {
 	}
 }
 
-void* msgSenderThreadFunc(void* args) {
+void* SSC_msgSenderThreadFunc(void* args) {
 	PMESSAGE msg;
 	while (serverSocketStat.state) {
 		msg = MB_getMessage(&SSC_serverSendBuffer);
@@ -126,7 +132,7 @@ void* msgSenderThreadFunc(void* args) {
 	pthread_exit(NULL);
 }
 
-void* msgListenerThreadFunc(void* args) {
+void* SSC_msgListenerThreadFunc(void* args) {
 	while (serverSocketStat.state) {
 		SSC_listenToServerMsg();
 		if (serverSocketStat.state == 1) {

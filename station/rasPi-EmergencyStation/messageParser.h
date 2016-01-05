@@ -17,32 +17,19 @@
 #include <arpa/inet.h>
 #include <sys/socket.h>
 #include <semaphore.h>
+#include <unistd.h>
+#include "structures.h"
 #include "msgBuffers.h"
 #include "tcpVehicleSocketComm.h"
 #include "stationActions.h"
-#include <unistd.h>
 #define MSG_MAXLEN 500
 #define MSG_IDSIZE 10
 #define MSG_TYPESIZE 10
 
 
-typedef struct MESSAGE{
-    int source; //0-Server, 1-Vehicle
-    in_addr_t srcAddress;
-	int clientSocket;
-    struct sockaddr_in* clientSocketStruct;
-	pthread_t handlingThread;
-	int isFirstMsg;
-    int msgSize;
-    char* fullMsg;
-    char* id;
-    char* dataType;
-    char* data;
-	char* msgCounter;
-}MESSAGE, *PMESSAGE;
 
 
-struct MSGBUFF* receivedMsgBuff;
+extern PMSGBUFF receivedMsgBuff;
 
 void MP_initMsgStruc(PMESSAGE msg, int msgSize);
 int  MP_parseMessage(PMESSAGE msg);

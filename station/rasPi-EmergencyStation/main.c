@@ -7,9 +7,30 @@
 //
 
 #include <stdio.h>
+#include <signal.h>
+#include "structures.h"
+#include "messageParser.h"
+#include "msgBuffers.h"
+#include "stationActions.h"
+#include "tcpServerSocketComm.h"
+#include "tcpVehicleSocketComm.h"
+
+int exitCond = 0;
+void sig_handler(int signo) {
+	if (signo == SIGINT) {
+		exitCond = 1;
+	}
+}
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    printf("Hello, World!\n");
+	signal(SIGINT, sig_handler);
+	SSC_initServerConnection();
+	VSC_initVehicleServer();
+	while (!exitCond) {
+		sleep(1);
+	}
+	VSC_shutdownVehicleServer();
+	SSC_stopServerConn();
+	
     return 0;
 }

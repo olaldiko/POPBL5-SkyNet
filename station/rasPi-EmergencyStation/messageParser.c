@@ -8,6 +8,8 @@
 
 #include "messageParser.h"
 
+PMSGBUFF receivedMsgBuff;
+
 void MP_initMsgStruc(PMESSAGE msg, int msgSize) {
     msg->source			= 0;
     msg->msgSize		= msgSize;
@@ -29,30 +31,30 @@ int MP_parseMessage(PMESSAGE msg) {
 		strcpy(msg->data, strtok(NULL, "\x1d\x02\x03"));
 		strcpy(msg->msgCounter, strtok(NULL, "\x1d\x02\x03"));
         if (msg->source == 0) {
-            if(strcmp(msg->dataType, "RUT"))            MP_parseRouteMessage(msg);
-            else if (strcmp(msg->dataType, "ALT"))      MP_parseServerAlert(msg);
-			else if	(strcmp(msg->dataType, "IDANS"))	SA_treadIDResponse(msg);
+			if(strcmp(msg->dataType, "RUT"))         {}   //MP_parseRouteMessage(msg);
+			else if (strcmp(msg->dataType, "ALT"))   {}   //MP_parseServerAlert(msg);
+			else if	(strcmp(msg->dataType, "IDANS")) {}	//SA_treadIDResponse(msg);
         } else {
 			if (msg->isFirstMsg) {
 				if((vehicle = SA_searchVehicleById(atoi(msg->id))) != NULL) {
 					close(vehicle->clientSocket);
 					vehicle->clientSocket = msg->clientSocket;
 					vehicle->clientSocketStruct = *msg->clientSocketStruct;
-					pthread_join(vehicle->clientThread, NULL);
-					vehicle->clientThread = msg->handlingThread; //If we are receiving a message from a new thread, the old one shoud have ended when calling the close function.
+					pthread_join(vehicle->inboxThread, NULL);
+					vehicle->inboxThread = msg->handlingThread; //If we are receiving a message from a new thread, the old one shoud have ended when calling the close function.
 				} else {
 					vehicle = SA_addVehicleToList(atoi(msg->id));
 					vehicle->clientSocket = msg->clientSocket;
 					vehicle->clientSocketStruct = *msg->clientSocketStruct;
-					vehicle->clientThread = msg->handlingThread;
+					vehicle->inboxThread = msg->handlingThread;
 				}
 			}
-            if(strcmp(msg->dataType, "ID"))             MP_parseVehicleID(msg);
-            else if (strcmp(msg->dataType, "IDREQ"))    MP_parseVehicleIDRequest(msg);
-			else if (strcmp(msg->dataType, "LOC"))      SA_treadLOCMessage(msg);
-            else if (strcmp(msg->dataType, "STAT"))     MP_parseVehicleStat(msg);
-            else if (strcmp(msg->dataType, "ACK"))      MP_parseVehicleACK(msg);
-            else if (strcmp(msg->dataType, "NACK"))     MP_parseVehicleNACK(msg);
+			if(strcmp(msg->dataType, "ID"))             SA_treatIDMessage(msg);
+			else if (strcmp(msg->dataType, "IDREQ"))    SA_treatIDReqMessage(msg);
+			else if (strcmp(msg->dataType, "LOC"))      SA_treatLOCMessage(msg);
+			//else if (strcmp(msg->dataType, "STAT"))
+           // else if (strcmp(msg->dataType, "ACK"))      MP_parseVehicleACK(msg);
+           // else if (strcmp(msg->dataType, "NACK"))     MP_parseVehicleNACK(msg);
         }
         return 0;
     } else {
@@ -73,7 +75,7 @@ void* MP_ParserThread(void* args) {
 void MP_createACK(int msgCounter) {
 	PMESSAGE msg = calloc(1, sizeof(MESSAGE));
 	MP_initMsgStruc(msg, 200);
-	msg->fullMsg
+	//To-Do: Generate ACKs
 }
 
 void MP_wipeMessage(PMESSAGE msg) {

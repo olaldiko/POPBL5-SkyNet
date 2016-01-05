@@ -8,9 +8,11 @@
 
 #include "tcpVehicleSocketComm.h"
 
+VSC_STAT vehicleServerStat;
+
 void VSC_initVehicleServer() {
 	int waitTime = 1;
-	
+	vehicleServerStat.state = 1;
 	vehicleServerStat.serverSocketStruct.sin_family = AF_INET;
 	vehicleServerStat.serverSocketStruct.sin_port = htons(VSC_SRV_PORT);
 	vehicleServerStat.serverSocketStruct.sin_addr.s_addr = htonl(INADDR_ANY);
@@ -40,11 +42,26 @@ void VSC_acceptConnections() {
 	pthread_t *thread;
 	while ((clientSock = accept(vehicleServerStat.serverSocket, (struct sockaddr*)&vehicleServerStat.serverSocketStruct, (socklen_t*)&vehicleServerStat.sockSize))) {
 		thread = calloc(1, sizeof(pthread_t));
-		pthread_create(thread, NULL, clientHandlerThreadFunc, (void *)clientSock);
+		pthread_create(thread, NULL, VSC_inboundHandlerThreadFunc, (void *)clientSock);
 	}
 }
+void VSC_shutdownVehicleServer() {
+	vehicleServerStat.state = 0;
+	SA_PVEHICLE_DATA vehicle;
+	for (int i = 0; i < SA_countVehiclesInList(); i++) {
+		vehicle = SA_getVehicleByIndex(i);
+		shutdown(vehicle->clientSocket, SHUT_RDWR);
+		close(vehicle->clientSocket);
+		pthread_join(vehicle->inboxThread, NULL);
+		pthread_join(vehicle->outboxThread, NULL);
+	}
+	shutdown(vehicleServerStat.serverSocket, SHUT_RDWR);
+	close(vehicleServerStat.serverSocket);
+	pthread_join(vehicleServerStat.listenThread, NULL);
+}
 
-void* clientHandlerThreadFunc(void* args) {
+
+void* VSC_inboundHandlerThreadFunc(void* args) {
 	int clientSock = (int)args;
 	int msgLength = 0;
 	char* msgBuff;
@@ -56,7 +73,7 @@ void* clientHandlerThreadFunc(void* args) {
 	PMESSAGE msg;
 	struct sockaddr_in* clientSocketStruct;
 	int sockSize = sizeof(struct sockaddr_in);
-	while ((msgLength = (int)recv(clientSock, msgBuff, VSC_SOCKBUF_LEN, 0)) != -1) {
+	while ((msgLength = (int)recv(clientSock, msgBuff, VSC_SOCKBUF_LEN, 0)) != -1 && vehicleServerStat.state == 1) {
 		if (msgLength < VSC_SOCKBUF_LEN && inMsg == 0) {
 			msg = calloc(1, sizeof(MESSAGE));
 			MP_initMsgStruc(msg, msgLength);
@@ -103,6 +120,17 @@ void* clientHandlerThreadFunc(void* args) {
 				}
 			}
 		}
+	}
+	pthread_exit(NULL);
+}
+
+void* VSC_outboundHandlerThreadFunc(void* args) {
+	SA_PVEHICLE_DATA vehicle = (SA_PVEHICLE_DATA)args;
+	PMESSAGE msg;
+	vehicle->outboxThread = pthread_self();
+	while (vehicleServerStat.state == 1) {
+		msg = MB_getMessage(vehicle->outbox);
+		VSC_SendMessageToVehicle(msg, vehicle);
 	}
 	pthread_exit(NULL);
 }
