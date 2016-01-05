@@ -9,12 +9,14 @@ import ui.MainWindow;
 import configuration.Configuration;
 import configuration.Logger;
 import connections.ServletConnectionManager;
+import connections.StationConnectionManager;
 
 public class SkynetMain implements WindowListener {
 	
 	MainWindow window;
 	Logger log;
 	ServletConnectionManager servletConn;
+	StationConnectionManager stationConn;
 
 	public static void main(String[] args) {
 		SkynetMain p = new SkynetMain();
@@ -56,6 +58,7 @@ public class SkynetMain implements WindowListener {
 		//Tasks
 		
 		servletConn = new ServletConnectionManager();
+		stationConn = new StationConnectionManager();
 		
 	}
 	
