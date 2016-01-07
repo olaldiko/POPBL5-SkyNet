@@ -30,7 +30,8 @@
 
 
 extern PMSGBUFF receivedMsgBuff;
-
+extern int parserState;
+void MP_initParser();
 void MP_initMsgStruc(PMESSAGE msg, int msgSize);
 int  MP_parseMessage(PMESSAGE msg);
 
@@ -48,4 +49,6 @@ void MP_parseVehicleACK(PMESSAGE msg);
 void MP_parseVehicleNACK(PMESSAGE msg);
 
 void MP_wipeMessage(PMESSAGE msg);
+
+void* MP_ParserThread(void* args);
 #endif /* serverParser_h */

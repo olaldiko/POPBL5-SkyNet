@@ -28,11 +28,12 @@
 
 extern SSC_STAT serverSocketStat;
 
-extern MSGBUFF SSC_serverSendBuffer;
+extern PMSGBUFF SSC_serverSendBuffer;
 
 
 void SSC_makeServerConnection();
 void SSC_initServerConnection();
+void SSC_initBuffers();
 void SSC_sendMessageToServer(struct MESSAGE *msg);
 void SSC_stopServerConn();
 void SSC_initServerConnThreads();

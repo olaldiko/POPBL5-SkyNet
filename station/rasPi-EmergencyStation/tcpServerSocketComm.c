@@ -9,10 +9,11 @@
 #include "tcpServerSocketComm.h"
 
 SSC_STAT serverSocketStat;
-MSGBUFF SSC_serverSendBuffer;
+PMSGBUFF SSC_serverSendBuffer;
 
 void SSC_initServerConnection() {
 	int waitTime = 1;
+	serverSocketStat.state = 1;
 	serverSocketStat.buffer = calloc(SSC_SRV_BUFLEN, sizeof(char));
 	serverSocketStat.sockSize = sizeof(struct sockaddr_in);
 	serverSocketStat.serverInfo = NULL;
@@ -29,15 +30,22 @@ void SSC_initServerConnection() {
 			waitTime <<= 1;
 		}
 	}
-	
+
 	serverSocketStat.serverSocketStruct.sin_family = AF_INET;
 	serverSocketStat.serverSocketStruct.sin_len = sizeof(struct sockaddr_in);
-	bcopy((char *)serverSocketStat.serverInfo->h_addr_list[0], (char *)&serverSocketStat.clientSocketStruct.sin_addr.s_addr,serverSocketStat.serverInfo->h_length);
+	memcpy(&serverSocketStat.serverSocketStruct.sin_addr, serverSocketStat.serverInfo->h_addr_list[0], serverSocketStat.serverInfo->h_length);
 	serverSocketStat.serverSocketStruct.sin_port = htons(SSC_SRV_PORT);
+	printf("Server IP Address: %s\n", inet_ntoa(serverSocketStat.serverSocketStruct.sin_addr));
 	SSC_makeServerConnection();
+	SSC_initBuffers();
+	SSC_initServerConnThreads();
 	
 }
-
+void SSC_initBuffers() {
+	SSC_serverSendBuffer = MB_initBuffer(10);
+	
+	
+}
 void SSC_initServerConnThreads() {
 	pthread_create(&serverSocketStat.listenThread, NULL, SSC_msgListenerThreadFunc, NULL);
 	pthread_create(&serverSocketStat.sendThread, NULL, SSC_msgSenderThreadFunc, NULL);
@@ -53,7 +61,7 @@ void SSC_stopServerConn() {
 
 void SSC_makeServerConnection() {
 	int waitTime = 1;
-	while (connect(serverSocketStat.serverSocket, (struct sockaddr *)&serverSocketStat.serverSocketStruct, serverSocketStat.sockSize) == -1) {
+	while (connect(serverSocketStat.serverSocket, (struct sockaddr *)&serverSocketStat.serverSocketStruct, serverSocketStat.sockSize) < 0) {
 		perror("Error connecting to server");
 		sleep(waitTime);
 		waitTime <<= 1;
@@ -124,7 +132,7 @@ void SSC_listenToServerMsg() {
 void* SSC_msgSenderThreadFunc(void* args) {
 	PMESSAGE msg;
 	while (serverSocketStat.state) {
-		msg = MB_getMessage(&SSC_serverSendBuffer);
+		msg = MB_getMessage(SSC_serverSendBuffer);
 		SSC_sendMessageToServer(msg);
 		printf("%s sent to server", msg->fullMsg);
 		MP_wipeMessage(msg);
@@ -133,7 +141,7 @@ void* SSC_msgSenderThreadFunc(void* args) {
 }
 
 void* SSC_msgListenerThreadFunc(void* args) {
-	while (serverSocketStat.state) {
+	while (serverSocketStat.state == 1) {
 		SSC_listenToServerMsg();
 		if (serverSocketStat.state == 1) {
 			SSC_makeServerConnection();

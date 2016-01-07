@@ -9,6 +9,7 @@
 #include "messageParser.h"
 
 PMSGBUFF receivedMsgBuff;
+int parserState;
 
 void MP_initMsgStruc(PMESSAGE msg, int msgSize) {
     msg->source			= 0;
@@ -62,15 +63,29 @@ int MP_parseMessage(PMESSAGE msg) {
     }
 }
 
+void MP_initParser() {
+	parserState = 1;
+	pthread_t parserThread;
+	receivedMsgBuff = MB_initBuffer(20);
+	pthread_create(&parserThread, NULL, MP_ParserThread, NULL);
+
+}
+
+void MP_shutdownParser() {
+	parserState = 0;
+	
+}
+
 void* MP_ParserThread(void* args) {
-	int state = 1;
-	while (state) {
+	while (parserState) {
 	PMESSAGE msg = MB_getMessage(receivedMsgBuff);
 	MP_parseMessage(msg);
 	}
 	pthread_exit(NULL);
 	return 0;
 }
+
+
 
 void MP_createACK(int msgCounter) {
 	PMESSAGE msg = calloc(1, sizeof(MESSAGE));
