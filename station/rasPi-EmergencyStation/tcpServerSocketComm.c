@@ -89,12 +89,16 @@ void SSC_listenToServerMsg() {
 	struct sockaddr_in* clientSocketStruct;
 	while (((msgLength = recv(serverSocketStat.serverSocket, serverSocketStat.buffer,SSC_SRV_BUFLEN , 0)) > 0) && serverSocketStat.state == 1) {
 		if (msgLength < SSC_SRV_BUFLEN && inMsg == 0) {
-			msg = calloc(1, sizeof(MESSAGE));
-			MP_initMsgStruc(msg, msgLength);
-			strcpy(msg->fullMsg, serverSocketStat.buffer);
-			memset(serverSocketStat.buffer, 0, SSC_SRV_BUFLEN);
-			MB_putMessage(receivedMsgBuff, msg);
-			memset(serverSocketStat.buffer, 0, SSC_SRV_BUFLEN);
+			if (((stxPos = strchr(serverSocketStat.buffer, '\x02')) != NULL) && ((etxPos  = strchr(serverSocketStat.buffer, '\x03')) != NULL)) {
+				msg = calloc(1, sizeof(MESSAGE));
+				MP_initMsgStruc(msg, msgLength);
+				strcpy(msg->fullMsg, serverSocketStat.buffer);
+				memset(serverSocketStat.buffer, 0, SSC_SRV_BUFLEN);
+				MB_putMessage(receivedMsgBuff, msg);
+				memset(serverSocketStat.buffer, 0, SSC_SRV_BUFLEN);
+			} else {
+				memset(serverSocketStat.buffer, 0, SSC_SRV_BUFLEN);
+			}
 		} else {
 			if (inMsg == 0 && stxFound == 0) {
 				if((stxPos = strchr(serverSocketStat.buffer, '\x02')) != NULL) {	//If STX found, copy socket buffer to inner buffer and start reading
@@ -115,10 +119,6 @@ void SSC_listenToServerMsg() {
 					msg = calloc(1, sizeof(MESSAGE));
 					MP_initMsgStruc(msg, sizeof(msgBuff));
 					strcpy(msg->fullMsg, msgBuff);
-					clientSocketStruct = calloc(1, sizeof(struct sockaddr_in));
-					
-					getpeername(serverSocketStat.serverSocket, (struct sockaddr*)&clientSocketStruct, (socklen_t*)&serverSocketStat.sockSize);
-					msg->clientSocketStruct = clientSocketStruct;
 					MB_putMessage(receivedMsgBuff, msg);
 				} else {															//Else copy all contents and continue reading.
 					realloc(msgBuff, ((strlen(msgBuff)*sizeof(char) + 1) + SSC_SRV_BUFLEN));
@@ -131,7 +131,7 @@ void SSC_listenToServerMsg() {
 
 void* SSC_msgSenderThreadFunc(void* args) {
 	PMESSAGE msg;
-	while (serverSocketStat.state) {
+	while (serverSocketStat.state == 1) {
 		msg = MB_getMessage(SSC_serverSendBuffer);
 		SSC_sendMessageToServer(msg);
 		printf("%s sent to server", msg->fullMsg);

@@ -18,7 +18,6 @@ typedef struct MESSAGE{
 	int source; //0-Server, 1-Vehicle
 	in_addr_t srcAddress;
 	int clientSocket;
-	struct sockaddr_in* clientSocketStruct;
 	pthread_t handlingThread;
 	int isFirstMsg;
 	int msgSize;

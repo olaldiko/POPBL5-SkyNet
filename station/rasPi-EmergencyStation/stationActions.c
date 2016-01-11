@@ -9,12 +9,13 @@
 #include "stationActions.h"
 
 SA_VEHICLE_QUEUE vehicleList;
+int stationID = 1;
 
 void SA_treatIDMessage(PMESSAGE msg) {
 	
 }
 void SA_treatIDReqMessage(PMESSAGE msg) {
-	SSC_sendMessageToServer(msg);
+	MB_putMessage(SSC_serverSendBuffer, msg);
 }
 
 //TO-DO: Create a separate queue for ID requests, manage to assign the IDs in the correct order
@@ -27,7 +28,7 @@ void SA_treatIDResponse(PMESSAGE msg) {
 }
 
 void SA_treatLOCMessage(PMESSAGE msg) {
-	SSC_sendMessageToServer(msg);
+	MB_putMessage(SSC_serverSendBuffer, msg);
 }
 
 void SA_treatListMessage(PMESSAGE msg) {
@@ -44,7 +45,7 @@ void SA_treatRouteMessage(PMESSAGE msg) {
 		ack = calloc(1, sizeof(MESSAGE));
 		MP_initMsgStruc(ack, 100);
 		sprintf(ack->fullMsg, "\x02%s\x1dNACK\x1d%s", msg->id, msg->msgCounter);
-		MB_putMessage(&SSC_serverSendBuffer, ack);
+		MB_putMessage(SSC_serverSendBuffer, ack);
 	} else {
 		MB_putMessage(vehicle->outbox, msg);
 	}
@@ -56,8 +57,8 @@ void SA_initVehicle(SA_PVEHICLE_DATA vehicle, int id) {
 	pthread_create(&vehicle->outboxThread, NULL, VSC_outboundHandlerThreadFunc, vehicle);
 }
 
-void SA_treatStatMessage(PMESSAGE msg) {
-	SSC_sendMessageToServer(msg);
+void SA_treatStatusMessage(PMESSAGE msg) {
+	MB_putMessage(SSC_serverSendBuffer, msg);
 }
 
 void SA_treatAlertMessage(PMESSAGE msg) {
@@ -107,6 +108,23 @@ SA_PVEHICLE_DATA SA_searchVehicleById(int id) {
 	return retVal;
 }
 
+SA_PVEHICLE_DATA SA_searchVehicleByInboxThread(pthread_t inboxThread) {
+	SA_PVEHICLE_ELEM queueCursor;
+	SA_PVEHICLE_DATA retVal;
+	pthread_mutex_lock(&vehicleList.mtx);
+	if (vehicleList.head == NULL) {
+		retVal = NULL;
+	} else {
+		for (queueCursor = vehicleList.head; ((queueCursor->next != NULL) && (queueCursor->vehicle.inboxThread = inboxThread)); queueCursor = queueCursor->next);
+		if (queueCursor->vehicle.inboxThread == inboxThread) {
+			retVal = &queueCursor->vehicle;
+		} else {
+			retVal = NULL;
+		}
+	}
+	pthread_mutex_unlock(&vehicleList.mtx);
+	return retVal;
+}
 
 int SA_countVehiclesInList() {
 	int retVal = 0;
@@ -127,3 +145,17 @@ SA_PVEHICLE_DATA SA_getVehicleByIndex(int index) {
 	pthread_mutex_unlock(&vehicleList.mtx);
 	return &queueCursor->vehicle;
 }
+void SA_sendConnectedMsg(int id) {
+	PMESSAGE msg = calloc(1, sizeof(MESSAGE));
+	MP_initMsgStruc(msg, 100);
+	sprintf(msg->fullMsg, "\x02%d%sCONNECTED\x1d%d\x03", id, "\x1d",stationID);
+	MB_putMessage(SSC_serverSendBuffer, msg);
+}
+
+void SA_sendDisconnectedMsg(int id) {
+	PMESSAGE msg = calloc(1, sizeof(MESSAGE));
+	MP_initMsgStruc(msg, 100);
+	sprintf(msg->fullMsg, "\x02%d%sDISCONNECTED\x1d%d\x03", id, "\x1d",stationID);
+	MB_putMessage(SSC_serverSendBuffer, msg);
+}
+
