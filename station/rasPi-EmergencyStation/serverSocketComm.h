@@ -8,7 +8,7 @@
 
 #ifndef serverSocketComm_h
 #define serverSocketComm_h
-
+/*
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -38,4 +38,5 @@ int stationId;
 void SSC_initServerConnection();
 void* SSC_serverListenerThreadFunc(void* args);
 void SSC_sendMsgToServer(PMESSAGE msg);
+ */
 #endif /* serverSocketComm_h */

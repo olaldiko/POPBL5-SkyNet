@@ -11,20 +11,20 @@
 
 PMSGBUFF MB_initBuffer(int maxVals) {
 	PMSGBUFF buffer = calloc(1, sizeof(MSGBUFF));
-	assert(maxVals == 0);
+	assert(maxVals > 0);
 	pthread_mutex_init(&buffer->mtx, NULL);
 	pthread_cond_init(&buffer->empty, NULL);
 	pthread_cond_init(&buffer->full, NULL);
 	buffer->cant = 0;
-	buffer->maxVals = 0;
+	buffer->maxVals = maxVals;
 	buffer->head = NULL;
 	return buffer;
 }
 
 void MB_putMessage(PMSGBUFF buffer, PMESSAGE msg) {
 	PMSGQUEUE bufferCursor;
-	assert(buffer == NULL);
-	assert(msg == NULL);
+	assert(buffer != NULL);
+	assert(msg != NULL);
 	
 	pthread_mutex_lock(&buffer->mtx);
 	while (buffer->cant == buffer->maxVals) {
@@ -46,17 +46,18 @@ void MB_putMessage(PMSGBUFF buffer, PMESSAGE msg) {
 PMESSAGE MB_getMessage(PMSGBUFF buffer) {
 	PMSGQUEUE bufferCursor;
 	PMESSAGE retMsg;
-	assert(buffer == NULL);
+	assert(buffer != NULL);
 	
 	pthread_mutex_lock(&buffer->mtx);
 	while (buffer->cant == 0) {
+		
 		pthread_cond_wait(&buffer->empty, &buffer->mtx);
 	}
 	bufferCursor = buffer->head;
 	buffer->head = buffer->head->next;
 	retMsg = bufferCursor->msg;
 	free(bufferCursor);
-	assert(retMsg == NULL);
+	assert(retMsg != NULL);
 	buffer->cant--;
 	pthread_cond_signal(&buffer->full);
 	pthread_mutex_unlock(&buffer->mtx);

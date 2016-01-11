@@ -38,6 +38,7 @@
 		2319C0311C0D12B700E0F7BC /* radioComm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = radioComm.h; sourceTree = "<group>"; };
 		2319C0331C0D134D00E0F7BC /* stationActions.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stationActions.c; sourceTree = "<group>"; };
 		2319C0341C0D134D00E0F7BC /* stationActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stationActions.h; sourceTree = "<group>"; };
+		23B800D71C3B4D01001699BE /* structures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = structures.h; path = ../structures.h; sourceTree = "<group>"; };
 		23D4474A1C1A13D1004F0FA3 /* messageParser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = messageParser.c; sourceTree = "<group>"; };
 		23D4474B1C1A13D1004F0FA3 /* messageParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = messageParser.h; sourceTree = "<group>"; };
 		23D943E71C18AA690030866A /* tcpServerSocketComm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tcpServerSocketComm.c; sourceTree = "<group>"; };
@@ -82,6 +83,7 @@
 		2319C01F1C0CF60300E0F7BC /* rasPi-EmergencyStation */ = {
 			isa = PBXGroup;
 			children = (
+				23B800D71C3B4D01001699BE /* structures.h */,
 				23D943F31C18DDF60030866A /* MessageManaging */,
 				23D943F21C18DDDC0030866A /* MiscComm */,
 				23D943F11C18DDBF0030866A /* UDPComm */,
@@ -215,6 +217,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_STATIC_ANALYZER_MODE = deep;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -258,6 +261,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_STATIC_ANALYZER_MODE = deep;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -289,6 +293,8 @@
 		2319C0251C0CF60300E0F7BC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_STATIC_ANALYZER_MODE = deep;
+				"CLANG_STATIC_ANALYZER_MODE_ON_ANALYZE_ACTION[arch=*]" = deep;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -296,6 +302,7 @@
 		2319C0261C0CF60300E0F7BC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_STATIC_ANALYZER_MODE = deep;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

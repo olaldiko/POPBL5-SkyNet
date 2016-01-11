@@ -8,25 +8,60 @@
 
 #include "stationActions.h"
 
+SA_VEHICLE_QUEUE vehicleList;
 
 void SA_treatIDMessage(PMESSAGE msg) {
-	MB_putMessage(&SSC_serverSendBuffer, msg);
-}
-
-void SA_treadIDReqMessage(PMESSAGE msg) {
 	
 }
+void SA_treatIDReqMessage(PMESSAGE msg) {
+	SSC_sendMessageToServer(msg);
+}
 
-void SA_treadLOCMessage(PMESSAGE msg) {
-	MB_putMessage(&SSC_serverSendBuffer, msg);
-	
+//TO-DO: Create a separate queue for ID requests, manage to assign the IDs in the correct order
+void SA_treatIDResponse(PMESSAGE msg) {
+	SA_PVEHICLE_DATA vehicle;
+	if ((vehicle = SA_searchVehicleById(-1)) != NULL) {
+		vehicle->id = atoi(msg->data);
+		MB_putMessage(vehicle->outbox, msg);
+	}
+}
+
+void SA_treatLOCMessage(PMESSAGE msg) {
+	SSC_sendMessageToServer(msg);
 }
 
 void SA_treatListMessage(PMESSAGE msg) {
 	char* vehicle;
-	struct in_addr address;
-	vehicle = strtok(msg->data, "$");
-	SA_addVehicleToList(atoi(vehicle));
+	while((vehicle = strtok(msg->data, "$")) != NULL) {
+		SA_addVehicleToList(atoi(vehicle));
+	}
+}
+
+void SA_treatRouteMessage(PMESSAGE msg) {
+	SA_PVEHICLE_DATA vehicle = SA_searchVehicleById(atoi(msg->id));
+	PMESSAGE ack;
+	if (vehicle == NULL || VSC_SendMessageToVehicle(msg, vehicle) == -1) {
+		ack = calloc(1, sizeof(MESSAGE));
+		MP_initMsgStruc(ack, 100);
+		sprintf(ack->fullMsg, "\x02%s\x1dNACK\x1d%s", msg->id, msg->msgCounter);
+		MB_putMessage(&SSC_serverSendBuffer, ack);
+	} else {
+		MB_putMessage(vehicle->outbox, msg);
+	}
+}
+
+void SA_initVehicle(SA_PVEHICLE_DATA vehicle, int id) {
+	vehicle->id = id;
+	vehicle->outbox = MB_initBuffer(10);
+	pthread_create(&vehicle->outboxThread, NULL, VSC_outboundHandlerThreadFunc, vehicle);
+}
+
+void SA_treatStatMessage(PMESSAGE msg) {
+	SSC_sendMessageToServer(msg);
+}
+
+void SA_treatAlertMessage(PMESSAGE msg) {
+	//TO-DO: Pending to do it via MCAST or unicast.
 }
 
 void SA_initVehicleList() {
@@ -35,9 +70,10 @@ void SA_initVehicleList() {
 	vehicleList.head = NULL;
 }
 
-void SA_addVehicleToList(int id) {
+SA_PVEHICLE_DATA SA_addVehicleToList(int id) {
 	pthread_mutex_lock(&vehicleList.mtx);
 	SA_PVEHICLE_ELEM element = calloc(1, sizeof(SA_VEHICLE_ELEM));
+	SA_initVehicle(&element->vehicle, id);
 	SA_PVEHICLE_ELEM queueCursor;
 	element->vehicle.id = id;
 	if(vehicleList.head == NULL) {
@@ -46,10 +82,12 @@ void SA_addVehicleToList(int id) {
 		for (queueCursor = vehicleList.head; queueCursor->next != NULL; queueCursor = queueCursor->next);
 		queueCursor->next = element;
 	}
+	element->vehicle.outbox = MB_initBuffer(10);
 	pthread_mutex_unlock(&vehicleList.mtx);
+	return &element->vehicle;
 }
 
-SA_PVEHICLE_DATA SA_searchVehicle(int id, struct in_addr address) {
+SA_PVEHICLE_DATA SA_searchVehicleById(int id) {
 	SA_PVEHICLE_ELEM queueCursor;
 	SA_PVEHICLE_DATA retVal;
 	pthread_mutex_lock(&vehicleList.mtx);
@@ -63,15 +101,29 @@ SA_PVEHICLE_DATA SA_searchVehicle(int id, struct in_addr address) {
 			 } else {
 				 retVal = NULL;
 			 }
-		} else { //We search by Address
-			for (queueCursor = vehicleList.head; ((queueCursor->next != NULL) && (queueCursor->vehicle.ipAddress.s_addr != address.s_addr)); queueCursor = queueCursor->next);
-			 if (queueCursor->vehicle.ipAddress.s_addr == address.s_addr) {
-				 retVal =  &queueCursor->vehicle;
-			 } else {
-				 retVal = NULL;
-			 }
 		}
 	}
 	pthread_mutex_unlock(&vehicleList.mtx);
 	return retVal;
+}
+
+
+int SA_countVehiclesInList() {
+	int retVal = 0;
+	SA_PVEHICLE_ELEM queueCursor;
+	pthread_mutex_lock(&vehicleList.mtx);
+	if (vehicleList.head == NULL) {
+		return 0;
+	}
+	for (queueCursor = vehicleList.head; queueCursor != NULL; queueCursor = queueCursor->next, retVal++);
+	pthread_mutex_unlock(&vehicleList.mtx);
+	return retVal;
+}
+SA_PVEHICLE_DATA SA_getVehicleByIndex(int index) {
+	int i = 0;
+	SA_PVEHICLE_ELEM queueCursor;
+	pthread_mutex_lock(&vehicleList.mtx);
+	for (queueCursor = vehicleList.head, i = 0; i < index && queueCursor != NULL; queueCursor = queueCursor->next, i++);
+	pthread_mutex_unlock(&vehicleList.mtx);
+	return &queueCursor->vehicle;
 }
