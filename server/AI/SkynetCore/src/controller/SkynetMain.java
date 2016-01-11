@@ -1,7 +1,11 @@
 package controller;
 
+import java.awt.GraphicsEnvironment;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JOptionPane;
 
@@ -10,11 +14,13 @@ import configuration.Configuration;
 import configuration.Logger;
 import connections.ServletConnectionManager;
 import connections.StationConnectionManager;
+import database.Recurso;
 
 public class SkynetMain implements WindowListener {
 	
 	MainWindow window;
 	Logger log;
+	Map<Integer,Recurso> recursos;
 	ServletConnectionManager servletConn;
 	StationConnectionManager stationConn;
 
@@ -44,8 +50,10 @@ public class SkynetMain implements WindowListener {
 		
 		//Window
 		
-		window = new MainWindow(this);
-		window.setVisible(true);
+		if(!GraphicsEnvironment.isHeadless()) {
+			window = new MainWindow(this);
+			window.setVisible(true);
+		}
 		
 		try {
 			log = Configuration.getCurrent().getLogger();
@@ -55,10 +63,14 @@ public class SkynetMain implements WindowListener {
 		}
 		log.log(defaultLoaded ? "Default configuration loaded":"Configuration loaded from file");
 		
+		//Solver
+		Configuration.getCurrent().getSolver().init();
+		
 		//Tasks
 		
-		servletConn = new ServletConnectionManager();
-		stationConn = new StationConnectionManager();
+		recursos = Collections.synchronizedMap(new HashMap<Integer,Recurso>(64));
+		servletConn = new ServletConnectionManager(recursos);
+		stationConn = new StationConnectionManager(recursos);
 		
 	}
 	
@@ -67,7 +79,7 @@ public class SkynetMain implements WindowListener {
 	public void windowClosed(WindowEvent e) {}
 	public void windowClosing(WindowEvent e) {
 		try {
-			window.saveSettings();
+			if(window!=null) window.saveSettings();
 			Configuration.saveToFile();
 			log.log("Configuration saved to file");
 		} catch (Exception ex) {

@@ -90,7 +90,7 @@ public class Configuration implements Serializable {
 						}
 						else if(line.equalsIgnoreCase("#Class#")) {
 							clazz = in.nextLine();
-							if(object.equals("")) clazz=null;
+							if(clazz.equals("")) clazz=null;
 						}
 						else if(line.equalsIgnoreCase("#Fields#")) {
 							fields = in.nextLine().split("[#]");
@@ -146,7 +146,7 @@ public class Configuration implements Serializable {
 		try {
 			out.println("##################################");
 			for(Field f:Configuration.class.getDeclaredFields()) {
-				if(f.getModifiers()<2) {
+				if(f.getModifiers()<2 && f.get(current)!=null) {
 					@SuppressWarnings("rawtypes")
 					Class c = f.get(current).getClass();
 					out.println("#Object#");
@@ -157,7 +157,7 @@ public class Configuration implements Serializable {
 					if(c.getSuperclass()==SQLConnector.class) c=SQLConnector.class;//Esta clase es especial
 					boolean first = true;
 					for(Field f2:c.getDeclaredFields()) {
-						if(f2.getModifiers()<2) {
+						if(f2.getModifiers()==1) {
 							if(!first) out.print("#");
 							else first=false;
 							out.print(f2.getName());
@@ -167,7 +167,7 @@ public class Configuration implements Serializable {
 					out.println("#Data#");
 					first = true;
 					for(Field f2:c.getDeclaredFields()) {
-						if(f2.getModifiers()<2) {
+						if(f2.getModifiers()==1) {
 							if(!first) out.print("#");
 							else first=false;
 							out.print(f2.get(f.get(current)).toString());

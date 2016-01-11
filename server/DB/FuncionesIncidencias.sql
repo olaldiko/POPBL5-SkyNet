@@ -100,11 +100,18 @@ CREATE FUNCTION f_persona_recogida(integer) RETURNS integer
     AS $$
 	DECLARE
 		count integer;
+		ret integer;
 	BEGIN
+		count = 0;
 		UPDATE hist_incidencias SET
 		resolucion = resolucion-1
-		WHERE incidenciaid = $1;
-		GET DIAGNOSTICS count = ROW_COUNT;
+		WHERE incidenciaid = $1 AND resolucion>0
+		RETURNING resolucion INTO count;
+
+		IF count = 0 THEN
+			ret = (SELECT * FROM f_fin_incidencia($1));
+		END IF;
+		
 		return count;
 	EXCEPTION
 		WHEN OTHERS THEN
@@ -112,6 +119,7 @@ CREATE FUNCTION f_persona_recogida(integer) RETURNS integer
 	END
 $$;
 
+SELECT * FROM f_get_incidencias_abiertas();
 SELECT * FROM f_persona_recogida(5);
 
 DROP FUNCTION f_fin_incidencia(integer);
