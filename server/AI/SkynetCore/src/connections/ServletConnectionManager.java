@@ -1,11 +1,15 @@
 package connections;
 
+import ia.Solver;
+
 import java.io.IOException;
+import java.util.Map;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 import configuration.Configuration;
 import configuration.Logger;
+import database.Recurso;
 
 public class ServletConnectionManager {
 	
@@ -16,6 +20,8 @@ public class ServletConnectionManager {
 	public static final long timeout = 60000L;
 
 	Logger log;
+	Solver sol;
+	Map<Integer,Recurso> recursos;
 	final Connection connectionData;
 	Connection c;
 	Thread send;
@@ -23,9 +29,11 @@ public class ServletConnectionManager {
 	boolean stop;
 	Lock lock;
 	
-	public ServletConnectionManager() {
+	public ServletConnectionManager(Map<Integer,Recurso> recursos) {
 		lock = new ReentrantLock();
 		log = Configuration.getCurrent().getLogger();
+		sol = Configuration.getCurrent().getSolver();
+		this.recursos = recursos;
 		connectionData = Configuration.getCurrent().getServletConnection();
 		c = connectionData.clone();
 		send = new Thread() {
@@ -44,7 +52,7 @@ public class ServletConnectionManager {
 	
 	public void onRequest() {
 		log.log("Routes calculation requested");
-		
+		sol.scheduleSolution(recursos.values().toArray(new Recurso[0]));
 	}
 	
 	public void halt() {

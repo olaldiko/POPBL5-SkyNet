@@ -5,7 +5,7 @@ public class Message {
 	public int id;
 	public String tipo;
 	public String msg;
-	public int cont;
+	public long cont;
 	public MessageParser origin;
 	
 	public Message() {}

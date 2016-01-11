@@ -4,7 +4,7 @@
 
 -- Dumped from database version 9.4.4
 -- Dumped by pg_dump version 9.4.4
--- Started on 2016-01-05 22:18:19
+-- Started on 2016-01-11 14:13:35
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -221,7 +221,7 @@ $_$;
 ALTER FUNCTION public.f_fin_incidencia(integer) OWNER TO postgres;
 
 --
--- TOC entry 227 (class 1255 OID 44558)
+-- TOC entry 226 (class 1255 OID 44558)
 -- Name: f_get_estacion(integer); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -277,7 +277,7 @@ $_$;
 ALTER FUNCTION public.f_get_estaciones(integer) OWNER TO postgres;
 
 --
--- TOC entry 225 (class 1255 OID 44554)
+-- TOC entry 224 (class 1255 OID 44554)
 -- Name: f_get_incidencias_abiertas(); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -297,7 +297,7 @@ $$;
 ALTER FUNCTION public.f_get_incidencias_abiertas() OWNER TO postgres;
 
 --
--- TOC entry 226 (class 1255 OID 44557)
+-- TOC entry 225 (class 1255 OID 44557)
 -- Name: f_get_incidencias_abiertas_usuario(integer); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -461,7 +461,7 @@ $_$;
 ALTER FUNCTION public.f_get_recursos(integer) OWNER TO postgres;
 
 --
--- TOC entry 224 (class 1255 OID 44551)
+-- TOC entry 223 (class 1255 OID 44551)
 -- Name: f_get_severity_incident(integer); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -648,7 +648,7 @@ $_$;
 ALTER FUNCTION public.f_nuevo_recurso(integer) OWNER TO postgres;
 
 --
--- TOC entry 223 (class 1255 OID 44534)
+-- TOC entry 227 (class 1255 OID 44567)
 -- Name: f_persona_recogida(integer); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -657,11 +657,18 @@ CREATE FUNCTION f_persona_recogida(integer) RETURNS integer
     AS $_$
 	DECLARE
 		count integer;
+		ret integer;
 	BEGIN
+		count = 0;
 		UPDATE hist_incidencias SET
 		resolucion = resolucion-1
-		WHERE incidenciaid = $1;
-		GET DIAGNOSTICS count = ROW_COUNT;
+		WHERE incidenciaid = $1 AND resolucion>0
+		RETURNING resolucion INTO count;
+
+		IF count = 0 THEN
+			ret = (SELECT * FROM f_fin_incidencia($1));
+		END IF;
+		
 		return count;
 	EXCEPTION
 		WHEN OTHERS THEN
@@ -1075,8 +1082,8 @@ INSERT INTO hist_incidencias VALUES (22, 1, '2015-12-30 21:07:53.99', NULL, 1.00
 INSERT INTO hist_incidencias VALUES (23, 1, '2015-12-30 21:09:27.546', NULL, 1.000000, 1.000000, 0, '1', '1', 4, 1, 1);
 INSERT INTO hist_incidencias VALUES (24, 1, '2015-12-30 21:12:33.007', NULL, 1.000000, 1.000000, 0, '1', '1', 4, 1, 1);
 INSERT INTO hist_incidencias VALUES (25, 1, '2015-12-30 21:14:09.026', NULL, 1.000000, 1.000000, 0, '1', '1', 4, 1, 1);
-INSERT INTO hist_incidencias VALUES (5, 1, '2015-12-28 17:02:57.759', NULL, 8.200000, 1.800000, 0, '946010514', 'Hola ke ase', 4, 9, 8);
 INSERT INTO hist_incidencias VALUES (26, 1, '2016-01-05 19:43:54.857', NULL, 8.200000, 1.800000, 5, '946010514', 'Hola ke ase', 4, 9, 9);
+INSERT INTO hist_incidencias VALUES (5, 1, '2015-12-28 17:02:57.759', '2016-01-09 20:30:02.804', 8.200000, 1.800000, 0, '946010514', 'Hola ke ase', 4, 9, -1);
 
 
 --
@@ -1108,6 +1115,8 @@ INSERT INTO hist_ubicacion VALUES (2, '2016-01-04 18:53:31.601', 0, 43.000000, -
 INSERT INTO hist_ubicacion VALUES (2, '2016-01-04 19:01:23.038', 0, 43.000000, -2.000000);
 INSERT INTO hist_ubicacion VALUES (2, '2016-01-04 19:02:25.176', 0, 43.000000, -4.000000);
 INSERT INTO hist_ubicacion VALUES (2, '2016-01-04 19:10:34.579', 0, 44.000000, -4.000000);
+INSERT INTO hist_ubicacion VALUES (7, '2016-01-09 19:17:49.083', 0, 43.200000, -2.555000);
+INSERT INTO hist_ubicacion VALUES (7, '2016-01-09 19:19:25.019', 1, 43.200000, -2.555000);
 
 
 --
@@ -1120,6 +1129,9 @@ INSERT INTO recursos VALUES (1, 5, 'Ambulancia');
 INSERT INTO recursos VALUES (2, 5, 'Ambulancia');
 INSERT INTO recursos VALUES (3, 6, 'Policia');
 INSERT INTO recursos VALUES (4, 6, 'Policia');
+INSERT INTO recursos VALUES (5, 6, 'Policia');
+INSERT INTO recursos VALUES (6, 6, 'Policia');
+INSERT INTO recursos VALUES (7, 5, 'Ambulancia');
 
 
 --
@@ -1128,7 +1140,7 @@ INSERT INTO recursos VALUES (4, 6, 'Policia');
 -- Name: recursos_recursoid_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('recursos_recursoid_seq', 4, true);
+SELECT pg_catalog.setval('recursos_recursoid_seq', 7, true);
 
 
 --
@@ -1350,7 +1362,7 @@ GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
--- Completed on 2016-01-05 22:18:20
+-- Completed on 2016-01-11 14:13:36
 
 --
 -- PostgreSQL database dump complete
