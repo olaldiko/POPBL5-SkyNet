@@ -21,7 +21,7 @@
 #include "msgBuffers.h"
 #include "messageParser.h"
 
-#define SSC_SRV_ADDRESS "windev"
+#define SSC_SRV_ADDRESS "localhost"
 #define SSC_SRV_PORT 5000
 #define SSC_SRV_BUFLEN 1024
 

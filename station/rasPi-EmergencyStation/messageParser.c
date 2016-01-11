@@ -57,8 +57,10 @@ int MP_parseMessage(PMESSAGE msg) {
            // else if (strcmp(msg->dataType, "ACK"))      MP_parseVehicleACK(msg);
            // else if (strcmp(msg->dataType, "NACK"))     MP_parseVehicleNACK(msg);
         }
+		free(strippedMsg);
         return 0;
     } else {
+		free(strippedMsg);
         return -1;
     }
 }

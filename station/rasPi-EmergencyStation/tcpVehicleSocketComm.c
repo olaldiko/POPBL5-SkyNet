@@ -68,7 +68,7 @@ void VSC_shutdownVehicleServer() {
 void* VSC_inboundHandlerThreadFunc(void* args) {
 	int clientSock = (int)args;
 	int msgLength = 0;
-	char* msgBuff;
+	char* msgBuff = calloc(VSC_SOCKBUF_LEN, sizeof(char));
 	char* stxPos;
 	char* etxPos;
 	int inMsg = 0;
@@ -77,7 +77,13 @@ void* VSC_inboundHandlerThreadFunc(void* args) {
 	PMESSAGE msg;
 	struct sockaddr_in* clientSocketStruct;
 	int sockSize = sizeof(struct sockaddr_in);
+	msgLength = recv(clientSock, msgBuff, VSC_SOCKBUF_LEN, 0);
+	if (msgLength < 0) {
+		perror("Error recepcion");
+	}
+	printf("Mensaje recibido: %s\n", msgBuff);
 	while ((msgLength = (int)recv(clientSock, msgBuff, VSC_SOCKBUF_LEN, 0)) != -1 && vehicleServerStat.state == 1) {
+		printf("Mensaje recibido: %s\n", msgBuff);
 		if (msgLength < VSC_SOCKBUF_LEN && inMsg == 0) {
 			msg = calloc(1, sizeof(MESSAGE));
 			MP_initMsgStruc(msg, msgLength);

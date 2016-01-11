@@ -82,7 +82,7 @@ SA_PVEHICLE_DATA SA_addVehicleToList(int id) {
 		for (queueCursor = vehicleList.head; queueCursor->next != NULL; queueCursor = queueCursor->next);
 		queueCursor->next = element;
 	}
-	
+	element->vehicle.outbox = MB_initBuffer(10);
 	pthread_mutex_unlock(&vehicleList.mtx);
 	return &element->vehicle;
 }
