@@ -1,8 +1,10 @@
 package connections;
 
+import ia.Route;
+import ia.Solver;
+
 import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -19,6 +21,7 @@ import database.RecursoFacade;
 public class StationConnectionManager {
 
 	Logger log;
+	Solver sol;
 	Connection c;
 	Thread server;
 	Thread receive;
@@ -27,16 +30,15 @@ public class StationConnectionManager {
 	Vector<MessageParser> connections;
 	Map<Integer,Recurso> recursos;
 	Lock lockConnections;
-	Lock lockRecursos;
 	
-	public StationConnectionManager() {
+	public StationConnectionManager(Map<Integer,Recurso> recursos) {
 		log = Configuration.getCurrent().getLogger();
+		sol = Configuration.getCurrent().getSolver();
 		c = Configuration.getCurrent().getStationConnection();
-		recursos = Collections.synchronizedMap(new HashMap<Integer,Recurso>(64));
+		this.recursos = recursos;
 		connections = new Vector<MessageParser>();
 		msgIn = new ArrayBlockingQueue<Message>(MessageParser.MSG_BUFFER_SIZE);
 		lockConnections = new ReentrantLock();
-		lockRecursos = new ReentrantLock();
 		server = new Thread() {
 			public void run() {
 				serverTask();
@@ -71,7 +73,13 @@ public class StationConnectionManager {
 				break;
 			case "ESTADO":
 				rec = recursos.get(msg.id);
-				if(rec!=null && rec.actualizarEstado(Integer.valueOf(msg.msg))>0) msg.origin.writeMessage(new Message(msg.id,"ESTADOACK",String.valueOf(msg.cont)));
+				if(rec!=null && rec.actualizarEstado(Integer.valueOf(msg.msg))>0) {
+					msg.origin.writeMessage(new Message(msg.id,"ESTADOACK",String.valueOf(msg.cont)));
+					if(Integer.valueOf(msg.msg)==Recurso.ESTADO_DE_VUETA) {
+						rf = new RecursoFacade();
+						msg.origin.writeMessage(new Message(msg.id,"ROUTE",new Route(rec,rf.getEstacionMasCercana(rec)).toString()));
+					}
+				}
 				else msg.origin.writeMessage(new Message(msg.id,"ESTADONACK",String.valueOf(msg.cont)));
 				break;
 			case "LOCATION":
@@ -99,6 +107,7 @@ public class StationConnectionManager {
 					//Id desconocido -> Asignar id valido
 					rec = rf.nuevoRecurso(Integer.valueOf(msg.msg));
 					if(rec!=null) msg.origin.writeMessage(new Message(rec.id,"IDASSIGN",String.valueOf(msg.cont)));
+					//Despues el recurso tiene que volver a mandar CONNECTED con el ID correcto
 				}
 				break;
 			case "DISCONNECTED":
@@ -107,7 +116,7 @@ public class StationConnectionManager {
 				break;
 			}
 		} catch(Exception e) {
-			log.log("Error managing station message: "+e.getMessage(),Logger.ERROR);
+			log.log("Error managing station message: "+e.getClass()+": "+e.getMessage()+": "+e.getLocalizedMessage(),Logger.ERROR);
 		}
 	}
 	
@@ -135,9 +144,7 @@ public class StationConnectionManager {
 		log.log("receivingTask started", Logger.DEBUG);
 		while(true) {
 			try {
-				lockRecursos.lock();
 				manageMsg(msgIn.take());
-				lockRecursos.unlock();
 			} catch(Exception e) {
 				log.log("receivingTask exception: "+e.getLocalizedMessage(), Logger.DEBUG);
 			}
@@ -148,6 +155,7 @@ public class StationConnectionManager {
 		MessageParser element;
 		log.log("closedConnectionsTask started", Logger.DEBUG);
 		while(true) {
+			log.log("closedConnectionsTask checking connections", Logger.DEBUG);
 			lockConnections.lock();
 			try {
 				for(int i = 0 ; i < connections.size() ; i++) {
@@ -155,17 +163,20 @@ public class StationConnectionManager {
 					if(!element.getConnection().isConnected()) {
 						connections.remove(element);
 						log.log("Closed station connection removed", Logger.DEBUG);
-						Set<Integer> s = recursos.keySet(); 
+						Set<Integer> s = recursos.keySet();
+						ArrayList<Integer> del = new ArrayList<Integer>();
 						synchronized(recursos) {
 							Iterator<Integer> it = s.iterator();
-							lockRecursos.lock();
 							while(it.hasNext()) {
 								Integer id = it.next();
 								if(element == recursos.get(id).getConnection()) {
-									recursos.remove(id);
+									del.add(id);
 								}
 							}
-							lockRecursos.unlock();
+						}
+						for(int j = 0 ; j < del.size() ; j++) {
+							recursos.remove(del.get(j));
+							log.log("Resource "+del.get(j)+" connection removed", Logger.DEBUG);
 						}
 					}
 				}

@@ -9,6 +9,8 @@ import configuration.Logger;
 
 public class MessageParser {
 	
+	public static final long UINT32_MAX = 4294967296L;
+	
 	public static final byte MSG_START = 2;
 	public static final byte MSG_END = 3;
 	public static final byte MSG_SEPARATOR = 29;
@@ -22,11 +24,11 @@ public class MessageParser {
 	Connection c;
 	Thread send;
 	Thread receive;
-	Integer msgId;
+	Long msgId;
 	
 	public MessageParser(ArrayBlockingQueue<Message> msgIn, Connection c) {
 		this.c = c;
-		msgId = 0;
+		msgId = 0L;
 		this.msgIn = msgIn;
 		msgOut = new ArrayBlockingQueue<Message>(MSG_BUFFER_SIZE);
 		log = Configuration.getCurrent().getLogger();
@@ -46,7 +48,7 @@ public class MessageParser {
 
 	public MessageParser(Connection c) {
 		this.c = c;
-		msgId = 0;
+		msgId = 0L;
 		msgIn = new ArrayBlockingQueue<Message>(MSG_BUFFER_SIZE);
 		msgOut = new ArrayBlockingQueue<Message>(MSG_BUFFER_SIZE);
 		log = Configuration.getCurrent().getLogger();
@@ -62,6 +64,10 @@ public class MessageParser {
 		};
 		send.start();
 		receive.start();
+	}
+	
+	public boolean isConnected() {
+		return c.isConnected();
 	}
 	
 	public Message readMessage() throws InterruptedException {
@@ -109,6 +115,7 @@ public class MessageParser {
 				b.clear();
 				msg = msgOut.take();
 				msg.cont = msgId++;
+				if(msgId==UINT32_MAX) msgId = 0L;
 				b.add(MSG_START);
 				addBytes(b,String.valueOf(msg.id).getBytes());
 				b.add(MSG_SEPARATOR);
@@ -132,11 +139,11 @@ public class MessageParser {
 			msg.id = Integer.valueOf(parts[0]);
 			msg.tipo = parts[1];
 			msg.msg = parts[2];
-			msg.cont = Integer.valueOf(parts[3]);
+			msg.cont = Long.valueOf(parts[3]);
 			msg.origin = this;
 			msgIn.put(msg);
 		} catch(Exception e) {
-			log.log(e.getClass().getName()+" "+e.getMessage(), Logger.DEBUG);
+			log.log("Error adding message: "+e.getClass().getName()+" "+e.getMessage(), Logger.DEBUG);
 		}
 	}
 	

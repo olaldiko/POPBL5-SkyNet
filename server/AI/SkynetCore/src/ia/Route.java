@@ -4,6 +4,7 @@ import java.io.PrintStream;
 import java.net.Socket;
 import java.util.Scanner;
 
+import database.Estacion;
 import database.Incidencia;
 import database.Recurso;
 
@@ -32,8 +33,20 @@ public class Route {
 		this(r.lat,r.lng,i.lat,i.lng);
 	}
 	
+	public Route(Recurso r, Estacion e) throws Exception {
+		this(r.lat,r.lng,e.lat,e.lng);
+	}
+	
 	public String toString() {
 		return json;
+	}
+	
+	public String getTimeString() {
+		return "";
+	}
+	
+	public Long getTime() {
+		return 0L;
 	}
 	
 	public void getJson() throws Exception {

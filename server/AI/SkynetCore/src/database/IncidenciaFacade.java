@@ -13,6 +13,7 @@ public class IncidenciaFacade {
 	public Incidencia[] getIncidenciasAbiertas() {
 		QueryResult r = dao.query("SELECT * FROM f_get_incidencias_abiertas()");
 		Incidencia[] inc = new Incidencia[r.getRows()];
+		if(r.getResult(0, "incidenciaid")==null) return new Incidencia[0];
 		for(int i = 0 ; i < inc.length ; i++) {
 			inc[i] = new Incidencia();
 			inc[i].id = Integer.valueOf(r.getResult(i, "incidenciaid"));
