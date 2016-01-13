@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<style type="text/css">
+		html {
+			height: 100%
+		}
+		body {
+			height: 100%;
+			margin: 0;
+			padding: 0;
+		}
+		#map-canvas {
+			height: 100%
+		}
+	</style>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7J1zsErb9_7jxNu5KU5kIENFObAQEbl0"></script>
+	<script type="text/javascript">
+		var map, marker;
+		var loaded = 0;
+		var zoom = 13;
+		function isLoaded() {
+			return loaded;
+		}
+		function createMarker(lat, lng) {
+			marker = new google.maps.Marker({
+	    		position: new google.maps.LatLng(lat, lng),
+	    		map: map,
+	    		title: 'Mi posicion'
+	  		});
+	  		marker.setMap(map);
+	  		updateMap(lat, lng);
+		}
+		function changePositionMarker(lat, lng) {
+			marker.setPosition(new google.maps.LatLng(lat, lng));
+			updateMap(lat, lng);
+		}
+		function updateMap(lat, lng) {
+			map.panTo(new google.maps.LatLng(lat, lng));
+		}
+		function loadMap() {
+			var mapOptions = {
+				center: new google.maps.LatLng(43.062991, -2.506180),
+				zoom: zoom,
+				draggable: false
+			};
+			map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+			google.maps.event.addListenerOnce(map, 'idle', function(){
+	  			loaded = 1;
+	  		});
+		}
+		google.maps.event.addDomListener(window, 'load', loadMap);
+	</script>
+</head>
+<body onload="">
+	<div id="map-canvas"/>
+</body>
+</html>
