@@ -24,7 +24,7 @@
 #include "stationActions.h"
 #define MSG_MAXLEN 500
 #define MSG_IDSIZE 10
-#define MSG_TYPESIZE 10
+#define MSG_TYPESIZE 50
 
 
 
@@ -33,6 +33,9 @@ extern PMSGBUFF receivedMsgBuff;
 extern int parserState;
 void MP_initParser();
 void MP_initMsgStruc(PMESSAGE msg, int msgSize);
+
+PMESSAGE MP_messageReceiver(MP_PRECEIVERSTR rec);
+
 int  MP_parseMessage(PMESSAGE msg);
 
 

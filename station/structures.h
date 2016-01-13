@@ -14,6 +14,19 @@
 
 //messageparser.h
 
+
+typedef struct MP_RECEIVERSTR{
+	int msgLength;
+	char *clientBuff;
+	char *msgBuff;
+	int bufferLength;
+	int maxMsgLength;
+	char* stxPos;
+	char* etxPos;
+	int inMsg;
+	int stxFound;
+}MP_RECEIVERSTR, *MP_PRECEIVERSTR;
+
 typedef struct MESSAGE{
 	int source; //0-Server, 1-Vehicle
 	in_addr_t srcAddress;
@@ -51,6 +64,7 @@ typedef struct MSGBUFF {
 typedef struct SA_VEHICLE_DATA {
 	int id;
 	int clientSocket;
+	int isConnected;
 	struct sockaddr_in clientSocketStruct;
 	PMSGBUFF outbox;
 	pthread_t inboxThread;
@@ -94,5 +108,24 @@ typedef struct VSC_STAT {
 	pthread_t listenThread;
 }VSC_STAT, *VSC_PSTAT;
 
+//mcastMessaging.h
+
+typedef struct MCM_serverStats{
+	int state;
+	int generalSocket;
+	int stationSocket;
+	struct ip_mreq generalMreq;
+	struct ip_mreq stationMreq;
+	struct in_addr generalGroup;
+	struct in_addr stationGroup;
+	PMSGBUFF generalInbox;
+	PMSGBUFF stationOutbox;
+}MCM_serverStats;
+typedef struct MCM_threadStruct {
+	int socket;
+	struct sockaddr_in address;
+	PMSGBUFF buffer;
+	
+}MCM_threadStruct;
 
 #endif /* structures_h */

@@ -24,7 +24,7 @@
 #define SSC_SRV_ADDRESS "localhost"
 #define SSC_SRV_PORT 5000
 #define SSC_SRV_BUFLEN 1024
-
+#define SSC_RCV_MAXLEN 1022
 
 extern SSC_STAT serverSocketStat;
 

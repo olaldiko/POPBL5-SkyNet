@@ -9,7 +9,7 @@
 #include "stationActions.h"
 
 SA_VEHICLE_QUEUE vehicleList;
-int stationID = 1;
+int stationID;
 
 void SA_treatIDMessage(PMESSAGE msg) {
 	
@@ -39,9 +39,10 @@ void SA_treatListMessage(PMESSAGE msg) {
 }
 
 void SA_treatRouteMessage(PMESSAGE msg) {
+	assert(msg->fullMsg != NULL);
 	SA_PVEHICLE_DATA vehicle = SA_searchVehicleById(atoi(msg->id));
 	PMESSAGE ack;
-	if (vehicle == NULL || VSC_SendMessageToVehicle(msg, vehicle) == -1) {
+	if (vehicle == NULL || vehicle->isConnected == 0) {
 		ack = calloc(1, sizeof(MESSAGE));
 		MP_initMsgStruc(ack, 100);
 		sprintf(ack->fullMsg, "\x02%s\x1dNACK\x1d%s", msg->id, msg->msgCounter);
@@ -90,7 +91,7 @@ SA_PVEHICLE_DATA SA_addVehicleToList(int id) {
 
 SA_PVEHICLE_DATA SA_searchVehicleById(int id) {
 	SA_PVEHICLE_ELEM queueCursor;
-	SA_PVEHICLE_DATA retVal;
+	SA_PVEHICLE_DATA retVal = NULL;
 	pthread_mutex_lock(&vehicleList.mtx);
 	if (vehicleList.head == NULL) {
 		retVal = NULL;

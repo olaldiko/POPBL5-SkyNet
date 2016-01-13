@@ -16,7 +16,6 @@
 #include "tcpVehicleSocketComm.h"
 
 int exitCond = 0;
-
 void* serverConnControlThread(void* args);
 void* vehicleConnControlThread(void* args);
 
@@ -30,6 +29,7 @@ int main(int argc, const char * argv[]) {
 	pthread_t serverConn;
 	pthread_t vehicleConn;
 	signal(SIGINT, sig_handler);
+	printf("%s%03d", "239.128.0.", stationID+1);
 	MP_initParser();
 	pthread_create(&serverConn, NULL, serverConnControlThread, NULL);
 	pthread_create(&vehicleConn, NULL, vehicleConnControlThread, NULL);

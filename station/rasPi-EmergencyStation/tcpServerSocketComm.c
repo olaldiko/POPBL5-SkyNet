@@ -36,8 +36,8 @@ void SSC_initServerConnection() {
 	memcpy(&serverSocketStat.serverSocketStruct.sin_addr, serverSocketStat.serverInfo->h_addr_list[0], serverSocketStat.serverInfo->h_length);
 	serverSocketStat.serverSocketStruct.sin_port = htons(SSC_SRV_PORT);
 	printf("Server IP Address: %s\n", inet_ntoa(serverSocketStat.serverSocketStruct.sin_addr));
-	SSC_makeServerConnection();
 	SSC_initBuffers();
+	SSC_makeServerConnection();
 	SSC_initServerConnThreads();
 	
 }
@@ -71,6 +71,7 @@ void SSC_makeServerConnection() {
 			perror("Error creating socket");
 		}
 	}
+	printf("Server Connected\n");
 }
 
 void SSC_sendMessageToServer(PMESSAGE msg) {
@@ -79,52 +80,21 @@ void SSC_sendMessageToServer(PMESSAGE msg) {
 
 
 void SSC_listenToServerMsg() {
+	
 	int msgLength = 0;
-	int inMsg = 0;
-	int stxFound = 0;
-	char* stxPos;
-	char* etxPos;
-	char* msgBuff = NULL;
 	PMESSAGE msg;
 	struct sockaddr_in* clientSocketStruct;
-	while (((msgLength = recv(serverSocketStat.serverSocket, serverSocketStat.buffer,SSC_SRV_BUFLEN , 0)) > 0) && serverSocketStat.state == 1) {
-		if (msgLength < SSC_SRV_BUFLEN && inMsg == 0) {
-			if (((stxPos = strchr(serverSocketStat.buffer, '\x02')) != NULL) && ((etxPos  = strchr(serverSocketStat.buffer, '\x03')) != NULL)) {
-				msg = calloc(1, sizeof(MESSAGE));
-				MP_initMsgStruc(msg, msgLength);
-				strcpy(msg->fullMsg, serverSocketStat.buffer);
-				memset(serverSocketStat.buffer, 0, SSC_SRV_BUFLEN);
-				MB_putMessage(receivedMsgBuff, msg);
-				memset(serverSocketStat.buffer, 0, SSC_SRV_BUFLEN);
-			} else {
-				memset(serverSocketStat.buffer, 0, SSC_SRV_BUFLEN);
-			}
-		} else {
-			if (inMsg == 0 && stxFound == 0) {
-				if((stxPos = strchr(serverSocketStat.buffer, '\x02')) != NULL) {	//If STX found, copy socket buffer to inner buffer and start reading
-					inMsg = 1;
-					msgBuff = calloc(SSC_SRV_BUFLEN, sizeof(char));
-					strcpy(msgBuff, stxPos);
-					memset(serverSocketStat.buffer, 0, SSC_SRV_BUFLEN);
-					stxFound = 1;
-				} else {
-					memset(serverSocketStat.buffer, 0, SSC_SRV_BUFLEN);				// If not STX found and not in MSG, discard the Junk
-				}
-			} else if(inMsg == 1 && stxFound == 1) {								//If we are reading a message
-				if ((etxPos = strchr(serverSocketStat.buffer, '\x03')) != NULL) {   //If we found ETX, copy contents and end reading.
-					realloc(msgBuff, ((strlen(msgBuff)*sizeof(char) + 1) + (etxPos-serverSocketStat.buffer)));
-					strncat(msgBuff, serverSocketStat.buffer, (etxPos - serverSocketStat.buffer));
-					inMsg = 0;
-					stxFound = 0;
-					msg = calloc(1, sizeof(MESSAGE));
-					MP_initMsgStruc(msg, sizeof(msgBuff));
-					strcpy(msg->fullMsg, msgBuff);
-					MB_putMessage(receivedMsgBuff, msg);
-				} else {															//Else copy all contents and continue reading.
-					realloc(msgBuff, ((strlen(msgBuff)*sizeof(char) + 1) + SSC_SRV_BUFLEN));
-					strcat(msgBuff, serverSocketStat.buffer);
-				}
-			}
+	MP_PRECEIVERSTR receiver = calloc(1, sizeof(MP_RECEIVERSTR));
+	receiver->clientBuff = serverSocketStat.buffer;
+	receiver->bufferLength = SSC_SRV_BUFLEN;
+	receiver->maxMsgLength = SSC_RCV_MAXLEN;
+	while (((msgLength = recv(serverSocketStat.serverSocket, serverSocketStat.buffer,SSC_RCV_MAXLEN , 0)) > 0) && serverSocketStat.state == 1) {
+		printf("Mensaje recibido de srv: %s, msgLength: %d\n", receiver->clientBuff, msgLength);
+		receiver->msgLength = msgLength;
+		msg = MP_messageReceiver(receiver);
+		if (msg != NULL) {
+			msg->source = 0;
+			MB_putMessage(receivedMsgBuff, msg);
 		}
 	}
 }

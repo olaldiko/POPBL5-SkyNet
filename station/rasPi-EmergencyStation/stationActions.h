@@ -19,7 +19,8 @@
 #include "tcpServerSocketComm.h"
 #include "tcpVehicleSocketComm.h"
 
-
+extern SA_VEHICLE_QUEUE vehicleList;
+extern int stationID;
 
 void SA_treatIDMessage(PMESSAGE msg);
 void SA_treatIDReqMessage(PMESSAGE msg);
@@ -31,8 +32,6 @@ void SA_treatStatusMessage(PMESSAGE msg);
 void SA_treatAlertMessage(PMESSAGE msg);
 void SA_sendConnectedMsg(int id);
 void SA_sendDisconnectedMsg(int id);
-extern SA_VEHICLE_QUEUE vehicleList;
-extern int stationID;
 void SA_initVehicleList();
 void SA_initVehicle(SA_PVEHICLE_DATA vehicle, int id);
 SA_PVEHICLE_DATA SA_addVehicleToList(int id);

@@ -26,7 +26,7 @@
 #define VSC_SRV_PORT 6000
 #define VSC_MAXPENDING 10
 #define VSC_SOCKBUF_LEN 512
-
+#define VSC_MAXRCV_LEN 510
 
 
 void VSC_initVehicleServer();
