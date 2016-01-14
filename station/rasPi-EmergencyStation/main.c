@@ -16,30 +16,43 @@
 #include "tcpVehicleSocketComm.h"
 
 int exitCond = 0;
+void* mcastConnControlThread(void* args);
 void* serverConnControlThread(void* args);
 void* vehicleConnControlThread(void* args);
 
 void sig_handler(int signo) {
 	if (signo == SIGINT) {
+		printf("SIGINT received\n");
 		exitCond = 1;
 	}
 }
 
 int main(int argc, const char * argv[]) {
+	pthread_t mcastConn;
 	pthread_t serverConn;
 	pthread_t vehicleConn;
 	signal(SIGINT, sig_handler);
-	printf("%s%03d", "239.128.0.", stationID+1);
+	signal(SIGTERM, sig_handler);
 	MP_initParser();
+	pthread_create(&mcastConn, NULL, mcastConnControlThread, NULL);
 	pthread_create(&serverConn, NULL, serverConnControlThread, NULL);
 	pthread_create(&vehicleConn, NULL, vehicleConnControlThread, NULL);
 	while (!exitCond) {
 		sleep(1);
 	}
 	pthread_join(serverConn, NULL);
-	pthread_join(serverConn, NULL);
+	pthread_join(vehicleConn, NULL);
 	
     return 0;
+}
+
+void* mcastConnControlThread(void* args) {
+	MCM_initMcastServer();
+	while (!exitCond) {
+		sleep(1);
+	}
+	MCM_shutdownMcastServer();
+	pthread_exit(NULL);
 }
 
 void* serverConnControlThread(void* args) {

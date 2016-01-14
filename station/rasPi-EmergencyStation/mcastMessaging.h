@@ -19,14 +19,15 @@
 
 #endif /* mcastMessaging_h */
 
-#define MCM_PORT 7000
+#define MCM_GEN_PORT 7000
+#define MCM_STATION_PORT 8000
 #define MCM_GENERAL_GRP "239.128.0.1"
-#define MCM_STATION_GRP_SUFFIX "239.128.0."
 #define MCM_BUFFSIZE 1024
 
 
 extern MCM_serverStats mcmServerStats;
-
+void MCM_initMcastServer();
+void MCM_shutdownMcastServer();
 void MCM_initSockets();
 struct in_addr MCM_calcStationAddress();
 void MCM_initStationGroup();

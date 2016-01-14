@@ -110,6 +110,13 @@ typedef struct VSC_STAT {
 
 //mcastMessaging.h
 
+typedef struct MCM_threadStruct {
+	int socket;
+	struct sockaddr_in address;
+	PMSGBUFF buffer;
+	
+}MCM_threadStruct;
+
 typedef struct MCM_serverStats{
 	int state;
 	int generalSocket;
@@ -120,12 +127,9 @@ typedef struct MCM_serverStats{
 	struct in_addr stationGroup;
 	PMSGBUFF generalInbox;
 	PMSGBUFF stationOutbox;
+	pthread_t listenThread;
+	pthread_t sendThread;
 }MCM_serverStats;
-typedef struct MCM_threadStruct {
-	int socket;
-	struct sockaddr_in address;
-	PMSGBUFF buffer;
-	
-}MCM_threadStruct;
+
 
 #endif /* structures_h */

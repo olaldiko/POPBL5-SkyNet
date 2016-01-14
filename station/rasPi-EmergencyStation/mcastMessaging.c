@@ -10,12 +10,36 @@
 
 MCM_serverStats mcmServerStats;
 void MCM_initMcastServer() {
+	mcmServerStats.state = 1;
+	MCM_threadStruct *general = calloc(1, sizeof(MCM_threadStruct));
+	MCM_threadStruct *station = calloc(1, sizeof(MCM_threadStruct));
 	mcmServerStats.generalInbox = MB_initBuffer(10);
 	mcmServerStats.stationOutbox = MB_initBuffer(10);
 	MCM_initSockets();
 	MCM_initGeneralGroup();
 	MCM_initStationGroup();
-	
+	general->socket = mcmServerStats.generalSocket;
+	general->buffer = mcmServerStats.generalInbox;
+	general->address.sin_addr.s_addr = inet_addr(MCM_GENERAL_GRP);
+	general->address.sin_family = AF_INET;
+	general->address.sin_port = htons(MCM_GEN_PORT);
+	station->socket = mcmServerStats.stationSocket;
+	station->buffer = mcmServerStats.stationOutbox;
+	station->address.sin_addr.s_addr =  mcmServerStats.stationGroup.s_addr;
+	station->address.sin_family = AF_INET;
+	station->address.sin_port = htons(MCM_STATION_PORT);
+	pthread_create(&mcmServerStats.listenThread, NULL, MCM_listenerThread, (void*)general);
+	pthread_create(&mcmServerStats.sendThread, NULL, MCM_senderThread, (void*)station);
+}
+
+void MCM_shutdownMcastServer() {
+	mcmServerStats.state = 0;
+	shutdown(mcmServerStats.generalSocket, SHUT_RDWR);
+	close(mcmServerStats.generalSocket);
+	shutdown(mcmServerStats.stationSocket, SHUT_RDWR);
+	close(mcmServerStats.stationSocket);
+	pthread_join(mcmServerStats.listenThread, NULL);
+	pthread_join(mcmServerStats.sendThread, NULL);
 }
 
 void MCM_initSockets() {
@@ -47,12 +71,20 @@ struct in_addr MCM_calcStationAddress() {
 
 void MCM_initStationGroup() {
 	mcmServerStats.stationGroup = MCM_calcStationAddress();
-	
+
 }
 
 void MCM_initGeneralGroup() {
-	mcmServerStats.generalMreq.imr_multiaddr.s_addr = inet_addr(MCM_GENERAL_GRP);
-	mcmServerStats.generalMreq.imr_interface.s_addr = inet_addr(INADDR_ANY);
+	struct sockaddr_in bindSock;
+	bindSock.sin_addr.s_addr = htonl(INADDR_ANY);
+	bindSock.sin_family = AF_INET;
+	bindSock.sin_port = htons(MCM_GEN_PORT);
+	if (bind(mcmServerStats.generalSocket, (struct sockaddr*)&bindSock, sizeof(struct sockaddr_in))) {
+		perror("Error binding general MCAST socket");
+	}
+	inet_aton(MCM_GENERAL_GRP, &mcmServerStats.generalMreq.imr_multiaddr);
+	mcmServerStats.generalMreq.imr_interface.s_addr = htonl(INADDR_ANY);
+
 	if ((setsockopt(mcmServerStats.generalSocket, IPPROTO_IP, IP_ADD_MEMBERSHIP, &mcmServerStats.generalMreq, sizeof(struct ip_mreq))) < 0) {
 		perror("Error joining MCAST group");
 	}
@@ -63,30 +95,28 @@ void* MCM_listenerThread(void* args) {
 	struct sockaddr_in address;
 	int structSize = sizeof(struct sockaddr_in);
 	MCM_threadStruct* opts = (MCM_threadStruct *)args;
-	int socket = (int)args;
-	struct in_addr addr;
 	PMESSAGE msg;
 	char* buffer = calloc(MCM_BUFFSIZE, sizeof(char));
 	MP_PRECEIVERSTR receiver = calloc(1, sizeof(MP_RECEIVERSTR));
 	receiver->clientBuff = buffer;
-	while ((receiver->msgLength = recvfrom(opts->socket, buffer, MCM_BUFFSIZE, 0, (struct sockaddr *)&address, &structSize)) && mcmServerStats.state == 1) {
+	while ((receiver->msgLength = recvfrom(opts->socket, buffer, MCM_BUFFSIZE, 0, (struct sockaddr *)&address, structSize)) != -1 && mcmServerStats.state == 1) {
 		msg = MP_messageReceiver(receiver);
 		msg->source = 0;
 		if (msg != NULL) {
 			MB_putMessage(mcmServerStats.generalInbox, msg);
 		}
 	}
-	
+	free(buffer);
 	pthread_exit(NULL);
 }
 
 void* MCM_senderThread(void* args) {
-	MCM_threadStruct* opts = (MCM_threadStruct *)args;
+	MCM_threadStruct *opts = (MCM_threadStruct *)args;
 	PMESSAGE msg;
 	int structSize = sizeof(struct sockaddr_in);
 	while (mcmServerStats.state == 1) {
 		msg = MB_getMessage(opts->buffer);
-		if ((sendto(opts->socket, msg->fullMsg, msg->msgSize, 0, (struct sockaddr *)&opts->address, &structSize)) < 0) {
+		if ((sendto(opts->socket, msg->fullMsg, strlen(msg->fullMsg), 0, (struct sockaddr *)&opts->address, structSize)) < 0) {
 			perror("Error sending via MCAST");
 		}
 	}

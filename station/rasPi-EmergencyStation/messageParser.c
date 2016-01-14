@@ -33,7 +33,7 @@ int MP_parseMessage(PMESSAGE msg) {
         if (msg->source == 0) {
 			if(strcmp(msg->dataType, "ROUTE") == 0)				SA_treatRouteMessage(msg);
 			else if (strcmp(msg->dataType, "ALERT") == 0)		SA_treatAlertMessage(msg);
-			else if	(strcmp(msg->dataType, "IDASSIGN") == 0) 	SA_treatIDResponse(msg);
+			else if	(strcmp(msg->dataType, "IDASSIGN") == 0) 	SA_treatIDAssign(msg);
 			else if	(strcmp(msg->dataType, "RESOURCES") == 0)	SA_treatListMessage(msg);
         } else {
 			if (msg->isFirstMsg) {
@@ -50,6 +50,7 @@ int MP_parseMessage(PMESSAGE msg) {
 					vehicle->isConnected = 1;
 				}
 				SA_sendConnectedMsg(atoi(msg->id));
+				//SA_sendJoinMessage(atoi(msg->id));
 			}
 			if(strcmp(msg->dataType, "ID") == 0)				SA_treatIDMessage(msg);
 			else if (strcmp(msg->dataType, "IDREQUEST") == 0)   SA_treatIDReqMessage(msg);

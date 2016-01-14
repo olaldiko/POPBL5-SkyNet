@@ -24,7 +24,7 @@ void VSC_initVehicleServer() {
 	}
 	
 	waitTime = 1;
-	
+	//setsockopt(vehicleServerStat.serverSocket, SOL_SOCKET, SO_REUSEADDR, &(int){ 1 }, sizeof(int));
 	while (bind(vehicleServerStat.serverSocket, (struct sockaddr*)&vehicleServerStat.serverSocketStruct, (socklen_t)vehicleServerStat.sockSize) < 0) {
 		perror("Error binding vehicle server socket");
 		waitTime <<=1;
@@ -115,10 +115,15 @@ void* VSC_outboundHandlerThreadFunc(void* args) {
 }
 
 int VSC_SendMessageToVehicle(PMESSAGE msg, SA_PVEHICLE_DATA vehicle) {
-	if (send(vehicle->clientSocket, msg->fullMsg, strlen(msg->fullMsg), 0) == -1) {
+	printf("Enviando mensaje a vehiculo %d-> %s\n", vehicle->id, msg->fullMsg);
+	char* msgLn = calloc(strlen(msg->fullMsg)+2, sizeof(char));
+	strcpy(msgLn, msg->fullMsg);
+	strcat(msgLn, "\n");
+	if (send(vehicle->clientSocket, msgLn, strlen(msgLn), 0) == -1) {
 		perror("Error sending message");
 		return -1;
 	} else {
+		free(msgLn);
 		MP_wipeMessage(msg);
 		return 0;
 	}

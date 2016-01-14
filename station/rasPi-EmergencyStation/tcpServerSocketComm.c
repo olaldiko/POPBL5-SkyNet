@@ -104,7 +104,7 @@ void* SSC_msgSenderThreadFunc(void* args) {
 	while (serverSocketStat.state == 1) {
 		msg = MB_getMessage(SSC_serverSendBuffer);
 		SSC_sendMessageToServer(msg);
-		printf("%s sent to server", msg->fullMsg);
+		printf("%s sent to server\n", msg->fullMsg);
 		MP_wipeMessage(msg);
 	}
 	pthread_exit(NULL);
