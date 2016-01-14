@@ -99,7 +99,7 @@ void* MCM_listenerThread(void* args) {
 	char* buffer = calloc(MCM_BUFFSIZE, sizeof(char));
 	MP_PRECEIVERSTR receiver = calloc(1, sizeof(MP_RECEIVERSTR));
 	receiver->clientBuff = buffer;
-	receiver->bufferLength = MCM_BUFFSIZE;
+	receiver->bufferLength = MCM_BUFFSIZE; 
 	receiver->maxMsgLength = MCM_MAXMSGSIZE;
 	while ((receiver->msgLength = recvfrom(opts->socket, buffer, MCM_MAXMSGSIZE, 0, (struct sockaddr *)&address, &structSize)) != -1 && mcmServerStats.state == 1) {
 		msg = MP_messageReceiver(receiver);
