@@ -23,6 +23,7 @@
 #define MCM_STATION_PORT 8000
 #define MCM_GENERAL_GRP "239.128.0.1"
 #define MCM_BUFFSIZE 1024
+#define MCM_MAXMSGSIZE 1020
 
 
 extern MCM_serverStats mcmServerStats;

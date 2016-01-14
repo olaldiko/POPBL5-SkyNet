@@ -99,10 +99,13 @@ void* MCM_listenerThread(void* args) {
 	char* buffer = calloc(MCM_BUFFSIZE, sizeof(char));
 	MP_PRECEIVERSTR receiver = calloc(1, sizeof(MP_RECEIVERSTR));
 	receiver->clientBuff = buffer;
-	while ((receiver->msgLength = recvfrom(opts->socket, buffer, MCM_BUFFSIZE, 0, (struct sockaddr *)&address, structSize)) != -1 && mcmServerStats.state == 1) {
+	receiver->bufferLength = MCM_BUFFSIZE;
+	receiver->maxMsgLength = MCM_MAXMSGSIZE;
+	while ((receiver->msgLength = recvfrom(opts->socket, buffer, MCM_MAXMSGSIZE, 0, (struct sockaddr *)&address, &structSize)) != -1 && mcmServerStats.state == 1) {
 		msg = MP_messageReceiver(receiver);
 		msg->source = 0;
 		if (msg != NULL) {
+			printf("Mensage from general multicast group received: %s\n", msg->fullMsg);
 			MB_putMessage(mcmServerStats.generalInbox, msg);
 		}
 	}
