@@ -1,0 +1,165 @@
+\hypertarget{tcp_server_socket_comm_8c}{}\section{ras\+Pi-\/\+Emergency\+Station/tcp\+Server\+Socket\+Comm.c File Reference}
+\label{tcp_server_socket_comm_8c}\index{ras\+Pi-\/\+Emergency\+Station/tcp\+Server\+Socket\+Comm.\+c@{ras\+Pi-\/\+Emergency\+Station/tcp\+Server\+Socket\+Comm.\+c}}
+
+
+Server connection related function headers.  
+
+
+{\ttfamily \#include \char`\"{}tcp\+Server\+Socket\+Comm.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{tcp_server_socket_comm_8c_a64aaa41ac5e2fbe7f8ba88c053b49ff9}{S\+S\+C\+\_\+init\+Server\+Connection} ()
+\begin{DoxyCompactList}\small\item\em Initialize the connection to the server. \end{DoxyCompactList}\item 
+void \hyperlink{tcp_server_socket_comm_8c_ae12d709dd8d0c5c39e8949dfa433dff4}{S\+S\+C\+\_\+init\+Buffers} ()
+\begin{DoxyCompactList}\small\item\em Initialize the buffers involved in the server communication. \end{DoxyCompactList}\item 
+void \hyperlink{tcp_server_socket_comm_8c_aefcfff31ea3a9b0d92a83ab83c9874f9}{S\+S\+C\+\_\+init\+Server\+Conn\+Threads} ()
+\begin{DoxyCompactList}\small\item\em Start the threads for listening and sending messages to the server. \end{DoxyCompactList}\item 
+void \hyperlink{tcp_server_socket_comm_8c_a764e95eb0d9780103d96fe17901cafae}{S\+S\+C\+\_\+stop\+Server\+Conn} ()
+\begin{DoxyCompactList}\small\item\em Shutdown the connection to the server. \end{DoxyCompactList}\item 
+void \hyperlink{tcp_server_socket_comm_8c_a71368ed7199c8c4f010605207359f972}{S\+S\+C\+\_\+make\+Server\+Connection} ()
+\begin{DoxyCompactList}\small\item\em Create the connection to the server. \end{DoxyCompactList}\item 
+void \hyperlink{tcp_server_socket_comm_8c_a5cfbc3e4116f51d09d4416ce81a420a9}{S\+S\+C\+\_\+send\+Message\+To\+Server} (\hyperlink{structures_8h_ab0e2403c2d12c3cd1b983b120f9d29f7}{P\+M\+E\+S\+S\+A\+GE} msg)
+\begin{DoxyCompactList}\small\item\em Send a message to the server. \end{DoxyCompactList}\item 
+void \hyperlink{tcp_server_socket_comm_8c_abe2574d5f7dd2457b0d09df7f29643a9}{S\+S\+C\+\_\+listen\+To\+Server\+Msg} ()
+\begin{DoxyCompactList}\small\item\em Listen to the messages coming to the server. \end{DoxyCompactList}\item 
+void $\ast$ \hyperlink{tcp_server_socket_comm_8c_ab46f3e041cae487562197067e220af3b}{S\+S\+C\+\_\+msg\+Sender\+Thread\+Func} (void $\ast$args)
+\begin{DoxyCompactList}\small\item\em Thread to send the messages stored in the outbox to the server. \end{DoxyCompactList}\item 
+void $\ast$ \hyperlink{tcp_server_socket_comm_8c_ae54218394dd621113d0f73ec6ef8f873}{S\+S\+C\+\_\+msg\+Listener\+Thread\+Func} (void $\ast$args)
+\begin{DoxyCompactList}\small\item\em Thread to listen to messages coming from the server. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{struct_s_s_c___s_t_a_t}{S\+S\+C\+\_\+\+S\+T\+AT} \hyperlink{tcp_server_socket_comm_8c_a14f5752a27e37a812a55657f99b0408d}{server\+Socket\+Stat}
+\begin{DoxyCompactList}\small\item\em Structure containing all the parameters for the connection to the server and it\textquotesingle{}s state. \end{DoxyCompactList}\item 
+\hyperlink{structures_8h_ad63ff8138c416e3817bf5e9ddc033007}{P\+M\+S\+G\+B\+U\+FF} \hyperlink{tcp_server_socket_comm_8c_a4a90a0c7abbee73d223b3d00b3f46454}{S\+S\+C\+\_\+server\+Send\+Buffer}
+\begin{DoxyCompactList}\small\item\em Outbox for the messages to be sent to the server. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Server connection related function headers. 
+
+
+
+\subsection{Function Documentation}
+\index{tcp\+Server\+Socket\+Comm.\+c@{tcp\+Server\+Socket\+Comm.\+c}!S\+S\+C\+\_\+init\+Buffers@{S\+S\+C\+\_\+init\+Buffers}}
+\index{S\+S\+C\+\_\+init\+Buffers@{S\+S\+C\+\_\+init\+Buffers}!tcp\+Server\+Socket\+Comm.\+c@{tcp\+Server\+Socket\+Comm.\+c}}
+\subsubsection[{\texorpdfstring{S\+S\+C\+\_\+init\+Buffers()}{SSC_initBuffers()}}]{\setlength{\rightskip}{0pt plus 5cm}void S\+S\+C\+\_\+init\+Buffers (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{tcp_server_socket_comm_8c_ae12d709dd8d0c5c39e8949dfa433dff4}{}\label{tcp_server_socket_comm_8c_ae12d709dd8d0c5c39e8949dfa433dff4}
+
+
+Initialize the buffers involved in the server communication. 
+
+\index{tcp\+Server\+Socket\+Comm.\+c@{tcp\+Server\+Socket\+Comm.\+c}!S\+S\+C\+\_\+init\+Server\+Connection@{S\+S\+C\+\_\+init\+Server\+Connection}}
+\index{S\+S\+C\+\_\+init\+Server\+Connection@{S\+S\+C\+\_\+init\+Server\+Connection}!tcp\+Server\+Socket\+Comm.\+c@{tcp\+Server\+Socket\+Comm.\+c}}
+\subsubsection[{\texorpdfstring{S\+S\+C\+\_\+init\+Server\+Connection()}{SSC_initServerConnection()}}]{\setlength{\rightskip}{0pt plus 5cm}void S\+S\+C\+\_\+init\+Server\+Connection (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{tcp_server_socket_comm_8c_a64aaa41ac5e2fbe7f8ba88c053b49ff9}{}\label{tcp_server_socket_comm_8c_a64aaa41ac5e2fbe7f8ba88c053b49ff9}
+
+
+Initialize the connection to the server. 
+
+Initializes the sockets and resolves the D\+NS name of the server to connect to. It then calls the other functions to continue the initialization. \index{tcp\+Server\+Socket\+Comm.\+c@{tcp\+Server\+Socket\+Comm.\+c}!S\+S\+C\+\_\+init\+Server\+Conn\+Threads@{S\+S\+C\+\_\+init\+Server\+Conn\+Threads}}
+\index{S\+S\+C\+\_\+init\+Server\+Conn\+Threads@{S\+S\+C\+\_\+init\+Server\+Conn\+Threads}!tcp\+Server\+Socket\+Comm.\+c@{tcp\+Server\+Socket\+Comm.\+c}}
+\subsubsection[{\texorpdfstring{S\+S\+C\+\_\+init\+Server\+Conn\+Threads()}{SSC_initServerConnThreads()}}]{\setlength{\rightskip}{0pt plus 5cm}void S\+S\+C\+\_\+init\+Server\+Conn\+Threads (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{tcp_server_socket_comm_8c_aefcfff31ea3a9b0d92a83ab83c9874f9}{}\label{tcp_server_socket_comm_8c_aefcfff31ea3a9b0d92a83ab83c9874f9}
+
+
+Start the threads for listening and sending messages to the server. 
+
+\index{tcp\+Server\+Socket\+Comm.\+c@{tcp\+Server\+Socket\+Comm.\+c}!S\+S\+C\+\_\+listen\+To\+Server\+Msg@{S\+S\+C\+\_\+listen\+To\+Server\+Msg}}
+\index{S\+S\+C\+\_\+listen\+To\+Server\+Msg@{S\+S\+C\+\_\+listen\+To\+Server\+Msg}!tcp\+Server\+Socket\+Comm.\+c@{tcp\+Server\+Socket\+Comm.\+c}}
+\subsubsection[{\texorpdfstring{S\+S\+C\+\_\+listen\+To\+Server\+Msg()}{SSC_listenToServerMsg()}}]{\setlength{\rightskip}{0pt plus 5cm}void S\+S\+C\+\_\+listen\+To\+Server\+Msg (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{tcp_server_socket_comm_8c_abe2574d5f7dd2457b0d09df7f29643a9}{}\label{tcp_server_socket_comm_8c_abe2574d5f7dd2457b0d09df7f29643a9}
+
+
+Listen to the messages coming to the server. 
+
+8 It listens to new messages, storing them to a message structure if they are valid. Then it puts them in the parser inbox. \index{tcp\+Server\+Socket\+Comm.\+c@{tcp\+Server\+Socket\+Comm.\+c}!S\+S\+C\+\_\+make\+Server\+Connection@{S\+S\+C\+\_\+make\+Server\+Connection}}
+\index{S\+S\+C\+\_\+make\+Server\+Connection@{S\+S\+C\+\_\+make\+Server\+Connection}!tcp\+Server\+Socket\+Comm.\+c@{tcp\+Server\+Socket\+Comm.\+c}}
+\subsubsection[{\texorpdfstring{S\+S\+C\+\_\+make\+Server\+Connection()}{SSC_makeServerConnection()}}]{\setlength{\rightskip}{0pt plus 5cm}void S\+S\+C\+\_\+make\+Server\+Connection (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{tcp_server_socket_comm_8c_a71368ed7199c8c4f010605207359f972}{}\label{tcp_server_socket_comm_8c_a71368ed7199c8c4f010605207359f972}
+
+
+Create the connection to the server. 
+
+Tryes to connect to the server. If the connection fails. Waits for a time period wthich grows exponentially. \index{tcp\+Server\+Socket\+Comm.\+c@{tcp\+Server\+Socket\+Comm.\+c}!S\+S\+C\+\_\+msg\+Listener\+Thread\+Func@{S\+S\+C\+\_\+msg\+Listener\+Thread\+Func}}
+\index{S\+S\+C\+\_\+msg\+Listener\+Thread\+Func@{S\+S\+C\+\_\+msg\+Listener\+Thread\+Func}!tcp\+Server\+Socket\+Comm.\+c@{tcp\+Server\+Socket\+Comm.\+c}}
+\subsubsection[{\texorpdfstring{S\+S\+C\+\_\+msg\+Listener\+Thread\+Func(void $\ast$args)}{SSC_msgListenerThreadFunc(void *args)}}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ S\+S\+C\+\_\+msg\+Listener\+Thread\+Func (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{args}
+\end{DoxyParamCaption}
+)}\hypertarget{tcp_server_socket_comm_8c_ae54218394dd621113d0f73ec6ef8f873}{}\label{tcp_server_socket_comm_8c_ae54218394dd621113d0f73ec6ef8f873}
+
+
+Thread to listen to messages coming from the server. 
+
+It waits for new messages to arrive. If the connection has failed, tryes to reconnect to the server. \index{tcp\+Server\+Socket\+Comm.\+c@{tcp\+Server\+Socket\+Comm.\+c}!S\+S\+C\+\_\+msg\+Sender\+Thread\+Func@{S\+S\+C\+\_\+msg\+Sender\+Thread\+Func}}
+\index{S\+S\+C\+\_\+msg\+Sender\+Thread\+Func@{S\+S\+C\+\_\+msg\+Sender\+Thread\+Func}!tcp\+Server\+Socket\+Comm.\+c@{tcp\+Server\+Socket\+Comm.\+c}}
+\subsubsection[{\texorpdfstring{S\+S\+C\+\_\+msg\+Sender\+Thread\+Func(void $\ast$args)}{SSC_msgSenderThreadFunc(void *args)}}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ S\+S\+C\+\_\+msg\+Sender\+Thread\+Func (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{args}
+\end{DoxyParamCaption}
+)}\hypertarget{tcp_server_socket_comm_8c_ab46f3e041cae487562197067e220af3b}{}\label{tcp_server_socket_comm_8c_ab46f3e041cae487562197067e220af3b}
+
+
+Thread to send the messages stored in the outbox to the server. 
+
+It waits for messages to be put in the server\textquotesingle{}s outbox and sends these when they are available. \index{tcp\+Server\+Socket\+Comm.\+c@{tcp\+Server\+Socket\+Comm.\+c}!S\+S\+C\+\_\+send\+Message\+To\+Server@{S\+S\+C\+\_\+send\+Message\+To\+Server}}
+\index{S\+S\+C\+\_\+send\+Message\+To\+Server@{S\+S\+C\+\_\+send\+Message\+To\+Server}!tcp\+Server\+Socket\+Comm.\+c@{tcp\+Server\+Socket\+Comm.\+c}}
+\subsubsection[{\texorpdfstring{S\+S\+C\+\_\+send\+Message\+To\+Server(\+P\+M\+E\+S\+S\+A\+G\+E msg)}{SSC_sendMessageToServer(PMESSAGE msg)}}]{\setlength{\rightskip}{0pt plus 5cm}void S\+S\+C\+\_\+send\+Message\+To\+Server (
+\begin{DoxyParamCaption}
+\item[{{\bf P\+M\+E\+S\+S\+A\+GE}}]{msg}
+\end{DoxyParamCaption}
+)}\hypertarget{tcp_server_socket_comm_8c_a5cfbc3e4116f51d09d4416ce81a420a9}{}\label{tcp_server_socket_comm_8c_a5cfbc3e4116f51d09d4416ce81a420a9}
+
+
+Send a message to the server. 
+
+It directly sends a message to the server by reading it from a message structure. 
+\begin{DoxyParams}{Parameters}
+{\em msg} & The message to send. \\
+\hline
+\end{DoxyParams}
+\index{tcp\+Server\+Socket\+Comm.\+c@{tcp\+Server\+Socket\+Comm.\+c}!S\+S\+C\+\_\+stop\+Server\+Conn@{S\+S\+C\+\_\+stop\+Server\+Conn}}
+\index{S\+S\+C\+\_\+stop\+Server\+Conn@{S\+S\+C\+\_\+stop\+Server\+Conn}!tcp\+Server\+Socket\+Comm.\+c@{tcp\+Server\+Socket\+Comm.\+c}}
+\subsubsection[{\texorpdfstring{S\+S\+C\+\_\+stop\+Server\+Conn()}{SSC_stopServerConn()}}]{\setlength{\rightskip}{0pt plus 5cm}void S\+S\+C\+\_\+stop\+Server\+Conn (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{tcp_server_socket_comm_8c_a764e95eb0d9780103d96fe17901cafae}{}\label{tcp_server_socket_comm_8c_a764e95eb0d9780103d96fe17901cafae}
+
+
+Shutdown the connection to the server. 
+
+It tryes to shutdown and close the socket gracefully. It then wait to the threads to exit by sending them a stop condition. 
+
+\subsection{Variable Documentation}
+\index{tcp\+Server\+Socket\+Comm.\+c@{tcp\+Server\+Socket\+Comm.\+c}!server\+Socket\+Stat@{server\+Socket\+Stat}}
+\index{server\+Socket\+Stat@{server\+Socket\+Stat}!tcp\+Server\+Socket\+Comm.\+c@{tcp\+Server\+Socket\+Comm.\+c}}
+\subsubsection[{\texorpdfstring{server\+Socket\+Stat}{serverSocketStat}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+S\+C\+\_\+\+S\+T\+AT} server\+Socket\+Stat}\hypertarget{tcp_server_socket_comm_8c_a14f5752a27e37a812a55657f99b0408d}{}\label{tcp_server_socket_comm_8c_a14f5752a27e37a812a55657f99b0408d}
+
+
+Structure containing all the parameters for the connection to the server and it\textquotesingle{}s state. 
+
+\index{tcp\+Server\+Socket\+Comm.\+c@{tcp\+Server\+Socket\+Comm.\+c}!S\+S\+C\+\_\+server\+Send\+Buffer@{S\+S\+C\+\_\+server\+Send\+Buffer}}
+\index{S\+S\+C\+\_\+server\+Send\+Buffer@{S\+S\+C\+\_\+server\+Send\+Buffer}!tcp\+Server\+Socket\+Comm.\+c@{tcp\+Server\+Socket\+Comm.\+c}}
+\subsubsection[{\texorpdfstring{S\+S\+C\+\_\+server\+Send\+Buffer}{SSC_serverSendBuffer}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf P\+M\+S\+G\+B\+U\+FF} S\+S\+C\+\_\+server\+Send\+Buffer}\hypertarget{tcp_server_socket_comm_8c_a4a90a0c7abbee73d223b3d00b3f46454}{}\label{tcp_server_socket_comm_8c_a4a90a0c7abbee73d223b3d00b3f46454}
+
+
+Outbox for the messages to be sent to the server. 
+

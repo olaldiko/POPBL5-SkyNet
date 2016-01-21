@@ -1,0 +1,155 @@
+.TH "rasPi-EmergencyStation/tcpServerSocketComm.h" 3 "Thu Jan 21 2016" "Version 0.1" "Emergency station" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+rasPi-EmergencyStation/tcpServerSocketComm.h \- Server connection related function definitions\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdio\&.h>\fP
+.br
+\fC#include <stdlib\&.h>\fP
+.br
+\fC#include <unistd\&.h>\fP
+.br
+\fC#include <string\&.h>\fP
+.br
+\fC#include <netinet/in\&.h>\fP
+.br
+\fC#include <arpa/inet\&.h>\fP
+.br
+\fC#include <sys/socket\&.h>\fP
+.br
+\fC#include <netdb\&.h>\fP
+.br
+\fC#include 'structures\&.h'\fP
+.br
+\fC#include 'msgBuffers\&.h'\fP
+.br
+\fC#include 'messageParser\&.h'\fP
+.br
+
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBSSC_SRV_ADDRESS\fP   'ayerdi'"
+.br
+.ti -1c
+.RI "#define \fBSSC_SRV_PORT\fP   5000"
+.br
+.ti -1c
+.RI "#define \fBSSC_SRV_BUFLEN\fP   1024"
+.br
+.ti -1c
+.RI "#define \fBSSC_RCV_MAXLEN\fP   1020"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBSSC_makeServerConnection\fP ()"
+.br
+.RI "\fICreate the connection to the server\&. \fP"
+.ti -1c
+.RI "void \fBSSC_initServerConnection\fP ()"
+.br
+.RI "\fIInitialize the connection to the server\&. \fP"
+.ti -1c
+.RI "void \fBSSC_initBuffers\fP ()"
+.br
+.RI "\fIInitialize the buffers involved in the server communication\&. \fP"
+.ti -1c
+.RI "void \fBSSC_sendMessageToServer\fP (struct \fBMESSAGE\fP *msg)"
+.br
+.ti -1c
+.RI "void \fBSSC_stopServerConn\fP ()"
+.br
+.RI "\fIShutdown the connection to the server\&. \fP"
+.ti -1c
+.RI "void \fBSSC_initServerConnThreads\fP ()"
+.br
+.RI "\fIStart the threads for listening and sending messages to the server\&. \fP"
+.ti -1c
+.RI "void * \fBSSC_msgSenderThreadFunc\fP (void *args)"
+.br
+.RI "\fIThread to send the messages stored in the outbox to the server\&. \fP"
+.ti -1c
+.RI "void * \fBSSC_msgListenerThreadFunc\fP (void *args)"
+.br
+.RI "\fIThread to listen to messages coming from the server\&. \fP"
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBSSC_STAT\fP \fBserverSocketStat\fP"
+.br
+.RI "\fIStructure containing all the parameters for the connection to the server and it's state\&. \fP"
+.ti -1c
+.RI "\fBPMSGBUFF\fP \fBSSC_serverSendBuffer\fP"
+.br
+.RI "\fIOutbox for the messages to be sent to the server\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Server connection related function definitions\&. 
+
+
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define SSC_RCV_MAXLEN   1020"
+
+.SS "#define SSC_SRV_ADDRESS   'ayerdi'"
+
+.SS "#define SSC_SRV_BUFLEN   1024"
+
+.SS "#define SSC_SRV_PORT   5000"
+
+.SH "Function Documentation"
+.PP 
+.SS "void SSC_initBuffers ()"
+
+.PP
+Initialize the buffers involved in the server communication\&. 
+.SS "void SSC_initServerConnection ()"
+
+.PP
+Initialize the connection to the server\&. Initializes the sockets and resolves the DNS name of the server to connect to\&. It then calls the other functions to continue the initialization\&. 
+.SS "void SSC_initServerConnThreads ()"
+
+.PP
+Start the threads for listening and sending messages to the server\&. 
+.SS "void SSC_makeServerConnection ()"
+
+.PP
+Create the connection to the server\&. Tryes to connect to the server\&. If the connection fails\&. Waits for a time period wthich grows exponentially\&. 
+.SS "void* SSC_msgListenerThreadFunc (void * args)"
+
+.PP
+Thread to listen to messages coming from the server\&. It waits for new messages to arrive\&. If the connection has failed, tryes to reconnect to the server\&. 
+.SS "void* SSC_msgSenderThreadFunc (void * args)"
+
+.PP
+Thread to send the messages stored in the outbox to the server\&. It waits for messages to be put in the server's outbox and sends these when they are available\&. 
+.SS "void SSC_sendMessageToServer (struct \fBMESSAGE\fP * msg)"
+
+.SS "void SSC_stopServerConn ()"
+
+.PP
+Shutdown the connection to the server\&. It tryes to shutdown and close the socket gracefully\&. It then wait to the threads to exit by sending them a stop condition\&. 
+.SH "Variable Documentation"
+.PP 
+.SS "\fBSSC_STAT\fP serverSocketStat"
+
+.PP
+Structure containing all the parameters for the connection to the server and it's state\&. 
+.SS "\fBPMSGBUFF\fP SSC_serverSendBuffer"
+
+.PP
+Outbox for the messages to be sent to the server\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Emergency station from the source code\&.

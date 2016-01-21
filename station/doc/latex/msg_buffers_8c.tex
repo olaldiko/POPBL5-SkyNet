@@ -1,0 +1,82 @@
+\hypertarget{msg_buffers_8c}{}\section{ras\+Pi-\/\+Emergency\+Station/msg\+Buffers.c File Reference}
+\label{msg_buffers_8c}\index{ras\+Pi-\/\+Emergency\+Station/msg\+Buffers.\+c@{ras\+Pi-\/\+Emergency\+Station/msg\+Buffers.\+c}}
+
+
+File containing the definitions of all functions related to the message mailboxes.  
+
+
+{\ttfamily \#include \char`\"{}msg\+Buffers.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structures_8h_ad63ff8138c416e3817bf5e9ddc033007}{P\+M\+S\+G\+B\+U\+FF} \hyperlink{msg_buffers_8c_a15ca8d0fea842defceb1611616a64560}{M\+B\+\_\+init\+Buffer} (int max\+Vals)
+\begin{DoxyCompactList}\small\item\em Create a new buffer or mailbox and initialize it for n values. \end{DoxyCompactList}\item 
+void \hyperlink{msg_buffers_8c_a94d8920e20c5150892cf23b81eb1dfd6}{M\+B\+\_\+put\+Message} (\hyperlink{structures_8h_ad63ff8138c416e3817bf5e9ddc033007}{P\+M\+S\+G\+B\+U\+FF} buffer, \hyperlink{structures_8h_ab0e2403c2d12c3cd1b983b120f9d29f7}{P\+M\+E\+S\+S\+A\+GE} msg)
+\begin{DoxyCompactList}\small\item\em Put a message into the buffer. \end{DoxyCompactList}\item 
+\hyperlink{structures_8h_ab0e2403c2d12c3cd1b983b120f9d29f7}{P\+M\+E\+S\+S\+A\+GE} \hyperlink{msg_buffers_8c_a2bc61492dcc33dc1712d77d383b1e33d}{M\+B\+\_\+get\+Message} (\hyperlink{structures_8h_ad63ff8138c416e3817bf5e9ddc033007}{P\+M\+S\+G\+B\+U\+FF} buffer)
+\begin{DoxyCompactList}\small\item\em Get a message from the buffer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+File containing the definitions of all functions related to the message mailboxes. 
+
+
+
+\subsection{Function Documentation}
+\index{msg\+Buffers.\+c@{msg\+Buffers.\+c}!M\+B\+\_\+get\+Message@{M\+B\+\_\+get\+Message}}
+\index{M\+B\+\_\+get\+Message@{M\+B\+\_\+get\+Message}!msg\+Buffers.\+c@{msg\+Buffers.\+c}}
+\subsubsection[{\texorpdfstring{M\+B\+\_\+get\+Message(\+P\+M\+S\+G\+B\+U\+F\+F buffer)}{MB_getMessage(PMSGBUFF buffer)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf P\+M\+E\+S\+S\+A\+GE} M\+B\+\_\+get\+Message (
+\begin{DoxyParamCaption}
+\item[{{\bf P\+M\+S\+G\+B\+U\+FF}}]{buffer}
+\end{DoxyParamCaption}
+)}\hypertarget{msg_buffers_8c_a2bc61492dcc33dc1712d77d383b1e33d}{}\label{msg_buffers_8c_a2bc61492dcc33dc1712d77d383b1e33d}
+
+
+Get a message from the buffer. 
+
+This function will get a message from the selected buffer and return it\textquotesingle{}s pointer. If the buffer is empty, it will wait for a value to be available. 
+\begin{DoxyParams}{Parameters}
+{\em buffer} & The buffer to get the message. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The pointer to the adquired message. 
+\end{DoxyReturn}
+\index{msg\+Buffers.\+c@{msg\+Buffers.\+c}!M\+B\+\_\+init\+Buffer@{M\+B\+\_\+init\+Buffer}}
+\index{M\+B\+\_\+init\+Buffer@{M\+B\+\_\+init\+Buffer}!msg\+Buffers.\+c@{msg\+Buffers.\+c}}
+\subsubsection[{\texorpdfstring{M\+B\+\_\+init\+Buffer(int max\+Vals)}{MB_initBuffer(int maxVals)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf P\+M\+S\+G\+B\+U\+FF} M\+B\+\_\+init\+Buffer (
+\begin{DoxyParamCaption}
+\item[{int}]{max\+Vals}
+\end{DoxyParamCaption}
+)}\hypertarget{msg_buffers_8c_a15ca8d0fea842defceb1611616a64560}{}\label{msg_buffers_8c_a15ca8d0fea842defceb1611616a64560}
+
+
+Create a new buffer or mailbox and initialize it for n values. 
+
+This function creates a new buffer by allocating all the memory, mutexes and values needed and returns the pointer to the newly created buffer. 
+\begin{DoxyParams}{Parameters}
+{\em max\+Vals} & The maximum number of values. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The pointer to the new buffer structure. 
+\end{DoxyReturn}
+\index{msg\+Buffers.\+c@{msg\+Buffers.\+c}!M\+B\+\_\+put\+Message@{M\+B\+\_\+put\+Message}}
+\index{M\+B\+\_\+put\+Message@{M\+B\+\_\+put\+Message}!msg\+Buffers.\+c@{msg\+Buffers.\+c}}
+\subsubsection[{\texorpdfstring{M\+B\+\_\+put\+Message(\+P\+M\+S\+G\+B\+U\+F\+F buffer, P\+M\+E\+S\+S\+A\+G\+E msg)}{MB_putMessage(PMSGBUFF buffer, PMESSAGE msg)}}]{\setlength{\rightskip}{0pt plus 5cm}void M\+B\+\_\+put\+Message (
+\begin{DoxyParamCaption}
+\item[{{\bf P\+M\+S\+G\+B\+U\+FF}}]{buffer, }
+\item[{{\bf P\+M\+E\+S\+S\+A\+GE}}]{msg}
+\end{DoxyParamCaption}
+)}\hypertarget{msg_buffers_8c_a94d8920e20c5150892cf23b81eb1dfd6}{}\label{msg_buffers_8c_a94d8920e20c5150892cf23b81eb1dfd6}
+
+
+Put a message into the buffer. 
+
+This function puts a message passed by parameter into the chosen buffer. If the buffer is full it will wait until there\textquotesingle{}s space on it. 
+\begin{DoxyParams}{Parameters}
+{\em buffer} & The buffer to put the message into. \\
+\hline
+{\em msg} & The message to put in the buffer. \\
+\hline
+\end{DoxyParams}

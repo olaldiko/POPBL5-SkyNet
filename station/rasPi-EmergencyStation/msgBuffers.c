@@ -1,14 +1,14 @@
-//
-//  msgBuffers.c
-//  rasPi-EmergencyStation
-//
-//  Created by Gorka Olalde Mendia on 6/12/15.
-//  Copyright © 2015 Gorka Olalde Mendia. All rights reserved.
-//
+/** @file msgBuffers.c File containing the definitions of all functions related to the message mailboxes. */
 
 #include "msgBuffers.h"
 
-
+/**
+ * Create a new buffer or mailbox and initialize it for n values. 
+ * This function creates a new buffer by allocating all the memory, mutexes and values needed and
+ * returns the pointer to the newly created buffer.
+ * @param maxVals The maximum number of values.
+ * @return The pointer to the new buffer structure.
+ **/
 PMSGBUFF MB_initBuffer(int maxVals) {
 	PMSGBUFF buffer = calloc(1, sizeof(MSGBUFF));
 	assert(maxVals > 0);
@@ -20,6 +20,14 @@ PMSGBUFF MB_initBuffer(int maxVals) {
 	buffer->head = NULL;
 	return buffer;
 }
+
+/**
+ * Put a message into the buffer.
+ * This function puts a message passed by parameter into the chosen buffer. 
+ * If the buffer is full it will wait until there's space on it.
+ * @param buffer The buffer to put the message into.
+ * @param msg The message to put in the buffer.
+ **/
 
 void MB_putMessage(PMSGBUFF buffer, PMESSAGE msg) {
 	PMSGQUEUE bufferCursor;
@@ -42,6 +50,14 @@ void MB_putMessage(PMSGBUFF buffer, PMESSAGE msg) {
 	pthread_cond_signal(&buffer->empty);
 	pthread_mutex_unlock(&buffer->mtx);
 }
+
+/**
+ * Get a message from the buffer.
+ * This function will get a message from the selected buffer and return it's pointer. 
+ * If the buffer is empty, it will wait for a value to be available.
+ * @param buffer The buffer to get the message.
+ * @return The pointer to the adquired message.
+ **/
 
 PMESSAGE MB_getMessage(PMSGBUFF buffer) {
 	PMSGQUEUE bufferCursor;

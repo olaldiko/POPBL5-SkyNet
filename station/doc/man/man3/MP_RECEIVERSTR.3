@@ -1,0 +1,96 @@
+.TH "MP_RECEIVERSTR" 3 "Thu Jan 21 2016" "Version 0.1" "Emergency station" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+MP_RECEIVERSTR \- Structure used in the message receiver function to store it's state\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <structures\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "int \fBmsgLength\fP"
+.br
+.RI "\fILenght of the last received message\&. \fP"
+.ti -1c
+.RI "char * \fBclientBuff\fP"
+.br
+.RI "\fIPointer to the client buffer's start address\&. \fP"
+.ti -1c
+.RI "char * \fBmsgBuff\fP"
+.br
+.RI "\fIPointer to the receiver's internal buffer\&. \fP"
+.ti -1c
+.RI "int \fBbufferLength\fP"
+.br
+.RI "\fILenght of the socket's buffer\&. \fP"
+.ti -1c
+.RI "int \fBmaxMsgLength\fP"
+.br
+.RI "\fIMaximum lenght of the message stored in the socket's buffer\&. \fP"
+.ti -1c
+.RI "char * \fBstxPos\fP"
+.br
+.RI "\fIPosition of the STX character in the message\&. \fP"
+.ti -1c
+.RI "char * \fBetxPos\fP"
+.br
+.RI "\fIPosition of the EXT character in the message\&. \fP"
+.ti -1c
+.RI "int \fBinMsg\fP"
+.br
+.RI "\fIState of the reading process of the message\&. \fP"
+.ti -1c
+.RI "int \fBstxFound\fP"
+.br
+.RI "\fITells if the STX character has been found or not\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Structure used in the message receiver function to store it's state\&. 
+.SH "Field Documentation"
+.PP 
+.SS "int bufferLength"
+
+.PP
+Lenght of the socket's buffer\&. 
+.SS "char* clientBuff"
+
+.PP
+Pointer to the client buffer's start address\&. 
+.SS "char* etxPos"
+
+.PP
+Position of the EXT character in the message\&. 
+.SS "int inMsg"
+
+.PP
+State of the reading process of the message\&. 
+.SS "int maxMsgLength"
+
+.PP
+Maximum lenght of the message stored in the socket's buffer\&. 
+.SS "char* msgBuff"
+
+.PP
+Pointer to the receiver's internal buffer\&. 
+.SS "int msgLength"
+
+.PP
+Lenght of the last received message\&. 
+.SS "int stxFound"
+
+.PP
+Tells if the STX character has been found or not\&. 
+.SS "char* stxPos"
+
+.PP
+Position of the STX character in the message\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Emergency station from the source code\&.

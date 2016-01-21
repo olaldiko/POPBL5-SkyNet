@@ -1,0 +1,186 @@
+\hypertarget{message_parser_8h}{}\section{ras\+Pi-\/\+Emergency\+Station/message\+Parser.h File Reference}
+\label{message_parser_8h}\index{ras\+Pi-\/\+Emergency\+Station/message\+Parser.\+h@{ras\+Pi-\/\+Emergency\+Station/message\+Parser.\+h}}
+
+
+Message parser function headers.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$pthread.\+h$>$}\\*
+{\ttfamily \#include $<$netinet/in.\+h$>$}\\*
+{\ttfamily \#include $<$arpa/inet.\+h$>$}\\*
+{\ttfamily \#include $<$sys/socket.\+h$>$}\\*
+{\ttfamily \#include $<$semaphore.\+h$>$}\\*
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}structures.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}msg\+Buffers.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}tcp\+Vehicle\+Socket\+Comm.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}station\+Actions.\+h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{message_parser_8h_a51f8ef09a7b440fbef11726003ef7343}{M\+S\+G\+\_\+\+I\+D\+S\+I\+ZE}~10
+\begin{DoxyCompactList}\small\item\em Max size of the ID field. \end{DoxyCompactList}\item 
+\#define \hyperlink{message_parser_8h_a23516e280737fa3a7ddd505634d20141}{M\+S\+G\+\_\+\+T\+Y\+P\+E\+S\+I\+ZE}~50
+\begin{DoxyCompactList}\small\item\em Max size of the type field. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{message_parser_8h_a0a5ee1ec225573ebc80059d6bce9e0d6}{M\+P\+\_\+init\+Parser} ()
+\begin{DoxyCompactList}\small\item\em Parser thread initializer. \end{DoxyCompactList}\item 
+void \hyperlink{message_parser_8h_a0026bd717404e4c2f9df87d137721377}{M\+P\+\_\+init\+Msg\+Struc} (\hyperlink{structures_8h_ab0e2403c2d12c3cd1b983b120f9d29f7}{P\+M\+E\+S\+S\+A\+GE} msg, int msg\+Size)
+\begin{DoxyCompactList}\small\item\em Message structure initializer. \end{DoxyCompactList}\item 
+\hyperlink{structures_8h_ab0e2403c2d12c3cd1b983b120f9d29f7}{P\+M\+E\+S\+S\+A\+GE} \hyperlink{message_parser_8h_a1e095af9fe3f1bd7c5a708d797e52bb9}{M\+P\+\_\+message\+Receiver} (\hyperlink{structures_8h_ab6908a2dec484ac1b7b183d749a4d800}{M\+P\+\_\+\+P\+R\+E\+C\+E\+I\+V\+E\+R\+S\+TR} rec)
+\begin{DoxyCompactList}\small\item\em Message decoupler and receiver function. \end{DoxyCompactList}\item 
+int \hyperlink{message_parser_8h_a37ec21f46c51967253a4e2da9ab6f063}{M\+P\+\_\+parse\+Message} (\hyperlink{structures_8h_ab0e2403c2d12c3cd1b983b120f9d29f7}{P\+M\+E\+S\+S\+A\+GE} msg)
+\begin{DoxyCompactList}\small\item\em Message parser main function. \end{DoxyCompactList}\item 
+void \hyperlink{message_parser_8h_a1e487e587ff3244c0808f4602ec6f1f7}{M\+P\+\_\+wipe\+Message} (\hyperlink{structures_8h_ab0e2403c2d12c3cd1b983b120f9d29f7}{P\+M\+E\+S\+S\+A\+GE} msg)
+\begin{DoxyCompactList}\small\item\em Message wiping function. \end{DoxyCompactList}\item 
+void $\ast$ \hyperlink{message_parser_8h_a995d4c39c3939fa306e45d06589bf8c0}{M\+P\+\_\+\+Parser\+Thread} (void $\ast$args)
+\begin{DoxyCompactList}\small\item\em Thread function for the parser thread. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structures_8h_ad63ff8138c416e3817bf5e9ddc033007}{P\+M\+S\+G\+B\+U\+FF} \hyperlink{message_parser_8h_ab95895c4239db10d402c2b18aae1afea}{received\+Msg\+Buff}
+\begin{DoxyCompactList}\small\item\em Mailbox for the messages received by the system. \end{DoxyCompactList}\item 
+int \hyperlink{message_parser_8h_a30d441725b34d11fee03d9b4afdcc505}{parser\+State}
+\begin{DoxyCompactList}\small\item\em Variable used to stop the threads when set. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Message parser function headers. 
+
+
+
+\subsection{Macro Definition Documentation}
+\index{message\+Parser.\+h@{message\+Parser.\+h}!M\+S\+G\+\_\+\+I\+D\+S\+I\+ZE@{M\+S\+G\+\_\+\+I\+D\+S\+I\+ZE}}
+\index{M\+S\+G\+\_\+\+I\+D\+S\+I\+ZE@{M\+S\+G\+\_\+\+I\+D\+S\+I\+ZE}!message\+Parser.\+h@{message\+Parser.\+h}}
+\subsubsection[{\texorpdfstring{M\+S\+G\+\_\+\+I\+D\+S\+I\+ZE}{MSG_IDSIZE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+S\+G\+\_\+\+I\+D\+S\+I\+ZE~10}\hypertarget{message_parser_8h_a51f8ef09a7b440fbef11726003ef7343}{}\label{message_parser_8h_a51f8ef09a7b440fbef11726003ef7343}
+
+
+Max size of the ID field. 
+
+\index{message\+Parser.\+h@{message\+Parser.\+h}!M\+S\+G\+\_\+\+T\+Y\+P\+E\+S\+I\+ZE@{M\+S\+G\+\_\+\+T\+Y\+P\+E\+S\+I\+ZE}}
+\index{M\+S\+G\+\_\+\+T\+Y\+P\+E\+S\+I\+ZE@{M\+S\+G\+\_\+\+T\+Y\+P\+E\+S\+I\+ZE}!message\+Parser.\+h@{message\+Parser.\+h}}
+\subsubsection[{\texorpdfstring{M\+S\+G\+\_\+\+T\+Y\+P\+E\+S\+I\+ZE}{MSG_TYPESIZE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+S\+G\+\_\+\+T\+Y\+P\+E\+S\+I\+ZE~50}\hypertarget{message_parser_8h_a23516e280737fa3a7ddd505634d20141}{}\label{message_parser_8h_a23516e280737fa3a7ddd505634d20141}
+
+
+Max size of the type field. 
+
+
+
+\subsection{Function Documentation}
+\index{message\+Parser.\+h@{message\+Parser.\+h}!M\+P\+\_\+init\+Msg\+Struc@{M\+P\+\_\+init\+Msg\+Struc}}
+\index{M\+P\+\_\+init\+Msg\+Struc@{M\+P\+\_\+init\+Msg\+Struc}!message\+Parser.\+h@{message\+Parser.\+h}}
+\subsubsection[{\texorpdfstring{M\+P\+\_\+init\+Msg\+Struc(\+P\+M\+E\+S\+S\+A\+G\+E msg, int msg\+Size)}{MP_initMsgStruc(PMESSAGE msg, int msgSize)}}]{\setlength{\rightskip}{0pt plus 5cm}void M\+P\+\_\+init\+Msg\+Struc (
+\begin{DoxyParamCaption}
+\item[{{\bf P\+M\+E\+S\+S\+A\+GE}}]{msg, }
+\item[{int}]{msg\+Size}
+\end{DoxyParamCaption}
+)}\hypertarget{message_parser_8h_a0026bd717404e4c2f9df87d137721377}{}\label{message_parser_8h_a0026bd717404e4c2f9df87d137721377}
+
+
+Message structure initializer. 
+
+Initializes the values of a message structure and allocates the memory. 
+\begin{DoxyParams}{Parameters}
+{\em msg} & The message structure. \\
+\hline
+{\em msg\+Size} & The size of the message. \\
+\hline
+\end{DoxyParams}
+\index{message\+Parser.\+h@{message\+Parser.\+h}!M\+P\+\_\+init\+Parser@{M\+P\+\_\+init\+Parser}}
+\index{M\+P\+\_\+init\+Parser@{M\+P\+\_\+init\+Parser}!message\+Parser.\+h@{message\+Parser.\+h}}
+\subsubsection[{\texorpdfstring{M\+P\+\_\+init\+Parser()}{MP_initParser()}}]{\setlength{\rightskip}{0pt plus 5cm}void M\+P\+\_\+init\+Parser (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{message_parser_8h_a0a5ee1ec225573ebc80059d6bce9e0d6}{}\label{message_parser_8h_a0a5ee1ec225573ebc80059d6bce9e0d6}
+
+
+Parser thread initializer. 
+
+Starts the thread that will read the values from the mailbox and treats them. \index{message\+Parser.\+h@{message\+Parser.\+h}!M\+P\+\_\+message\+Receiver@{M\+P\+\_\+message\+Receiver}}
+\index{M\+P\+\_\+message\+Receiver@{M\+P\+\_\+message\+Receiver}!message\+Parser.\+h@{message\+Parser.\+h}}
+\subsubsection[{\texorpdfstring{M\+P\+\_\+message\+Receiver(\+M\+P\+\_\+\+P\+R\+E\+C\+E\+I\+V\+E\+R\+S\+T\+R rec)}{MP_messageReceiver(MP_PRECEIVERSTR rec)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf P\+M\+E\+S\+S\+A\+GE} M\+P\+\_\+message\+Receiver (
+\begin{DoxyParamCaption}
+\item[{{\bf M\+P\+\_\+\+P\+R\+E\+C\+E\+I\+V\+E\+R\+S\+TR}}]{rec}
+\end{DoxyParamCaption}
+)}\hypertarget{message_parser_8h_a1e095af9fe3f1bd7c5a708d797e52bb9}{}\label{message_parser_8h_a1e095af9fe3f1bd7c5a708d797e52bb9}
+
+
+Message decoupler and receiver function. 
+
+This function reads the messages from the buffers of the sockets and creates a message structure if they are valid. Can be used in multiple passes by storing all the state values in a structure passed as parameter. 
+\begin{DoxyParams}{Parameters}
+{\em rec} & The function parameter structure. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns a message structure if a valid message has been read. Else returns N\+U\+LL. 
+\end{DoxyReturn}
+\index{message\+Parser.\+h@{message\+Parser.\+h}!M\+P\+\_\+parse\+Message@{M\+P\+\_\+parse\+Message}}
+\index{M\+P\+\_\+parse\+Message@{M\+P\+\_\+parse\+Message}!message\+Parser.\+h@{message\+Parser.\+h}}
+\subsubsection[{\texorpdfstring{M\+P\+\_\+parse\+Message(\+P\+M\+E\+S\+S\+A\+G\+E msg)}{MP_parseMessage(PMESSAGE msg)}}]{\setlength{\rightskip}{0pt plus 5cm}int M\+P\+\_\+parse\+Message (
+\begin{DoxyParamCaption}
+\item[{{\bf P\+M\+E\+S\+S\+A\+GE}}]{msg}
+\end{DoxyParamCaption}
+)}\hypertarget{message_parser_8h_a37ec21f46c51967253a4e2da9ab6f063}{}\label{message_parser_8h_a37ec21f46c51967253a4e2da9ab6f063}
+
+
+Message parser main function. 
+
+Receives a message structure as parameter and decides wich action to take based on the message type. 
+\begin{DoxyParams}{Parameters}
+{\em msg} & The message structure \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+If the message is valid, returns 0. Else -\/1. 
+\end{DoxyReturn}
+\index{message\+Parser.\+h@{message\+Parser.\+h}!M\+P\+\_\+\+Parser\+Thread@{M\+P\+\_\+\+Parser\+Thread}}
+\index{M\+P\+\_\+\+Parser\+Thread@{M\+P\+\_\+\+Parser\+Thread}!message\+Parser.\+h@{message\+Parser.\+h}}
+\subsubsection[{\texorpdfstring{M\+P\+\_\+\+Parser\+Thread(void $\ast$args)}{MP_ParserThread(void *args)}}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ M\+P\+\_\+\+Parser\+Thread (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{args}
+\end{DoxyParamCaption}
+)}\hypertarget{message_parser_8h_a995d4c39c3939fa306e45d06589bf8c0}{}\label{message_parser_8h_a995d4c39c3939fa306e45d06589bf8c0}
+
+
+Thread function for the parser thread. 
+
+Gets the messages from the mailbox and parses them while the exist condition isn\textquotesingle{}t true. \index{message\+Parser.\+h@{message\+Parser.\+h}!M\+P\+\_\+wipe\+Message@{M\+P\+\_\+wipe\+Message}}
+\index{M\+P\+\_\+wipe\+Message@{M\+P\+\_\+wipe\+Message}!message\+Parser.\+h@{message\+Parser.\+h}}
+\subsubsection[{\texorpdfstring{M\+P\+\_\+wipe\+Message(\+P\+M\+E\+S\+S\+A\+G\+E msg)}{MP_wipeMessage(PMESSAGE msg)}}]{\setlength{\rightskip}{0pt plus 5cm}void M\+P\+\_\+wipe\+Message (
+\begin{DoxyParamCaption}
+\item[{{\bf P\+M\+E\+S\+S\+A\+GE}}]{msg}
+\end{DoxyParamCaption}
+)}\hypertarget{message_parser_8h_a1e487e587ff3244c0808f4602ec6f1f7}{}\label{message_parser_8h_a1e487e587ff3244c0808f4602ec6f1f7}
+
+
+Message wiping function. 
+
+Frees all the memory used by a message structure. 
+\begin{DoxyParams}{Parameters}
+{\em msg} & The message structure to wipe. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Variable Documentation}
+\index{message\+Parser.\+h@{message\+Parser.\+h}!parser\+State@{parser\+State}}
+\index{parser\+State@{parser\+State}!message\+Parser.\+h@{message\+Parser.\+h}}
+\subsubsection[{\texorpdfstring{parser\+State}{parserState}}]{\setlength{\rightskip}{0pt plus 5cm}int parser\+State}\hypertarget{message_parser_8h_a30d441725b34d11fee03d9b4afdcc505}{}\label{message_parser_8h_a30d441725b34d11fee03d9b4afdcc505}
+
+
+Variable used to stop the threads when set. 
+
+\index{message\+Parser.\+h@{message\+Parser.\+h}!received\+Msg\+Buff@{received\+Msg\+Buff}}
+\index{received\+Msg\+Buff@{received\+Msg\+Buff}!message\+Parser.\+h@{message\+Parser.\+h}}
+\subsubsection[{\texorpdfstring{received\+Msg\+Buff}{receivedMsgBuff}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf P\+M\+S\+G\+B\+U\+FF} received\+Msg\+Buff}\hypertarget{message_parser_8h_ab95895c4239db10d402c2b18aae1afea}{}\label{message_parser_8h_ab95895c4239db10d402c2b18aae1afea}
+
+
+Mailbox for the messages received by the system. 
+

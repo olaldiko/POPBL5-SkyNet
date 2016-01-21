@@ -1,0 +1,133 @@
+\hypertarget{tcp_vehicle_socket_comm_8c}{}\section{ras\+Pi-\/\+Emergency\+Station/tcp\+Vehicle\+Socket\+Comm.c File Reference}
+\label{tcp_vehicle_socket_comm_8c}\index{ras\+Pi-\/\+Emergency\+Station/tcp\+Vehicle\+Socket\+Comm.\+c@{ras\+Pi-\/\+Emergency\+Station/tcp\+Vehicle\+Socket\+Comm.\+c}}
+
+
+Vehicle connection server related function definitions.  
+
+
+{\ttfamily \#include \char`\"{}tcp\+Vehicle\+Socket\+Comm.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{tcp_vehicle_socket_comm_8c_a49fe9e8bc1bd13ac909ae2b7d2391886}{V\+S\+C\+\_\+init\+Vehicle\+Server} ()
+\begin{DoxyCompactList}\small\item\em Initialize the vehicle comunication server. \end{DoxyCompactList}\item 
+void \hyperlink{tcp_vehicle_socket_comm_8c_a3ec3f2c1297ab45cb0ad39f925a4bce5}{V\+S\+C\+\_\+accept\+Connections} ()
+\begin{DoxyCompactList}\small\item\em Accept the new connections from vehicles. \end{DoxyCompactList}\item 
+void \hyperlink{tcp_vehicle_socket_comm_8c_ad670ed989fdade07d91fd3f1bc38ae03}{V\+S\+C\+\_\+shutdown\+Vehicle\+Server} ()
+\begin{DoxyCompactList}\small\item\em Shutdown the vehicle comunication server. \end{DoxyCompactList}\item 
+void $\ast$ \hyperlink{tcp_vehicle_socket_comm_8c_a919ad3564e41afca64d17244390cfba7}{V\+S\+C\+\_\+inbound\+Handler\+Thread\+Func} (void $\ast$args)
+\begin{DoxyCompactList}\small\item\em Thread to handle the inbound messages from the vehicles. \end{DoxyCompactList}\item 
+void $\ast$ \hyperlink{tcp_vehicle_socket_comm_8c_a8a9cd2f1bfdc3aada6f66fbddee2aa39}{V\+S\+C\+\_\+outbound\+Handler\+Thread\+Func} (void $\ast$args)
+\begin{DoxyCompactList}\small\item\em Thread to send the messages to the vehicle. \end{DoxyCompactList}\item 
+int \hyperlink{tcp_vehicle_socket_comm_8c_a1c76ab448a30a8498f76e22546c81047}{V\+S\+C\+\_\+\+Send\+Message\+To\+Vehicle} (\hyperlink{structures_8h_ab0e2403c2d12c3cd1b983b120f9d29f7}{P\+M\+E\+S\+S\+A\+GE} msg, \hyperlink{structures_8h_ab60a043206ae138fbd2fd16397e926a6}{S\+A\+\_\+\+P\+V\+E\+H\+I\+C\+L\+E\+\_\+\+D\+A\+TA} vehicle)
+\begin{DoxyCompactList}\small\item\em Send a message to a vehicle. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{struct_v_s_c___s_t_a_t}{V\+S\+C\+\_\+\+S\+T\+AT} \hyperlink{tcp_vehicle_socket_comm_8c_a4761d6baa79afa32a3cffc33901bbd55}{vehicle\+Server\+Stat}
+\begin{DoxyCompactList}\small\item\em Structure containing all the parameters and the status of the vehicle server. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Vehicle connection server related function definitions. 
+
+
+
+\subsection{Function Documentation}
+\index{tcp\+Vehicle\+Socket\+Comm.\+c@{tcp\+Vehicle\+Socket\+Comm.\+c}!V\+S\+C\+\_\+accept\+Connections@{V\+S\+C\+\_\+accept\+Connections}}
+\index{V\+S\+C\+\_\+accept\+Connections@{V\+S\+C\+\_\+accept\+Connections}!tcp\+Vehicle\+Socket\+Comm.\+c@{tcp\+Vehicle\+Socket\+Comm.\+c}}
+\subsubsection[{\texorpdfstring{V\+S\+C\+\_\+accept\+Connections()}{VSC_acceptConnections()}}]{\setlength{\rightskip}{0pt plus 5cm}void V\+S\+C\+\_\+accept\+Connections (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{tcp_vehicle_socket_comm_8c_a3ec3f2c1297ab45cb0ad39f925a4bce5}{}\label{tcp_vehicle_socket_comm_8c_a3ec3f2c1297ab45cb0ad39f925a4bce5}
+
+
+Accept the new connections from vehicles. 
+
+It accepts the new connection and creates a new thread to listen for the messages from them. \index{tcp\+Vehicle\+Socket\+Comm.\+c@{tcp\+Vehicle\+Socket\+Comm.\+c}!V\+S\+C\+\_\+inbound\+Handler\+Thread\+Func@{V\+S\+C\+\_\+inbound\+Handler\+Thread\+Func}}
+\index{V\+S\+C\+\_\+inbound\+Handler\+Thread\+Func@{V\+S\+C\+\_\+inbound\+Handler\+Thread\+Func}!tcp\+Vehicle\+Socket\+Comm.\+c@{tcp\+Vehicle\+Socket\+Comm.\+c}}
+\subsubsection[{\texorpdfstring{V\+S\+C\+\_\+inbound\+Handler\+Thread\+Func(void $\ast$args)}{VSC_inboundHandlerThreadFunc(void *args)}}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ V\+S\+C\+\_\+inbound\+Handler\+Thread\+Func (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{args}
+\end{DoxyParamCaption}
+)}\hypertarget{tcp_vehicle_socket_comm_8c_a919ad3564e41afca64d17244390cfba7}{}\label{tcp_vehicle_socket_comm_8c_a919ad3564e41afca64d17244390cfba7}
+
+
+Thread to handle the inbound messages from the vehicles. 
+
+When a new connection arrives, in the first message sets the handling thread as itself to assign itself as the handling thread to add it to the vehicle structure after the id is know when parsing the message. When a disconnection occurs, marks that vehicle as disconnected and the thread exits. 
+\begin{DoxyParams}{Parameters}
+{\em args} & The client socket number. \\
+\hline
+\end{DoxyParams}
+\index{tcp\+Vehicle\+Socket\+Comm.\+c@{tcp\+Vehicle\+Socket\+Comm.\+c}!V\+S\+C\+\_\+init\+Vehicle\+Server@{V\+S\+C\+\_\+init\+Vehicle\+Server}}
+\index{V\+S\+C\+\_\+init\+Vehicle\+Server@{V\+S\+C\+\_\+init\+Vehicle\+Server}!tcp\+Vehicle\+Socket\+Comm.\+c@{tcp\+Vehicle\+Socket\+Comm.\+c}}
+\subsubsection[{\texorpdfstring{V\+S\+C\+\_\+init\+Vehicle\+Server()}{VSC_initVehicleServer()}}]{\setlength{\rightskip}{0pt plus 5cm}void V\+S\+C\+\_\+init\+Vehicle\+Server (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{tcp_vehicle_socket_comm_8c_a49fe9e8bc1bd13ac909ae2b7d2391886}{}\label{tcp_vehicle_socket_comm_8c_a49fe9e8bc1bd13ac909ae2b7d2391886}
+
+
+Initialize the vehicle comunication server. 
+
+It initializes the needed sockets, binds to an interface and listens for connections. \index{tcp\+Vehicle\+Socket\+Comm.\+c@{tcp\+Vehicle\+Socket\+Comm.\+c}!V\+S\+C\+\_\+outbound\+Handler\+Thread\+Func@{V\+S\+C\+\_\+outbound\+Handler\+Thread\+Func}}
+\index{V\+S\+C\+\_\+outbound\+Handler\+Thread\+Func@{V\+S\+C\+\_\+outbound\+Handler\+Thread\+Func}!tcp\+Vehicle\+Socket\+Comm.\+c@{tcp\+Vehicle\+Socket\+Comm.\+c}}
+\subsubsection[{\texorpdfstring{V\+S\+C\+\_\+outbound\+Handler\+Thread\+Func(void $\ast$args)}{VSC_outboundHandlerThreadFunc(void *args)}}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ V\+S\+C\+\_\+outbound\+Handler\+Thread\+Func (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{args}
+\end{DoxyParamCaption}
+)}\hypertarget{tcp_vehicle_socket_comm_8c_a8a9cd2f1bfdc3aada6f66fbddee2aa39}{}\label{tcp_vehicle_socket_comm_8c_a8a9cd2f1bfdc3aada6f66fbddee2aa39}
+
+
+Thread to send the messages to the vehicle. 
+
+It waits for the messages to arrive at the vehicle\textquotesingle{}s outbox and sends them. 
+\begin{DoxyParams}{Parameters}
+{\em args} & The vehicle structure with all his information. \\
+\hline
+\end{DoxyParams}
+\index{tcp\+Vehicle\+Socket\+Comm.\+c@{tcp\+Vehicle\+Socket\+Comm.\+c}!V\+S\+C\+\_\+\+Send\+Message\+To\+Vehicle@{V\+S\+C\+\_\+\+Send\+Message\+To\+Vehicle}}
+\index{V\+S\+C\+\_\+\+Send\+Message\+To\+Vehicle@{V\+S\+C\+\_\+\+Send\+Message\+To\+Vehicle}!tcp\+Vehicle\+Socket\+Comm.\+c@{tcp\+Vehicle\+Socket\+Comm.\+c}}
+\subsubsection[{\texorpdfstring{V\+S\+C\+\_\+\+Send\+Message\+To\+Vehicle(\+P\+M\+E\+S\+S\+A\+G\+E msg, S\+A\+\_\+\+P\+V\+E\+H\+I\+C\+L\+E\+\_\+\+D\+A\+T\+A vehicle)}{VSC_SendMessageToVehicle(PMESSAGE msg, SA_PVEHICLE_DATA vehicle)}}]{\setlength{\rightskip}{0pt plus 5cm}int V\+S\+C\+\_\+\+Send\+Message\+To\+Vehicle (
+\begin{DoxyParamCaption}
+\item[{{\bf P\+M\+E\+S\+S\+A\+GE}}]{msg, }
+\item[{{\bf S\+A\+\_\+\+P\+V\+E\+H\+I\+C\+L\+E\+\_\+\+D\+A\+TA}}]{vehicle}
+\end{DoxyParamCaption}
+)}\hypertarget{tcp_vehicle_socket_comm_8c_a1c76ab448a30a8498f76e22546c81047}{}\label{tcp_vehicle_socket_comm_8c_a1c76ab448a30a8498f76e22546c81047}
+
+
+Send a message to a vehicle. 
+
+It sends a message to the specified vehicle. 
+\begin{DoxyParams}{Parameters}
+{\em msg} & The message to be sent. \\
+\hline
+{\em vehicle} & The vehicle to send the message to. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+If the message was correctly sended, returns 0. -\/1 If an error occurred. 
+\end{DoxyReturn}
+\index{tcp\+Vehicle\+Socket\+Comm.\+c@{tcp\+Vehicle\+Socket\+Comm.\+c}!V\+S\+C\+\_\+shutdown\+Vehicle\+Server@{V\+S\+C\+\_\+shutdown\+Vehicle\+Server}}
+\index{V\+S\+C\+\_\+shutdown\+Vehicle\+Server@{V\+S\+C\+\_\+shutdown\+Vehicle\+Server}!tcp\+Vehicle\+Socket\+Comm.\+c@{tcp\+Vehicle\+Socket\+Comm.\+c}}
+\subsubsection[{\texorpdfstring{V\+S\+C\+\_\+shutdown\+Vehicle\+Server()}{VSC_shutdownVehicleServer()}}]{\setlength{\rightskip}{0pt plus 5cm}void V\+S\+C\+\_\+shutdown\+Vehicle\+Server (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{tcp_vehicle_socket_comm_8c_ad670ed989fdade07d91fd3f1bc38ae03}{}\label{tcp_vehicle_socket_comm_8c_ad670ed989fdade07d91fd3f1bc38ae03}
+
+
+Shutdown the vehicle comunication server. 
+
+It tryes to shutdown the vehicle communication server gracefully by shutting down the sockets, setting an exit condition to the threads and waiting for them to exit. 
+
+\subsection{Variable Documentation}
+\index{tcp\+Vehicle\+Socket\+Comm.\+c@{tcp\+Vehicle\+Socket\+Comm.\+c}!vehicle\+Server\+Stat@{vehicle\+Server\+Stat}}
+\index{vehicle\+Server\+Stat@{vehicle\+Server\+Stat}!tcp\+Vehicle\+Socket\+Comm.\+c@{tcp\+Vehicle\+Socket\+Comm.\+c}}
+\subsubsection[{\texorpdfstring{vehicle\+Server\+Stat}{vehicleServerStat}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf V\+S\+C\+\_\+\+S\+T\+AT} vehicle\+Server\+Stat}\hypertarget{tcp_vehicle_socket_comm_8c_a4761d6baa79afa32a3cffc33901bbd55}{}\label{tcp_vehicle_socket_comm_8c_a4761d6baa79afa32a3cffc33901bbd55}
+
+
+Structure containing all the parameters and the status of the vehicle server. 
+

@@ -1,0 +1,144 @@
+.TH "rasPi-EmergencyStation/messageParser.c" 3 "Thu Jan 21 2016" "Version 0.1" "Emergency station" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+rasPi-EmergencyStation/messageParser.c \- Message parser functions definition\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'messageParser\&.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBMP_initMsgStruc\fP (\fBPMESSAGE\fP msg, int msgSize)"
+.br
+.RI "\fIMessage structure initializer\&. \fP"
+.ti -1c
+.RI "int \fBMP_parseMessage\fP (\fBPMESSAGE\fP msg)"
+.br
+.RI "\fIMessage parser main function\&. \fP"
+.ti -1c
+.RI "void \fBMP_initParser\fP ()"
+.br
+.RI "\fIParser thread initializer\&. \fP"
+.ti -1c
+.RI "void \fBMP_shutdownParser\fP ()"
+.br
+.RI "\fIParser thread shutdown\&. \fP"
+.ti -1c
+.RI "void * \fBMP_ParserThread\fP (void *args)"
+.br
+.RI "\fIThread function for the parser thread\&. \fP"
+.ti -1c
+.RI "void \fBMP_wipeMessage\fP (\fBPMESSAGE\fP msg)"
+.br
+.RI "\fIMessage wiping function\&. \fP"
+.ti -1c
+.RI "\fBPMESSAGE\fP \fBMP_messageReceiver\fP (\fBMP_PRECEIVERSTR\fP rec)"
+.br
+.RI "\fIMessage decoupler and receiver function\&. \fP"
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBPMSGBUFF\fP \fBreceivedMsgBuff\fP"
+.br
+.RI "\fIMailbox for the messages received by the system\&. \fP"
+.ti -1c
+.RI "int \fBparserState\fP"
+.br
+.RI "\fIVariable used to stop the threads when set\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Message parser functions definition\&. 
+
+
+.SH "Function Documentation"
+.PP 
+.SS "void MP_initMsgStruc (\fBPMESSAGE\fP msg, int msgSize)"
+
+.PP
+Message structure initializer\&. Initializes the values of a message structure and allocates the memory\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fImsg\fP The message structure\&. 
+.br
+\fImsgSize\fP The size of the message\&. 
+.RE
+.PP
+
+.SS "void MP_initParser ()"
+
+.PP
+Parser thread initializer\&. Starts the thread that will read the values from the mailbox and treats them\&. 
+.SS "\fBPMESSAGE\fP MP_messageReceiver (\fBMP_PRECEIVERSTR\fP rec)"
+
+.PP
+Message decoupler and receiver function\&. This function reads the messages from the buffers of the sockets and creates a message structure if they are valid\&. Can be used in multiple passes by storing all the state values in a structure passed as parameter\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIrec\fP The function parameter structure\&. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Returns a message structure if a valid message has been read\&. Else returns NULL\&. 
+.RE
+.PP
+
+.SS "int MP_parseMessage (\fBPMESSAGE\fP msg)"
+
+.PP
+Message parser main function\&. Receives a message structure as parameter and decides wich action to take based on the message type\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fImsg\fP The message structure 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+If the message is valid, returns 0\&. Else -1\&. 
+.RE
+.PP
+
+.SS "void* MP_ParserThread (void * args)"
+
+.PP
+Thread function for the parser thread\&. Gets the messages from the mailbox and parses them while the exist condition isn't true\&. 
+.SS "void MP_shutdownParser ()"
+
+.PP
+Parser thread shutdown\&. Sets the exit condition used by the parser thread to shutdown it\&. 
+.SS "void MP_wipeMessage (\fBPMESSAGE\fP msg)"
+
+.PP
+Message wiping function\&. Frees all the memory used by a message structure\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fImsg\fP The message structure to wipe\&. 
+.RE
+.PP
+
+.SH "Variable Documentation"
+.PP 
+.SS "int parserState"
+
+.PP
+Variable used to stop the threads when set\&. 
+.SS "\fBPMSGBUFF\fP receivedMsgBuff"
+
+.PP
+Mailbox for the messages received by the system\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Emergency station from the source code\&.

@@ -1,0 +1,48 @@
+.TH "MCM_threadStruct" 3 "Thu Jan 21 2016" "Version 0.1" "Emergency station" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+MCM_threadStruct \- Structure to pass to the multicast communication threads\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <structures\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "int \fBsocket\fP"
+.br
+.RI "\fISocket number\&. \fP"
+.ti -1c
+.RI "struct sockaddr_in \fBaddress\fP"
+.br
+.RI "\fIAddress from where to listen - send messages\&. \fP"
+.ti -1c
+.RI "\fBPMSGBUFF\fP \fBbuffer\fP"
+.br
+.RI "\fIBuffer where to store/read the messages to be received/sent\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Structure to pass to the multicast communication threads\&. 
+.SH "Field Documentation"
+.PP 
+.SS "struct sockaddr_in address"
+
+.PP
+Address from where to listen - send messages\&. 
+.SS "\fBPMSGBUFF\fP buffer"
+
+.PP
+Buffer where to store/read the messages to be received/sent\&. 
+.SS "int socket"
+
+.PP
+Socket number\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Emergency station from the source code\&.

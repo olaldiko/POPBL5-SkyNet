@@ -1,0 +1,79 @@
+.TH "rasPi-EmergencyStation/msgBuffers.h" 3 "Thu Jan 21 2016" "Version 0.1" "Emergency station" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+rasPi-EmergencyStation/msgBuffers.h \- File containing the headers of all functions related to the message mailboxes\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdio\&.h>\fP
+.br
+\fC#include <pthread\&.h>\fP
+.br
+\fC#include <assert\&.h>\fP
+.br
+\fC#include 'structures\&.h'\fP
+.br
+\fC#include 'messageParser\&.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBPMSGBUFF\fP \fBMB_initBuffer\fP (int maxVals)"
+.br
+.RI "\fICreate a new buffer or mailbox and initialize it for n values\&. \fP"
+.ti -1c
+.RI "void \fBMB_putMessage\fP (\fBPMSGBUFF\fP buffer, struct \fBMESSAGE\fP *msg)"
+.br
+.ti -1c
+.RI "\fBPMESSAGE\fP \fBMB_getMessage\fP (\fBPMSGBUFF\fP buffer)"
+.br
+.RI "\fIGet a message from the buffer\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+File containing the headers of all functions related to the message mailboxes\&. 
+
+
+.SH "Function Documentation"
+.PP 
+.SS "\fBPMESSAGE\fP MB_getMessage (\fBPMSGBUFF\fP buffer)"
+
+.PP
+Get a message from the buffer\&. This function will get a message from the selected buffer and return it's pointer\&. If the buffer is empty, it will wait for a value to be available\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIbuffer\fP The buffer to get the message\&. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+The pointer to the adquired message\&. 
+.RE
+.PP
+
+.SS "\fBPMSGBUFF\fP MB_initBuffer (int maxVals)"
+
+.PP
+Create a new buffer or mailbox and initialize it for n values\&. This function creates a new buffer by allocating all the memory, mutexes and values needed and returns the pointer to the newly created buffer\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fImaxVals\fP The maximum number of values\&. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+The pointer to the new buffer structure\&. 
+.RE
+.PP
+
+.SS "void MB_putMessage (\fBPMSGBUFF\fP buffer, struct \fBMESSAGE\fP * msg)"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Emergency station from the source code\&.

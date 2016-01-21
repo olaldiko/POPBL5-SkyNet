@@ -1,11 +1,4 @@
-//
-//  msgBuffers.h
-//  rasPi-EmergencyStation
-//
-//  Created by Gorka Olalde Mendia on 6/12/15.
-//  Copyright © 2015 Gorka Olalde Mendia. All rights reserved.
-//
-
+/** @file msgBuffers.h File containing the headers of all functions related to the message mailboxes. */
 #ifndef msgBuffers_h
 #define msgBuffers_h
 

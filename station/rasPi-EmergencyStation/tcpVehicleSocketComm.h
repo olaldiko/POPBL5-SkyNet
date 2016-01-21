@@ -1,10 +1,4 @@
-//
-//  tcpVehicleSocketComm.h
-//  rasPi-EmergencyStation
-//
-//  Created by Gorka Olalde Mendia on 9/12/15.
-//  Copyright © 2015 Gorka Olalde Mendia. All rights reserved.
-//
+/** @file tcpVehicleSocketComm.h Vehicle connection server's headers */
 
 #ifndef tcpVehicleSocketComm_h
 #define tcpVehicleSocketComm_h
@@ -23,10 +17,10 @@
 #include "stationActions.h"
 
 
-#define VSC_SRV_PORT 6000
-#define VSC_MAXPENDING 10
-#define VSC_SOCKBUF_LEN 512
-
+#define VSC_SRV_PORT 6000 /**< Port of where the vehicle connection server will listen definition*/
+#define VSC_MAXPENDING 10 /**< Max pending messages definition*/
+#define VSC_SOCKBUF_LEN 512 /**< Size of the receiver buffer */
+#define VSC_MAXRCV_LEN 510 /**< Max size of the received messages stored in the buffer */
 
 
 void VSC_initVehicleServer();

@@ -1,0 +1,40 @@
+.TH "MSGQUEUE" 3 "Thu Jan 21 2016" "Version 0.1" "Emergency station" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+MSGQUEUE \- Node element structure of the message mailbox/buffer\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <structures\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "struct \fBMESSAGE\fP * \fBmsg\fP"
+.br
+.RI "\fIMessage stored in the node\&. \fP"
+.ti -1c
+.RI "struct \fBMSGQUEUE\fP * \fBnext\fP"
+.br
+.RI "\fIPointer to the next node in the queue\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Node element structure of the message mailbox/buffer\&. 
+.SH "Field Documentation"
+.PP 
+.SS "struct \fBMESSAGE\fP* msg"
+
+.PP
+Message stored in the node\&. 
+.SS "struct \fBMSGQUEUE\fP* next"
+
+.PP
+Pointer to the next node in the queue\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Emergency station from the source code\&.

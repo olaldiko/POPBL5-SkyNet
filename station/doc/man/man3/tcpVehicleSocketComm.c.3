@@ -1,0 +1,116 @@
+.TH "rasPi-EmergencyStation/tcpVehicleSocketComm.c" 3 "Thu Jan 21 2016" "Version 0.1" "Emergency station" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+rasPi-EmergencyStation/tcpVehicleSocketComm.c \- Vehicle connection server related function definitions\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'tcpVehicleSocketComm\&.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBVSC_initVehicleServer\fP ()"
+.br
+.RI "\fIInitialize the vehicle comunication server\&. \fP"
+.ti -1c
+.RI "void \fBVSC_acceptConnections\fP ()"
+.br
+.RI "\fIAccept the new connections from vehicles\&. \fP"
+.ti -1c
+.RI "void \fBVSC_shutdownVehicleServer\fP ()"
+.br
+.RI "\fIShutdown the vehicle comunication server\&. \fP"
+.ti -1c
+.RI "void * \fBVSC_inboundHandlerThreadFunc\fP (void *args)"
+.br
+.RI "\fIThread to handle the inbound messages from the vehicles\&. \fP"
+.ti -1c
+.RI "void * \fBVSC_outboundHandlerThreadFunc\fP (void *args)"
+.br
+.RI "\fIThread to send the messages to the vehicle\&. \fP"
+.ti -1c
+.RI "int \fBVSC_SendMessageToVehicle\fP (\fBPMESSAGE\fP msg, \fBSA_PVEHICLE_DATA\fP vehicle)"
+.br
+.RI "\fISend a message to a vehicle\&. \fP"
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBVSC_STAT\fP \fBvehicleServerStat\fP"
+.br
+.RI "\fIStructure containing all the parameters and the status of the vehicle server\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Vehicle connection server related function definitions\&. 
+
+
+.SH "Function Documentation"
+.PP 
+.SS "void VSC_acceptConnections ()"
+
+.PP
+Accept the new connections from vehicles\&. It accepts the new connection and creates a new thread to listen for the messages from them\&. 
+.SS "void* VSC_inboundHandlerThreadFunc (void * args)"
+
+.PP
+Thread to handle the inbound messages from the vehicles\&. When a new connection arrives, in the first message sets the handling thread as itself to assign itself as the handling thread to add it to the vehicle structure after the id is know when parsing the message\&. When a disconnection occurs, marks that vehicle as disconnected and the thread exits\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIargs\fP The client socket number\&. 
+.RE
+.PP
+
+.SS "void VSC_initVehicleServer ()"
+
+.PP
+Initialize the vehicle comunication server\&. It initializes the needed sockets, binds to an interface and listens for connections\&. 
+.SS "void* VSC_outboundHandlerThreadFunc (void * args)"
+
+.PP
+Thread to send the messages to the vehicle\&. It waits for the messages to arrive at the vehicle's outbox and sends them\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIargs\fP The vehicle structure with all his information\&. 
+.RE
+.PP
+
+.SS "int VSC_SendMessageToVehicle (\fBPMESSAGE\fP msg, \fBSA_PVEHICLE_DATA\fP vehicle)"
+
+.PP
+Send a message to a vehicle\&. It sends a message to the specified vehicle\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fImsg\fP The message to be sent\&. 
+.br
+\fIvehicle\fP The vehicle to send the message to\&. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+If the message was correctly sended, returns 0\&. -1 If an error occurred\&. 
+.RE
+.PP
+
+.SS "void VSC_shutdownVehicleServer ()"
+
+.PP
+Shutdown the vehicle comunication server\&. It tryes to shutdown the vehicle communication server gracefully by shutting down the sockets, setting an exit condition to the threads and waiting for them to exit\&. 
+.SH "Variable Documentation"
+.PP 
+.SS "\fBVSC_STAT\fP vehicleServerStat"
+
+.PP
+Structure containing all the parameters and the status of the vehicle server\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Emergency station from the source code\&.
