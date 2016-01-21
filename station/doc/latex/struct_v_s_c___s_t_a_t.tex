@@ -1,0 +1,79 @@
+\hypertarget{struct_v_s_c___s_t_a_t}{}\section{V\+S\+C\+\_\+\+S\+T\+AT Struct Reference}
+\label{struct_v_s_c___s_t_a_t}\index{V\+S\+C\+\_\+\+S\+T\+AT@{V\+S\+C\+\_\+\+S\+T\+AT}}
+
+
+Structure to store the parameters of the vehicle communication server.  
+
+
+
+
+{\ttfamily \#include $<$structures.\+h$>$}
+
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{struct_v_s_c___s_t_a_t_a89f234133d3efe315836311cbf21c64b}{state}
+\begin{DoxyCompactList}\small\item\em State of the vehicle connection server. \end{DoxyCompactList}\item 
+int \hyperlink{struct_v_s_c___s_t_a_t_a106cd1d02a334c78f546d2897a1b939c}{server\+Socket}
+\begin{DoxyCompactList}\small\item\em Server socket number. \end{DoxyCompactList}\item 
+struct sockaddr\+\_\+in \hyperlink{struct_v_s_c___s_t_a_t_aa6596d8b411e7221fd256518fe443060}{server\+Socket\+Struct}
+\begin{DoxyCompactList}\small\item\em Structure of the server socket containing the port to listen to and the interface to bind. \end{DoxyCompactList}\item 
+int \hyperlink{struct_v_s_c___s_t_a_t_a67eae050a73c271691a9fb1280b4b358}{sock\+Size}
+\begin{DoxyCompactList}\small\item\em Size of the socket structure. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{struct_v_s_c___s_t_a_t_aff2566f4c366b48d73479bef43ee4d2e}{buffer}
+\begin{DoxyCompactList}\small\item\em Pointer to the buffer to store the incoming data. \end{DoxyCompactList}\item 
+pthread\+\_\+t \hyperlink{struct_v_s_c___s_t_a_t_a25ed3dd1e477db634fc901c587d710a7}{listen\+Thread}
+\begin{DoxyCompactList}\small\item\em Thread to listen to the incoming connections. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Structure to store the parameters of the vehicle communication server. 
+
+\subsection{Field Documentation}
+\index{V\+S\+C\+\_\+\+S\+T\+AT@{V\+S\+C\+\_\+\+S\+T\+AT}!buffer@{buffer}}
+\index{buffer@{buffer}!V\+S\+C\+\_\+\+S\+T\+AT@{V\+S\+C\+\_\+\+S\+T\+AT}}
+\subsubsection[{\texorpdfstring{buffer}{buffer}}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ buffer}\hypertarget{struct_v_s_c___s_t_a_t_aff2566f4c366b48d73479bef43ee4d2e}{}\label{struct_v_s_c___s_t_a_t_aff2566f4c366b48d73479bef43ee4d2e}
+
+
+Pointer to the buffer to store the incoming data. 
+
+\index{V\+S\+C\+\_\+\+S\+T\+AT@{V\+S\+C\+\_\+\+S\+T\+AT}!listen\+Thread@{listen\+Thread}}
+\index{listen\+Thread@{listen\+Thread}!V\+S\+C\+\_\+\+S\+T\+AT@{V\+S\+C\+\_\+\+S\+T\+AT}}
+\subsubsection[{\texorpdfstring{listen\+Thread}{listenThread}}]{\setlength{\rightskip}{0pt plus 5cm}pthread\+\_\+t listen\+Thread}\hypertarget{struct_v_s_c___s_t_a_t_a25ed3dd1e477db634fc901c587d710a7}{}\label{struct_v_s_c___s_t_a_t_a25ed3dd1e477db634fc901c587d710a7}
+
+
+Thread to listen to the incoming connections. 
+
+\index{V\+S\+C\+\_\+\+S\+T\+AT@{V\+S\+C\+\_\+\+S\+T\+AT}!server\+Socket@{server\+Socket}}
+\index{server\+Socket@{server\+Socket}!V\+S\+C\+\_\+\+S\+T\+AT@{V\+S\+C\+\_\+\+S\+T\+AT}}
+\subsubsection[{\texorpdfstring{server\+Socket}{serverSocket}}]{\setlength{\rightskip}{0pt plus 5cm}int server\+Socket}\hypertarget{struct_v_s_c___s_t_a_t_a106cd1d02a334c78f546d2897a1b939c}{}\label{struct_v_s_c___s_t_a_t_a106cd1d02a334c78f546d2897a1b939c}
+
+
+Server socket number. 
+
+\index{V\+S\+C\+\_\+\+S\+T\+AT@{V\+S\+C\+\_\+\+S\+T\+AT}!server\+Socket\+Struct@{server\+Socket\+Struct}}
+\index{server\+Socket\+Struct@{server\+Socket\+Struct}!V\+S\+C\+\_\+\+S\+T\+AT@{V\+S\+C\+\_\+\+S\+T\+AT}}
+\subsubsection[{\texorpdfstring{server\+Socket\+Struct}{serverSocketStruct}}]{\setlength{\rightskip}{0pt plus 5cm}struct sockaddr\+\_\+in server\+Socket\+Struct}\hypertarget{struct_v_s_c___s_t_a_t_aa6596d8b411e7221fd256518fe443060}{}\label{struct_v_s_c___s_t_a_t_aa6596d8b411e7221fd256518fe443060}
+
+
+Structure of the server socket containing the port to listen to and the interface to bind. 
+
+\index{V\+S\+C\+\_\+\+S\+T\+AT@{V\+S\+C\+\_\+\+S\+T\+AT}!sock\+Size@{sock\+Size}}
+\index{sock\+Size@{sock\+Size}!V\+S\+C\+\_\+\+S\+T\+AT@{V\+S\+C\+\_\+\+S\+T\+AT}}
+\subsubsection[{\texorpdfstring{sock\+Size}{sockSize}}]{\setlength{\rightskip}{0pt plus 5cm}int sock\+Size}\hypertarget{struct_v_s_c___s_t_a_t_a67eae050a73c271691a9fb1280b4b358}{}\label{struct_v_s_c___s_t_a_t_a67eae050a73c271691a9fb1280b4b358}
+
+
+Size of the socket structure. 
+
+\index{V\+S\+C\+\_\+\+S\+T\+AT@{V\+S\+C\+\_\+\+S\+T\+AT}!state@{state}}
+\index{state@{state}!V\+S\+C\+\_\+\+S\+T\+AT@{V\+S\+C\+\_\+\+S\+T\+AT}}
+\subsubsection[{\texorpdfstring{state}{state}}]{\setlength{\rightskip}{0pt plus 5cm}int state}\hypertarget{struct_v_s_c___s_t_a_t_a89f234133d3efe315836311cbf21c64b}{}\label{struct_v_s_c___s_t_a_t_a89f234133d3efe315836311cbf21c64b}
+
+
+State of the vehicle connection server. 
+
+Used by the threads to know when they have to exit. 0 -\/ Stop, 1 -\/ Active 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structures_8h}{structures.\+h}\end{DoxyCompactItemize}

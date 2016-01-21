@@ -1,0 +1,80 @@
+.TH "SA_VEHICLE_DATA" 3 "Thu Jan 21 2016" "Version 0.1" "Emergency station" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SA_VEHICLE_DATA \- Structure to store the vehicles connected to the station\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <structures\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "int \fBid\fP"
+.br
+.RI "\fIThe vehicle ID\&. \fP"
+.ti -1c
+.RI "int \fBclientSocket\fP"
+.br
+.RI "\fIThe socket where the vehicle is connected\&. \fP"
+.ti -1c
+.RI "int \fBisConnected\fP"
+.br
+.RI "\fIState of the vehicle\&. \fP"
+.ti -1c
+.RI "struct sockaddr_in \fBclientSocketStruct\fP"
+.br
+.RI "\fISocket struct of the connected vehicle\&. \fP"
+.ti -1c
+.RI "\fBPMSGBUFF\fP \fBoutbox\fP"
+.br
+.RI "\fIOutbox to store the messages to be sent to the vehicle\&. \fP"
+.ti -1c
+.RI "pthread_t \fBinboxThread\fP"
+.br
+.RI "\fIThread handling the messages coming from the vehicle\&. \fP"
+.ti -1c
+.RI "pthread_t \fBoutboxThread\fP"
+.br
+.RI "\fIThread handling the messages to be sent to the vehicle\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Structure to store the vehicles connected to the station\&. 
+.SH "Field Documentation"
+.PP 
+.SS "int clientSocket"
+
+.PP
+The socket where the vehicle is connected\&. 
+.SS "struct sockaddr_in clientSocketStruct"
+
+.PP
+Socket struct of the connected vehicle\&. 
+.SS "int id"
+
+.PP
+The vehicle ID\&. 
+.SS "pthread_t inboxThread"
+
+.PP
+Thread handling the messages coming from the vehicle\&. 
+.SS "int isConnected"
+
+.PP
+State of the vehicle\&. 1 - Connected, 0 - Disconnected\&. 
+.SS "\fBPMSGBUFF\fP outbox"
+
+.PP
+Outbox to store the messages to be sent to the vehicle\&. 
+.SS "pthread_t outboxThread"
+
+.PP
+Thread handling the messages to be sent to the vehicle\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Emergency station from the source code\&.

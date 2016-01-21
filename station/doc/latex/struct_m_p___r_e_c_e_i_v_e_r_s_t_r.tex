@@ -1,0 +1,106 @@
+\hypertarget{struct_m_p___r_e_c_e_i_v_e_r_s_t_r}{}\section{M\+P\+\_\+\+R\+E\+C\+E\+I\+V\+E\+R\+S\+TR Struct Reference}
+\label{struct_m_p___r_e_c_e_i_v_e_r_s_t_r}\index{M\+P\+\_\+\+R\+E\+C\+E\+I\+V\+E\+R\+S\+TR@{M\+P\+\_\+\+R\+E\+C\+E\+I\+V\+E\+R\+S\+TR}}
+
+
+Structure used in the message receiver function to store it\textquotesingle{}s state.  
+
+
+
+
+{\ttfamily \#include $<$structures.\+h$>$}
+
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{struct_m_p___r_e_c_e_i_v_e_r_s_t_r_a470ff37d8c92bdd5c64fbdce0ad5231b}{msg\+Length}
+\begin{DoxyCompactList}\small\item\em Lenght of the last received message. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{struct_m_p___r_e_c_e_i_v_e_r_s_t_r_ad7596f9bf59cc07314a716781969cf96}{client\+Buff}
+\begin{DoxyCompactList}\small\item\em Pointer to the client buffer\textquotesingle{}s start address. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{struct_m_p___r_e_c_e_i_v_e_r_s_t_r_a79e1507f8db9f4b76e641a8ad6f05729}{msg\+Buff}
+\begin{DoxyCompactList}\small\item\em Pointer to the receiver\textquotesingle{}s internal buffer. \end{DoxyCompactList}\item 
+int \hyperlink{struct_m_p___r_e_c_e_i_v_e_r_s_t_r_a178a88ce8bf1f116a5d9ce779f71ca86}{buffer\+Length}
+\begin{DoxyCompactList}\small\item\em Lenght of the socket\textquotesingle{}s buffer. \end{DoxyCompactList}\item 
+int \hyperlink{struct_m_p___r_e_c_e_i_v_e_r_s_t_r_a26a2ef9150d7d3fe094647e715bb60a4}{max\+Msg\+Length}
+\begin{DoxyCompactList}\small\item\em Maximum lenght of the message stored in the socket\textquotesingle{}s buffer. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{struct_m_p___r_e_c_e_i_v_e_r_s_t_r_ac1722435ceb1acbb5e33799c13e6564f}{stx\+Pos}
+\begin{DoxyCompactList}\small\item\em Position of the S\+TX character in the message. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{struct_m_p___r_e_c_e_i_v_e_r_s_t_r_a39c0e3d40870be82eaa342fd58fe9ba9}{etx\+Pos}
+\begin{DoxyCompactList}\small\item\em Position of the E\+XT character in the message. \end{DoxyCompactList}\item 
+int \hyperlink{struct_m_p___r_e_c_e_i_v_e_r_s_t_r_a14a10ff130d21a1ac68bc933e35e635a}{in\+Msg}
+\begin{DoxyCompactList}\small\item\em State of the reading process of the message. \end{DoxyCompactList}\item 
+int \hyperlink{struct_m_p___r_e_c_e_i_v_e_r_s_t_r_ab1326ba5ad761ac81725f9c02523030f}{stx\+Found}
+\begin{DoxyCompactList}\small\item\em Tells if the S\+TX character has been found or not. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Structure used in the message receiver function to store it\textquotesingle{}s state. 
+
+\subsection{Field Documentation}
+\index{M\+P\+\_\+\+R\+E\+C\+E\+I\+V\+E\+R\+S\+TR@{M\+P\+\_\+\+R\+E\+C\+E\+I\+V\+E\+R\+S\+TR}!buffer\+Length@{buffer\+Length}}
+\index{buffer\+Length@{buffer\+Length}!M\+P\+\_\+\+R\+E\+C\+E\+I\+V\+E\+R\+S\+TR@{M\+P\+\_\+\+R\+E\+C\+E\+I\+V\+E\+R\+S\+TR}}
+\subsubsection[{\texorpdfstring{buffer\+Length}{bufferLength}}]{\setlength{\rightskip}{0pt plus 5cm}int buffer\+Length}\hypertarget{struct_m_p___r_e_c_e_i_v_e_r_s_t_r_a178a88ce8bf1f116a5d9ce779f71ca86}{}\label{struct_m_p___r_e_c_e_i_v_e_r_s_t_r_a178a88ce8bf1f116a5d9ce779f71ca86}
+
+
+Lenght of the socket\textquotesingle{}s buffer. 
+
+\index{M\+P\+\_\+\+R\+E\+C\+E\+I\+V\+E\+R\+S\+TR@{M\+P\+\_\+\+R\+E\+C\+E\+I\+V\+E\+R\+S\+TR}!client\+Buff@{client\+Buff}}
+\index{client\+Buff@{client\+Buff}!M\+P\+\_\+\+R\+E\+C\+E\+I\+V\+E\+R\+S\+TR@{M\+P\+\_\+\+R\+E\+C\+E\+I\+V\+E\+R\+S\+TR}}
+\subsubsection[{\texorpdfstring{client\+Buff}{clientBuff}}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ client\+Buff}\hypertarget{struct_m_p___r_e_c_e_i_v_e_r_s_t_r_ad7596f9bf59cc07314a716781969cf96}{}\label{struct_m_p___r_e_c_e_i_v_e_r_s_t_r_ad7596f9bf59cc07314a716781969cf96}
+
+
+Pointer to the client buffer\textquotesingle{}s start address. 
+
+\index{M\+P\+\_\+\+R\+E\+C\+E\+I\+V\+E\+R\+S\+TR@{M\+P\+\_\+\+R\+E\+C\+E\+I\+V\+E\+R\+S\+TR}!etx\+Pos@{etx\+Pos}}
+\index{etx\+Pos@{etx\+Pos}!M\+P\+\_\+\+R\+E\+C\+E\+I\+V\+E\+R\+S\+TR@{M\+P\+\_\+\+R\+E\+C\+E\+I\+V\+E\+R\+S\+TR}}
+\subsubsection[{\texorpdfstring{etx\+Pos}{etxPos}}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ etx\+Pos}\hypertarget{struct_m_p___r_e_c_e_i_v_e_r_s_t_r_a39c0e3d40870be82eaa342fd58fe9ba9}{}\label{struct_m_p___r_e_c_e_i_v_e_r_s_t_r_a39c0e3d40870be82eaa342fd58fe9ba9}
+
+
+Position of the E\+XT character in the message. 
+
+\index{M\+P\+\_\+\+R\+E\+C\+E\+I\+V\+E\+R\+S\+TR@{M\+P\+\_\+\+R\+E\+C\+E\+I\+V\+E\+R\+S\+TR}!in\+Msg@{in\+Msg}}
+\index{in\+Msg@{in\+Msg}!M\+P\+\_\+\+R\+E\+C\+E\+I\+V\+E\+R\+S\+TR@{M\+P\+\_\+\+R\+E\+C\+E\+I\+V\+E\+R\+S\+TR}}
+\subsubsection[{\texorpdfstring{in\+Msg}{inMsg}}]{\setlength{\rightskip}{0pt plus 5cm}int in\+Msg}\hypertarget{struct_m_p___r_e_c_e_i_v_e_r_s_t_r_a14a10ff130d21a1ac68bc933e35e635a}{}\label{struct_m_p___r_e_c_e_i_v_e_r_s_t_r_a14a10ff130d21a1ac68bc933e35e635a}
+
+
+State of the reading process of the message. 
+
+\index{M\+P\+\_\+\+R\+E\+C\+E\+I\+V\+E\+R\+S\+TR@{M\+P\+\_\+\+R\+E\+C\+E\+I\+V\+E\+R\+S\+TR}!max\+Msg\+Length@{max\+Msg\+Length}}
+\index{max\+Msg\+Length@{max\+Msg\+Length}!M\+P\+\_\+\+R\+E\+C\+E\+I\+V\+E\+R\+S\+TR@{M\+P\+\_\+\+R\+E\+C\+E\+I\+V\+E\+R\+S\+TR}}
+\subsubsection[{\texorpdfstring{max\+Msg\+Length}{maxMsgLength}}]{\setlength{\rightskip}{0pt plus 5cm}int max\+Msg\+Length}\hypertarget{struct_m_p___r_e_c_e_i_v_e_r_s_t_r_a26a2ef9150d7d3fe094647e715bb60a4}{}\label{struct_m_p___r_e_c_e_i_v_e_r_s_t_r_a26a2ef9150d7d3fe094647e715bb60a4}
+
+
+Maximum lenght of the message stored in the socket\textquotesingle{}s buffer. 
+
+\index{M\+P\+\_\+\+R\+E\+C\+E\+I\+V\+E\+R\+S\+TR@{M\+P\+\_\+\+R\+E\+C\+E\+I\+V\+E\+R\+S\+TR}!msg\+Buff@{msg\+Buff}}
+\index{msg\+Buff@{msg\+Buff}!M\+P\+\_\+\+R\+E\+C\+E\+I\+V\+E\+R\+S\+TR@{M\+P\+\_\+\+R\+E\+C\+E\+I\+V\+E\+R\+S\+TR}}
+\subsubsection[{\texorpdfstring{msg\+Buff}{msgBuff}}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ msg\+Buff}\hypertarget{struct_m_p___r_e_c_e_i_v_e_r_s_t_r_a79e1507f8db9f4b76e641a8ad6f05729}{}\label{struct_m_p___r_e_c_e_i_v_e_r_s_t_r_a79e1507f8db9f4b76e641a8ad6f05729}
+
+
+Pointer to the receiver\textquotesingle{}s internal buffer. 
+
+\index{M\+P\+\_\+\+R\+E\+C\+E\+I\+V\+E\+R\+S\+TR@{M\+P\+\_\+\+R\+E\+C\+E\+I\+V\+E\+R\+S\+TR}!msg\+Length@{msg\+Length}}
+\index{msg\+Length@{msg\+Length}!M\+P\+\_\+\+R\+E\+C\+E\+I\+V\+E\+R\+S\+TR@{M\+P\+\_\+\+R\+E\+C\+E\+I\+V\+E\+R\+S\+TR}}
+\subsubsection[{\texorpdfstring{msg\+Length}{msgLength}}]{\setlength{\rightskip}{0pt plus 5cm}int msg\+Length}\hypertarget{struct_m_p___r_e_c_e_i_v_e_r_s_t_r_a470ff37d8c92bdd5c64fbdce0ad5231b}{}\label{struct_m_p___r_e_c_e_i_v_e_r_s_t_r_a470ff37d8c92bdd5c64fbdce0ad5231b}
+
+
+Lenght of the last received message. 
+
+\index{M\+P\+\_\+\+R\+E\+C\+E\+I\+V\+E\+R\+S\+TR@{M\+P\+\_\+\+R\+E\+C\+E\+I\+V\+E\+R\+S\+TR}!stx\+Found@{stx\+Found}}
+\index{stx\+Found@{stx\+Found}!M\+P\+\_\+\+R\+E\+C\+E\+I\+V\+E\+R\+S\+TR@{M\+P\+\_\+\+R\+E\+C\+E\+I\+V\+E\+R\+S\+TR}}
+\subsubsection[{\texorpdfstring{stx\+Found}{stxFound}}]{\setlength{\rightskip}{0pt plus 5cm}int stx\+Found}\hypertarget{struct_m_p___r_e_c_e_i_v_e_r_s_t_r_ab1326ba5ad761ac81725f9c02523030f}{}\label{struct_m_p___r_e_c_e_i_v_e_r_s_t_r_ab1326ba5ad761ac81725f9c02523030f}
+
+
+Tells if the S\+TX character has been found or not. 
+
+\index{M\+P\+\_\+\+R\+E\+C\+E\+I\+V\+E\+R\+S\+TR@{M\+P\+\_\+\+R\+E\+C\+E\+I\+V\+E\+R\+S\+TR}!stx\+Pos@{stx\+Pos}}
+\index{stx\+Pos@{stx\+Pos}!M\+P\+\_\+\+R\+E\+C\+E\+I\+V\+E\+R\+S\+TR@{M\+P\+\_\+\+R\+E\+C\+E\+I\+V\+E\+R\+S\+TR}}
+\subsubsection[{\texorpdfstring{stx\+Pos}{stxPos}}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ stx\+Pos}\hypertarget{struct_m_p___r_e_c_e_i_v_e_r_s_t_r_ac1722435ceb1acbb5e33799c13e6564f}{}\label{struct_m_p___r_e_c_e_i_v_e_r_s_t_r_ac1722435ceb1acbb5e33799c13e6564f}
+
+
+Position of the S\+TX character in the message. 
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structures_8h}{structures.\+h}\end{DoxyCompactItemize}

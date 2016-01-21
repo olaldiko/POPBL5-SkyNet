@@ -1,0 +1,77 @@
+.TH "rasPi-EmergencyStation/main.c" 3 "Thu Jan 21 2016" "Version 0.1" "Emergency station" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+rasPi-EmergencyStation/main.c \- Main file and functions of the emergency station application\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'main\&.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void * \fBmcastConnControlThread\fP (void *args)"
+.br
+.RI "\fIThread for controlling the multicast server initialization and shutdown\&. \fP"
+.ti -1c
+.RI "void * \fBserverConnControlThread\fP (void *args)"
+.br
+.RI "\fIThread for controlling the server client initialization and shutdown\&. \fP"
+.ti -1c
+.RI "void * \fBvehicleConnControlThread\fP (void *args)"
+.br
+.RI "\fIThread for controlling the vehicle server initialization and shutdown\&. \fP"
+.ti -1c
+.RI "void \fBsig_handler\fP (int signo)"
+.br
+.RI "\fISignal handler of the application\&. \fP"
+.ti -1c
+.RI "int \fBmain\fP (int argc, const char *argv[])"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "int \fBexitCond\fP = 0"
+.br
+.RI "\fIGlobal to store the exit condition of the application\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Main file and functions of the emergency station application\&. 
+
+
+.SH "Function Documentation"
+.PP 
+.SS "int main (int argc, const char * argv[])"
+
+.SS "void * mcastConnControlThread (void * args)"
+
+.PP
+Thread for controlling the multicast server initialization and shutdown\&. Thread to control the initialization and shutdown of the multicast server\&.
+.SS "void * serverConnControlThread (void * args)"
+
+.PP
+Thread for controlling the server client initialization and shutdown\&. Thread for controlling the communications to the server initialization and shutdown\&.
+.SS "void sig_handler (int signo)"
+
+.PP
+Signal handler of the application\&. Catches the SIGTERM and SIGINT signals and sets the exit condition of the application\&. 
+.SS "void * vehicleConnControlThread (void * args)"
+
+.PP
+Thread for controlling the vehicle server initialization and shutdown\&. Thread for controlling the vehicle communication server initialization and shutdown\&.
+.SH "Variable Documentation"
+.PP 
+.SS "int exitCond = 0"
+
+.PP
+Global to store the exit condition of the application\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Emergency station from the source code\&.

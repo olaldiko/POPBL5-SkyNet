@@ -1,10 +1,4 @@
-//
-//  tcpServerSocketComm.h
-//  rasPi-EmergencyStation
-//
-//  Created by Gorka Olalde Mendia on 9/12/15.
-//  Copyright © 2015 Gorka Olalde Mendia. All rights reserved.
-//
+/** @file tcpServerSocketComm.c Server connection related function headers */
 
 #ifndef tcpServerSocketComm_h
 #define tcpServerSocketComm_h
@@ -21,10 +15,10 @@
 #include "msgBuffers.h"
 #include "messageParser.h"
 
-#define SSC_SRV_ADDRESS "localhost"
+#define SSC_SRV_ADDRESS "ayerdi"
 #define SSC_SRV_PORT 5000
 #define SSC_SRV_BUFLEN 1024
-#define SSC_RCV_MAXLEN 1022
+#define SSC_RCV_MAXLEN 1020
 
 extern SSC_STAT serverSocketStat;
 

@@ -1,15 +1,13 @@
-//
-//  tcpVehicleSocketComm.c
-//  rasPi-EmergencyStation
-//
-//  Created by Gorka Olalde Mendia on 9/12/15.
-//  Copyright © 2015 Gorka Olalde Mendia. All rights reserved.
-//
+/** @file tcpVehicleSocketComm.c Vehicle connection server related function definitions */
 
 #include "tcpVehicleSocketComm.h"
 
-VSC_STAT vehicleServerStat;
+VSC_STAT vehicleServerStat; /**< Structure containing all the parameters and the status of the vehicle server. */
 
+/**
+ * Initialize the vehicle comunication server. 
+ * It initializes the needed sockets, binds to an interface and listens for connections.
+ **/
 void VSC_initVehicleServer() {
 	int waitTime = 1;
 	vehicleServerStat.state = 1;
@@ -27,17 +25,23 @@ void VSC_initVehicleServer() {
 	//setsockopt(vehicleServerStat.serverSocket, SOL_SOCKET, SO_REUSEADDR, &(int){ 1 }, sizeof(int));
 	while (bind(vehicleServerStat.serverSocket, (struct sockaddr*)&vehicleServerStat.serverSocketStruct, (socklen_t)vehicleServerStat.sockSize) < 0) {
 		perror("Error binding vehicle server socket");
+		sleep(waitTime);
 		waitTime <<=1;
 	}
 	waitTime = 1;
 	
 	while (listen(vehicleServerStat.serverSocket, VSC_MAXPENDING) < 0) {
 		perror("Error when listening connections in vehicle server socket");
+		sleep(waitTime);
 		waitTime <<=1;
 	}
 	VSC_acceptConnections();
 }
 
+/**
+ * Accept the new connections from vehicles. 
+ * It accepts the new connection and creates a new thread to listen for the messages from them.
+ **/
 void VSC_acceptConnections() {
 	int clientSock;
 	pthread_t *thread;
@@ -49,6 +53,12 @@ void VSC_acceptConnections() {
 		pthread_create(thread, NULL, VSC_inboundHandlerThreadFunc, (void *)clientSock);
 	}
 }
+
+/**
+ * Shutdown the vehicle comunication server. 
+ * It tryes to shutdown the vehicle communication server gracefully by shutting down the sockets,
+ * setting an exit condition to the threads and waiting for them to exit.
+ **/
 void VSC_shutdownVehicleServer() {
 	vehicleServerStat.state = 0;
 	SA_PVEHICLE_DATA vehicle;
@@ -64,7 +74,14 @@ void VSC_shutdownVehicleServer() {
 	pthread_join(vehicleServerStat.listenThread, NULL);
 }
 
-
+/**
+ * Thread to handle the inbound messages from the vehicles. 
+ * When a new connection arrives, in the first message sets the handling thread
+ * as itself to assign itself as the handling thread to add it to the vehicle structure 
+ * after the id is know when parsing the message. 
+ * When a disconnection occurs, marks that vehicle as disconnected and the thread exits.
+ * @param args The client socket number.
+ **/
 void* VSC_inboundHandlerThreadFunc(void* args) {
 	int clientSock = (int)args;
 	int msgLength = 0;
@@ -75,8 +92,6 @@ void* VSC_inboundHandlerThreadFunc(void* args) {
 	receiver->maxMsgLength = VSC_MAXRCV_LEN;
 	int firstMessage = 1;
 	PMESSAGE msg;
-	struct sockaddr_in* clientSocketStruct = NULL;
-	int sockSize = sizeof(struct sockaddr_in);
 	SA_PVEHICLE_DATA vehicle;
 	while (((msgLength = (int)recv(clientSock, clientBuff, VSC_MAXRCV_LEN, 0)) > 0) && vehicleServerStat.state == 1) {
 		printf("Mensaje recibido: %s, msgLength: %d\n", clientBuff, msgLength);
@@ -103,6 +118,11 @@ void* VSC_inboundHandlerThreadFunc(void* args) {
 	pthread_exit(NULL);
 }
 
+/**
+ * Thread to send the messages to the vehicle. 
+ * It waits for the messages to arrive at the vehicle's outbox and sends them.
+ * @param args The vehicle structure with all his information.
+ **/
 void* VSC_outboundHandlerThreadFunc(void* args) {
 	SA_PVEHICLE_DATA vehicle = (SA_PVEHICLE_DATA)args;
 	PMESSAGE msg;
@@ -113,17 +133,18 @@ void* VSC_outboundHandlerThreadFunc(void* args) {
 	}
 	pthread_exit(NULL);
 }
-
+/**
+ * Send a message to a vehicle. It sends a message to the specified vehicle.
+ * @param msg The message to be sent.
+ * @param vehicle The vehicle to send the message to.
+ * @return If the message was correctly sended, returns 0. -1 If an error occurred.
+ **/
 int VSC_SendMessageToVehicle(PMESSAGE msg, SA_PVEHICLE_DATA vehicle) {
 	printf("Enviando mensaje a vehiculo %d-> %s\n", vehicle->id, msg->fullMsg);
-	char* msgLn = calloc(strlen(msg->fullMsg)+2, sizeof(char));
-	strcpy(msgLn, msg->fullMsg);
-	strcat(msgLn, "\n");
-	if (send(vehicle->clientSocket, msgLn, strlen(msgLn), 0) == -1) {
+	if (send(vehicle->clientSocket, msg->fullMsg, strlen(msg->fullMsg), 0) == -1) {
 		perror("Error sending message");
 		return -1;
 	} else {
-		free(msgLn);
 		MP_wipeMessage(msg);
 		return 0;
 	}

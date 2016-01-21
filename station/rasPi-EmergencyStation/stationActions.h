@@ -1,10 +1,4 @@
-//
-//  stationActions.h
-//  rasPi-EmergencyStation
-//
-//  Created by Gorka Olalde Mendia on 1/12/15.
-//  Copyright © 2015 Gorka Olalde Mendia. All rights reserved.
-//
+/** @file stationActions.h FIle containing all the station action headers. */
 
 #ifndef stationActions_h
 #define stationActions_h
@@ -20,8 +14,8 @@
 #include "tcpVehicleSocketComm.h"
 #include "mcastMessaging.h"
 
-extern SA_VEHICLE_QUEUE vehicleList;
-extern int stationID;
+extern SA_VEHICLE_LIST vehicleList; /**< List where all the vehicles are stored. */
+extern int stationID; /**< ID of the staion. */
 
 void SA_treatIDMessage(PMESSAGE msg);
 void SA_treatIDReqMessage(PMESSAGE msg);

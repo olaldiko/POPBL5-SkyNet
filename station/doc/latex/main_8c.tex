@@ -1,0 +1,96 @@
+\hypertarget{main_8c}{}\section{ras\+Pi-\/\+Emergency\+Station/main.c File Reference}
+\label{main_8c}\index{ras\+Pi-\/\+Emergency\+Station/main.\+c@{ras\+Pi-\/\+Emergency\+Station/main.\+c}}
+
+
+Main file and functions of the emergency station application.  
+
+
+{\ttfamily \#include \char`\"{}main.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void $\ast$ \hyperlink{main_8c_a82a03c8bafdc8925bacf4693a1c5e794}{mcast\+Conn\+Control\+Thread} (void $\ast$args)
+\begin{DoxyCompactList}\small\item\em Thread for controlling the multicast server initialization and shutdown. \end{DoxyCompactList}\item 
+void $\ast$ \hyperlink{main_8c_aea1c0564829983a4a1da026f1640f762}{server\+Conn\+Control\+Thread} (void $\ast$args)
+\begin{DoxyCompactList}\small\item\em Thread for controlling the server client initialization and shutdown. \end{DoxyCompactList}\item 
+void $\ast$ \hyperlink{main_8c_ae346112f7679ae0199c3158f6624fd8b}{vehicle\+Conn\+Control\+Thread} (void $\ast$args)
+\begin{DoxyCompactList}\small\item\em Thread for controlling the vehicle server initialization and shutdown. \end{DoxyCompactList}\item 
+void \hyperlink{main_8c_a4f31a6fd48ee5d4579ae4aaaa3cae285}{sig\+\_\+handler} (int signo)
+\begin{DoxyCompactList}\small\item\em Signal handler of the application. \end{DoxyCompactList}\item 
+int \hyperlink{main_8c_ac0f2228420376f4db7e1274f2b41667c}{main} (int argc, const char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{main_8c_a834e2647b3f549f1d845777db9956388}{exit\+Cond} = 0
+\begin{DoxyCompactList}\small\item\em Global to store the exit condition of the application. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Main file and functions of the emergency station application. 
+
+
+
+\subsection{Function Documentation}
+\index{main.\+c@{main.\+c}!main@{main}}
+\index{main@{main}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{main(int argc, const char $\ast$argv[])}{main(int argc, const char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{const char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8c_ac0f2228420376f4db7e1274f2b41667c}{}\label{main_8c_ac0f2228420376f4db7e1274f2b41667c}
+\index{main.\+c@{main.\+c}!mcast\+Conn\+Control\+Thread@{mcast\+Conn\+Control\+Thread}}
+\index{mcast\+Conn\+Control\+Thread@{mcast\+Conn\+Control\+Thread}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{mcast\+Conn\+Control\+Thread(void $\ast$args)}{mcastConnControlThread(void *args)}}]{\setlength{\rightskip}{0pt plus 5cm}void $\ast$ mcast\+Conn\+Control\+Thread (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{args}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8c_a82a03c8bafdc8925bacf4693a1c5e794}{}\label{main_8c_a82a03c8bafdc8925bacf4693a1c5e794}
+
+
+Thread for controlling the multicast server initialization and shutdown. 
+
+Thread to control the initialization and shutdown of the multicast server.\index{main.\+c@{main.\+c}!server\+Conn\+Control\+Thread@{server\+Conn\+Control\+Thread}}
+\index{server\+Conn\+Control\+Thread@{server\+Conn\+Control\+Thread}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{server\+Conn\+Control\+Thread(void $\ast$args)}{serverConnControlThread(void *args)}}]{\setlength{\rightskip}{0pt plus 5cm}void $\ast$ server\+Conn\+Control\+Thread (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{args}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8c_aea1c0564829983a4a1da026f1640f762}{}\label{main_8c_aea1c0564829983a4a1da026f1640f762}
+
+
+Thread for controlling the server client initialization and shutdown. 
+
+Thread for controlling the communications to the server initialization and shutdown.\index{main.\+c@{main.\+c}!sig\+\_\+handler@{sig\+\_\+handler}}
+\index{sig\+\_\+handler@{sig\+\_\+handler}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{sig\+\_\+handler(int signo)}{sig_handler(int signo)}}]{\setlength{\rightskip}{0pt plus 5cm}void sig\+\_\+handler (
+\begin{DoxyParamCaption}
+\item[{int}]{signo}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8c_a4f31a6fd48ee5d4579ae4aaaa3cae285}{}\label{main_8c_a4f31a6fd48ee5d4579ae4aaaa3cae285}
+
+
+Signal handler of the application. 
+
+Catches the S\+I\+G\+T\+E\+RM and S\+I\+G\+I\+NT signals and sets the exit condition of the application. \index{main.\+c@{main.\+c}!vehicle\+Conn\+Control\+Thread@{vehicle\+Conn\+Control\+Thread}}
+\index{vehicle\+Conn\+Control\+Thread@{vehicle\+Conn\+Control\+Thread}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{vehicle\+Conn\+Control\+Thread(void $\ast$args)}{vehicleConnControlThread(void *args)}}]{\setlength{\rightskip}{0pt plus 5cm}void $\ast$ vehicle\+Conn\+Control\+Thread (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{args}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8c_ae346112f7679ae0199c3158f6624fd8b}{}\label{main_8c_ae346112f7679ae0199c3158f6624fd8b}
+
+
+Thread for controlling the vehicle server initialization and shutdown. 
+
+Thread for controlling the vehicle communication server initialization and shutdown.
+
+\subsection{Variable Documentation}
+\index{main.\+c@{main.\+c}!exit\+Cond@{exit\+Cond}}
+\index{exit\+Cond@{exit\+Cond}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{exit\+Cond}{exitCond}}]{\setlength{\rightskip}{0pt plus 5cm}int exit\+Cond = 0}\hypertarget{main_8c_a834e2647b3f549f1d845777db9956388}{}\label{main_8c_a834e2647b3f549f1d845777db9956388}
+
+
+Global to store the exit condition of the application. 
+
