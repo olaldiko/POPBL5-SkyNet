@@ -5,7 +5,6 @@ public class Message {
 	public int id;
 	public String tipo;
 	public String msg;
-	public long cont;
 	public MessageParser origin;
 	
 	public Message() {}
@@ -17,7 +16,7 @@ public class Message {
 	}
 	
 	public String toString() {
-		return "ID: "+id+" | TIPO: "+tipo+" | MSG: "+msg+" | CONT: "+cont;
+		return "ID: "+id+" | TIPO: "+tipo+" | MSG: "+msg;
 	}
 	
 }

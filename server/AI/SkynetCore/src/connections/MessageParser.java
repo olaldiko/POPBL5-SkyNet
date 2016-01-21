@@ -24,11 +24,9 @@ public class MessageParser {
 	Connection c;
 	Thread send;
 	Thread receive;
-	Long msgId;
 	
 	public MessageParser(ArrayBlockingQueue<Message> msgIn, Connection c) {
 		this.c = c;
-		msgId = 0L;
 		this.msgIn = msgIn;
 		msgOut = new ArrayBlockingQueue<Message>(MSG_BUFFER_SIZE);
 		log = Configuration.getCurrent().getLogger();
@@ -48,7 +46,6 @@ public class MessageParser {
 
 	public MessageParser(Connection c) {
 		this.c = c;
-		msgId = 0L;
 		msgIn = new ArrayBlockingQueue<Message>(MSG_BUFFER_SIZE);
 		msgOut = new ArrayBlockingQueue<Message>(MSG_BUFFER_SIZE);
 		log = Configuration.getCurrent().getLogger();
@@ -100,7 +97,7 @@ public class MessageParser {
 					break;
 				}
 			}
-		} catch(Exception e) {}
+		} catch(Exception e) {log.log("Server connection receivingTask exception: "+e.getClass()+" "+e.getMessage(),Logger.ERROR);}
 		c.close();
 		log.log("Server connection receivingTask terminated",Logger.DEBUG);
 		send.interrupt();
@@ -114,16 +111,12 @@ public class MessageParser {
 			while(true) {
 				b.clear();
 				msg = msgOut.take();
-				msg.cont = msgId++;
-				if(msgId==UINT32_MAX) msgId = 0L;
 				b.add(MSG_START);
 				addBytes(b,String.valueOf(msg.id).getBytes());
 				b.add(MSG_SEPARATOR);
 				addBytes(b,msg.tipo.getBytes());
 				b.add(MSG_SEPARATOR);
 				addBytes(b,msg.msg.getBytes());
-				b.add(MSG_SEPARATOR);
-				addBytes(b,String.valueOf(msg.cont).getBytes());
 				b.add(MSG_END);
 				c.write(toPrimitives(b.toArray(new Byte[0])));
 			}
@@ -139,7 +132,6 @@ public class MessageParser {
 			msg.id = Integer.valueOf(parts[0]);
 			msg.tipo = parts[1];
 			msg.msg = parts[2];
-			msg.cont = Long.valueOf(parts[3]);
 			msg.origin = this;
 			msgIn.put(msg);
 		} catch(Exception e) {
