@@ -1,11 +1,7 @@
 package controller;
 
-import java.awt.GraphicsEnvironment;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.swing.JOptionPane;
 
@@ -14,13 +10,11 @@ import configuration.Configuration;
 import configuration.Logger;
 import connections.ServletConnectionManager;
 import connections.StationConnectionManager;
-import database.Recurso;
 
 public class SkynetMain implements WindowListener {
 	
 	MainWindow window;
 	Logger log;
-	Map<Integer,Recurso> recursos;
 	ServletConnectionManager servletConn;
 	StationConnectionManager stationConn;
 
@@ -50,9 +44,11 @@ public class SkynetMain implements WindowListener {
 		
 		//Window
 		
-		if(!GraphicsEnvironment.isHeadless()) {
+		try {
 			window = new MainWindow(this);
 			window.setVisible(true);
+		} catch(Exception e) {
+			//GraphicsEnviroment isHeadless
 		}
 		
 		try {
@@ -67,10 +63,8 @@ public class SkynetMain implements WindowListener {
 		Configuration.getCurrent().getSolver().init();
 		
 		//Tasks
-		
-		recursos = Collections.synchronizedMap(new HashMap<Integer,Recurso>(64));
-		servletConn = new ServletConnectionManager(recursos);
-		stationConn = new StationConnectionManager(recursos);
+		servletConn = new ServletConnectionManager();
+		stationConn = new StationConnectionManager();
 		
 	}
 	

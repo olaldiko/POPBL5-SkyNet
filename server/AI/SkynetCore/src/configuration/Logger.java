@@ -19,7 +19,8 @@ public class Logger implements Serializable {
 	public static final int WARN = 2;
 	public static final int ERROR = 3;
 	public static final int FATAL = 4;
-	public static final String[] logLevels = {"[DEBUG]","[INFO]","[WARN]","[ERROR]","[FATAL]"};
+	public static final int SOLVER = 5;
+	public static final String[] logLevels = {"[DEBUG]","[INFO]","[WARN]","[ERROR]","[FATAL]","[SOLVER]"};
 	
 	public String logPath;
 	public int minLogLevel;
@@ -27,6 +28,7 @@ public class Logger implements Serializable {
 	
 	transient MainWindow window;
 	transient FileWriter out;
+	transient FileWriter solverOut;
 
 	public Logger(List<String> settings) {
 		this(settings.toArray());
@@ -43,7 +45,11 @@ public class Logger implements Serializable {
 		File dir = new File(logPath);
 		deleteOldFiles(dir);
 		if(!dir.exists()) dir.mkdir();
+		File dirSolver = new File(logPath+"Solver/");
+		deleteOldFiles(dirSolver);
+		if(!dirSolver.exists()) dirSolver.mkdir();
 		out = new FileWriter(logPath+"Skynet"+System.currentTimeMillis()+".log");
+		solverOut = new FileWriter(logPath+"Solver/"+Configuration.getCurrent().getSolver().getClass().getName()+System.currentTimeMillis()+".log");
 	}
 	
 	public void deleteOldFiles(File dir) {
@@ -61,7 +67,15 @@ public class Logger implements Serializable {
 		msg = getDatetime() + " " + logLevels[logLevel] + " -> " + msg + "\n";
 		synchronized(this) {
 			if(window!=null) window.update(msg);
-			if(logLevel>=minLogLevel) {
+			if(logLevel==Logger.SOLVER) {
+				try {
+					solverOut.write(msg);
+					solverOut.flush();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			else if(logLevel>=minLogLevel) {
 				try {
 					out.write(msg);
 					out.flush();
@@ -73,7 +87,7 @@ public class Logger implements Serializable {
 	}
 	
 	public String getDatetime() {
-		return (LocalDate.now().toString()+" "+hour()+":"+minute());
+		return (LocalDate.now().toString()+" "+hour()+":"+minute()+":"+second());
 	}
 	
 	public String hour() {
@@ -88,6 +102,13 @@ public class Logger implements Serializable {
 		minute = String.valueOf(LocalTime.now().getMinute());
 		if(minute.length()<2) minute = "0"+minute;
 		return minute;
+	}
+	
+	public String second() {
+		String second;
+		second = String.valueOf(LocalTime.now().getSecond());
+		if(second.length()<2) second = "0"+second;
+		return second;
 	}
 
 }

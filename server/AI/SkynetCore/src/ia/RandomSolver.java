@@ -2,6 +2,7 @@ package ia;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import configuration.Configuration;
 import configuration.Logger;
@@ -21,6 +22,7 @@ public class RandomSolver implements Solver, Serializable {
 	Recurso[] recursosId;
 	Recurso[] recursos;
 	Incidencia[] incidencias;
+	Map<Integer,Incidencia> recursoIncidencia;
 	
 	IncidenciaFacade ifac;
 	RecursoFacade rfac;
@@ -42,6 +44,7 @@ public class RandomSolver implements Solver, Serializable {
 		log = Configuration.getCurrent().getLogger();
 		ifac = new IncidenciaFacade();
 		rfac = new RecursoFacade();
+		recursoIncidencia = Configuration.getCurrent().getRecursoIncidencia();
 	}
 	
 	public synchronized void scheduleSolution(Recurso[] recursos) {
@@ -73,18 +76,22 @@ public class RandomSolver implements Solver, Serializable {
 		Recurso recurso;
 		int recursoId;
 		Solution[] sol = new Solution[incidencias.length];
+		log.log(getClass()+" started -> "+incidencias.length+" incidences / "+recursos.length+" resources", Logger.SOLVER);
 		if(incidencias.length>0 && recursos.length>0) {
 			for(int i = 0 ; i < sol.length ; i++) {
 				try {
 					recursoId = 0;
+					log.log("Solving incidence ID = "+incidencias[i].id+" TYPE = "+incidencias[i].tipo, Logger.SOLVER);
 					while(recursos[recursoId].tipo!=incidencias[i].tipo || recursos[recursoId].estado!=Recurso.ESTADO_LIBRE) recursoId++;
 					recurso = recursos[recursoId];
 					route = new Route(recurso,incidencias[i]);
 					sol[i] = new Solution(incidencias[i],recurso,route);
 					recurso.estado = Recurso.ESTADO_EN_RUTA;
+					log.log("Resource ID = "+recurso.id+" assigned to incidence ID = "+incidencias[i].id+", route takes "+route.getTimeString(), Logger.SOLVER);
 				} catch(Exception e){}
 			}
 		}
+		log.log(getClass()+" solved", Logger.SOLVER);
 		return sol;
 	}
 	
@@ -95,6 +102,7 @@ public class RandomSolver implements Solver, Serializable {
 			try {
 				log.log("Sending incidencia "+solution[i].incidencia.id+" to recurso "+solution[i].recurso.id+", route takes "+solution[i].ruta.getTimeString(), Logger.DEBUG);
 				solution[i].recurso.getConnection().writeMessage(new Message(solution[i].recurso.id,"ROUTE",solution[i].ruta.toString()));
+				recursoIncidencia.put(solution[i].recurso.id, solution[i].incidencia);
 				if(solution[i].recurso.estado==Recurso.ESTADO_EN_RUTA) solution[i].recurso.estado = -9;
 			} catch(Exception e){
 				log.log("Error sending incidencia "+(solution[i]==null ? "NULL":solution[i].incidencia),Logger.ERROR);
@@ -104,10 +112,13 @@ public class RandomSolver implements Solver, Serializable {
 		log.log("Sending void routes to previously busy resources");
 		for(int i = 0 ; i < recursos.length ; i++) {
 			try {
-				if(recursos[i].estado==Recurso.ESTADO_EN_RUTA)
-					recursos[i].getConnection().writeMessage(new Message(recursos[i].id,"ROUTE",""));
+				if(recursos[i].estado==Recurso.ESTADO_EN_RUTA) {
+					log.log("Sending void route to recurso "+recursos[i].id,Logger.DEBUG);
+					recursos[i].getConnection().writeMessage(new Message(recursos[i].id,"ROUTE","{}"));
+					recursoIncidencia.remove(recursos[i].id);
+				}
 				else if(recursos[i].estado==-9)
-					solution[i].recurso.estado = Recurso.ESTADO_EN_RUTA;
+					recursos[i].estado = Recurso.ESTADO_EN_RUTA;
 			} catch(Exception e){
 				log.log("Error sending void route to recurso "+recursos[i].id,Logger.ERROR);
 			}

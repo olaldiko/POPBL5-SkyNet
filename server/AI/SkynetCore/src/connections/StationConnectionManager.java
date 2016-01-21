@@ -1,6 +1,5 @@
 package connections;
 
-import ia.Route;
 import ia.Solver;
 
 import java.io.IOException;
@@ -15,13 +14,14 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import configuration.Configuration;
 import configuration.Logger;
+import database.Incidencia;
 import database.Recurso;
 import database.RecursoFacade;
 
 public class StationConnectionManager {
 
 	Logger log;
-	Solver sol;
+	Solver solver;
 	Connection c;
 	Thread server;
 	Thread receive;
@@ -29,13 +29,15 @@ public class StationConnectionManager {
 	ArrayBlockingQueue<Message> msgIn;
 	Vector<MessageParser> connections;
 	Map<Integer,Recurso> recursos;
+	Map<Integer,Incidencia> recursoIncidencia;
 	Lock lockConnections;
 	
-	public StationConnectionManager(Map<Integer,Recurso> recursos) {
+	public StationConnectionManager() {
 		log = Configuration.getCurrent().getLogger();
-		sol = Configuration.getCurrent().getSolver();
+		solver = Configuration.getCurrent().getSolver();
 		c = Configuration.getCurrent().getStationConnection();
-		this.recursos = recursos;
+		this.recursos = Configuration.getCurrent().getRecursos();
+		this.recursoIncidencia = Configuration.getCurrent().getRecursoIncidencia();
 		connections = new Vector<MessageParser>();
 		msgIn = new ArrayBlockingQueue<Message>(MessageParser.MSG_BUFFER_SIZE);
 		lockConnections = new ReentrantLock();
@@ -73,14 +75,19 @@ public class StationConnectionManager {
 				break;
 			case "ESTADO":
 				rec = recursos.get(msg.id);
+				boolean wasReturning = (rec!=null && rec.estado==Recurso.ESTADO_DE_VUETA);
 				if(rec!=null && rec.actualizarEstado(Integer.valueOf(msg.msg))>0) {
-					msg.origin.writeMessage(new Message(msg.id,"ESTADOACK",String.valueOf(msg.cont)));
+					//msg.origin.writeMessage(new Message(msg.id,"ESTADOACK",String.valueOf(msg.cont)));
 					if(Integer.valueOf(msg.msg)==Recurso.ESTADO_DE_VUETA) {
-						rf = new RecursoFacade();
-						msg.origin.writeMessage(new Message(msg.id,"ROUTE",new Route(rec,rf.getEstacionMasCercana(rec)).toString()));
+						msg.origin.writeMessage(new Message(msg.id,"ROUTE",rec.getRutaEstacionMasCercana().toString()));
+					}
+					else if (wasReturning) {
+						Incidencia inc = recursoIncidencia.get(rec.id);
+						if(inc!=null) inc.cerrarIncidencia();
+						solver.scheduleSolution(recursos.values().toArray(new Recurso[0]));
 					}
 				}
-				else msg.origin.writeMessage(new Message(msg.id,"ESTADONACK",String.valueOf(msg.cont)));
+				//else msg.origin.writeMessage(new Message(msg.id,"ESTADONACK",String.valueOf(msg.cont)));
 				break;
 			case "LOCATION":
 				rec = recursos.get(msg.id);
@@ -90,23 +97,33 @@ public class StationConnectionManager {
 				//Ni caso
 				break;
 			case "IDREQUEST":
+				//ID = IDEstacion
+				//MSG = IDPeticionEstacion
 				rf = new RecursoFacade();
-				rec = rf.nuevoRecurso(Integer.valueOf(msg.msg));
-				if(rec!=null) msg.origin.writeMessage(new Message(rec.id,"IDASSIGN",String.valueOf(msg.cont)));
-				break;
+				rec = rf.nuevoRecurso(msg.id);
+				if(rec!=null) {
+					msg.origin.writeMessage(new Message(rec.id,"IDASSIGN",msg.msg));
+					msg.id = rec.id;
+				}
 			case "CONNECTED":
 				rf = new RecursoFacade();
 				rec = rf.getRecurso(msg.id);
 				if(rec!=null) {
 					//Id es valido
-					rec.setConnection(msg.origin);
-					recursos.put(rec.id, rec);
-					log.log("Recurso "+rec.id+" conectado");
+					if(recursos.get(msg.id)!=null) {
+						log.log("Recurso "+rec.id+" ya estaba conectado");
+					}
+					else {
+						rec.setConnection(msg.origin);
+						recursos.put(rec.id, rec);
+						log.log("Recurso "+rec.id+" conectado");
+					}
 				}
 				else {
+					log.log("Conexion de recurso con ID invalido",Logger.DEBUG);
 					//Id desconocido -> Asignar id valido
-					rec = rf.nuevoRecurso(Integer.valueOf(msg.msg));
-					if(rec!=null) msg.origin.writeMessage(new Message(rec.id,"IDASSIGN",String.valueOf(msg.cont)));
+					//rec = rf.nuevoRecurso(Integer.valueOf(msg.msg));
+					//if(rec!=null) msg.origin.writeMessage(new Message(rec.id,"IDASSIGN",String.valueOf(msg.cont)));
 					//Despues el recurso tiene que volver a mandar CONNECTED con el ID correcto
 				}
 				break;

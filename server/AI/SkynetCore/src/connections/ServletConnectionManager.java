@@ -17,7 +17,7 @@ public class ServletConnectionManager {
 	public static final byte receiveByte = 0;
 	
 	public static final long sendPeriod = 1000L;
-	public static final long timeout = 60000L;
+	public static final long timeout = 30000L;
 
 	Logger log;
 	Solver sol;
@@ -29,11 +29,11 @@ public class ServletConnectionManager {
 	boolean stop;
 	Lock lock;
 	
-	public ServletConnectionManager(Map<Integer,Recurso> recursos) {
+	public ServletConnectionManager() {
 		lock = new ReentrantLock();
 		log = Configuration.getCurrent().getLogger();
 		sol = Configuration.getCurrent().getSolver();
-		this.recursos = recursos;
+		recursos = Configuration.getCurrent().getRecursos();
 		connectionData = Configuration.getCurrent().getServletConnection();
 		c = connectionData.clone();
 		send = new Thread() {
