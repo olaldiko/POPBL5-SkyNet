@@ -15,10 +15,10 @@
 #include "msgBuffers.h"
 #include "messageParser.h"
 
-#define SSC_SRV_ADDRESS "ayerdi"
-#define SSC_SRV_PORT 5000
-#define SSC_SRV_BUFLEN 1024
-#define SSC_RCV_MAXLEN 1020
+#define SSC_SRV_ADDRESS "ayerdi" /**< server's domain name.*/
+#define SSC_SRV_PORT 5000 /**< server port. */
+#define SSC_SRV_BUFLEN 1024 /**< Receive buffer's size. */
+#define SSC_RCV_MAXLEN 1020 /**< Max size of the received message. (Each pass) */
 
 extern SSC_STAT serverSocketStat;
 

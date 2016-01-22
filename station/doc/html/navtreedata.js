@@ -1,6 +1,6 @@
 var NAVTREE =
 [
-  [ "Emergency station", "index.html", [
+  [ "Skynet - Emergency station", "index.html", [
     [ "Data Structures", "annotated.html", [
       [ "Data Structures", "annotated.html", "annotated_dup" ],
       [ "Data Structure Index", "classes.html", null ],
@@ -13,10 +13,7 @@ var NAVTREE =
       [ "File List", "files.html", "files" ],
       [ "Globals", "globals.html", [
         [ "All", "globals.html", null ],
-        [ "Functions", "globals_func.html", null ],
-        [ "Variables", "globals_vars.html", null ],
-        [ "Typedefs", "globals_type.html", null ],
-        [ "Macros", "globals_defs.html", null ]
+        [ "Typedefs", "globals_type.html", null ]
       ] ]
     ] ]
   ] ]
@@ -24,8 +21,7 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"annotated.html",
-"tcp_server_socket_comm_8h.html#ae12d709dd8d0c5c39e8949dfa433dff4"
+"annotated.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
