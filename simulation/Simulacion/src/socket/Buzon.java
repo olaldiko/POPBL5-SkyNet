@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
 
 /**
- * Buzon es la clase que utilizaremos para almacenar generalmente Message-s para comunicar diferentes hilos
- * del programa.
+ * Buzon
+ * 
+ * This class is used as a mailbox.
  * 
  * @author Skynet Team
  *
- * @param <T>
+ * @param <T> Object to storage in the mailbox
  */
 public class Buzon<T> {
 		
@@ -53,11 +54,11 @@ public class Buzon<T> {
 	}
 	
 	/**
-	 * Este metodo se utiliza para encontrar Message-s con un type concreto.
+	 * This method is used to extract a concrete "Message" object.
 	 * 
-	 * @param type
-	 * @return
-	 * @throws InterruptedException
+	 * @param type String type of message.
+	 * @return Message object.
+	 * @throws InterruptedException if the mailbox is interrupteds.
 	 */
 	public Message receive(String type) throws InterruptedException {
 		Message valor = null;

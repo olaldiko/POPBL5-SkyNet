@@ -7,7 +7,10 @@ import java.net.Socket;
 import frontend.DebuggingUI;
 
 /**
- * Clase que envia por sockets informacion al puesto.
+ * Send
+ * 
+ * Send is the class that creates a thread to communicate throught sokect.
+ * This class sends the data to the base.
  * 
  * @author Skynet Team
  *
@@ -22,6 +25,12 @@ public class Send extends Thread {
 	private boolean stop = false;
 	private DebuggingUI dUI;
 	
+	/**
+	 * The constructor receives the "Socket" object and a mailbox to listen for new messages to send.
+	 * 
+	 * @param Socket socket
+	 * @param Buzon buzon (Mailbox)
+	 */
 	protected Send(Socket socket, Buzon<Message> buzon) {
 		this.socket = socket;
 		this.buzon = buzon;
@@ -29,8 +38,9 @@ public class Send extends Thread {
 	}
 	
 	/**
-	 * Creamos el PrintWriter con el outputStream del Socket. Despues, esperamos los datos del buzon para enviarserlo al PrintWriter.
-	 * Finalmente hacemos flush y lo enviamos.
+	 * This methods creates a "PrintWriter" object with the "Socket.getOutputStream()". Then, the thread
+	 * waits for a new message in the mailbox and, when the thread takes it out the mailbox, sends it
+	 * using the PrintWriter and finnally flushs it to the base.
 	 */
 	@Override
 	public void run() {

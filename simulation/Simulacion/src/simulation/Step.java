@@ -1,5 +1,13 @@
 package simulation;
 
+/**
+ * Step
+ * 
+ * This class storages the information of a step to navigate in Google Maps.
+ * 
+ * @author Skynet Team
+ *
+ */
 public class Step {
 	
 	private String distance;

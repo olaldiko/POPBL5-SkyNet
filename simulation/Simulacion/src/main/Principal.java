@@ -8,11 +8,10 @@ import socket.Dispatcher;
 import utils.ConfigFile;
 
 /**
- * El objetivo de este proyecto es simular una ambulancia. Para ello, tenemos que tener las siguientes funcionalidades:
- * - Recibir por sockets informacion.
- * 		* Primero, tenemos que pedir un ID con IDREQUEST
- * - Procesar JSONs
- * - Printar el desplazamiento de una ambulancia punto por punto.
+ * Principal
+ * 
+ * The objective of this Simulation project is to simulate a resource. To do that, we receive information from sokects,
+ * and simulate the navigation to incidents using Google Maps and JSONs.
  * 
  * @author Skynet Team
  *
@@ -28,21 +27,10 @@ public class Principal {
 		initConfiUI();
 		initDispatcher();
 		initResource();
-		r.sendToBuzon("https://maps.googleapis.com/maps/api/directions/json?origin=Galdakao&destination=43.244861,-2.0");
-		synchronized (this) {
-			try {
-				this.wait(10000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		System.out.println("ENVIO");
-		r.sendToBuzon("https://maps.googleapis.com/maps/api/directions/json?origin=Galdakao&destination=43.244861,-2.0");
 	}
 	
 	/**
-	 * Iniciamos el UI de opciones para dar la opcion a editar la conexion al servidor.
+	 * Starts the OptionsUI window to set the simulation variables.
 	 */
 	private void initConfiUI() {
 		Semaphore stop =  new Semaphore(0);
@@ -54,7 +42,7 @@ public class Principal {
 	}
 	
 	/**
-	 * Iniciamos todo el sistema de comunicaciones.
+	 * Dispatcher starts the whole system of socket communications.
 	 */
 	private void initDispatcher() {
 		d = new Dispatcher();
@@ -62,7 +50,7 @@ public class Principal {
 	}
 	
 	/**
-	 * Iniciamos el recurso, este iniciara el MainUI y los sistemas de simulacion.
+	 * Creates the Resource object with the Dispatcher.
 	 */
 	private void initResource() {
 		r = new Resource(d);
@@ -71,13 +59,13 @@ public class Principal {
 	
 	public static void main(String args[]) {
 		System.out.println("PRINCIPAL: Inicio del programa.");
-		// Leemos el archivo si existe.
+		// Read the file if exists.
 		ConfigFile file = new ConfigFile();
 		if (file.check()) file.readAll();
-		// Iniciamos el programa.
+		// Start the program.
 		Principal p = new Principal();
 		p.start();
-		System.out.println("PRINCIPAL: Fin del programa.");
+		System.out.println("PRINCIPAL: Fin del hilo principal del programa.");
 	}
 
 }

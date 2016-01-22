@@ -21,6 +21,12 @@ public class JSON {
 	
 	private Navigation nav;
 	
+	/**
+	 * This contructor creates a JSON object taking it from an URL.
+	 * 
+	 * @param url The URL or IP direction (String) where the JSON is.
+	 * @param obj The URL object (coulb be null)
+	 */
 	public JSON(String url, URL obj) {
 		try {
 			this.url = new URL(url);
@@ -34,11 +40,24 @@ public class JSON {
 		}
 	}
 	
+	/**
+	 * This constructor creates a JSON object from a JSON in a string.
+	 * 
+	 * @param data The JSON in a String.
+	 */
 	public JSON(String data) {
 		this.data = data;
 	}
 	
-	public void parseNav() {
+	/**
+	 * This methods parses the JSON to "Navigation" and "Step" objects. To do that, takes the JSON
+	 * and extracts the general information of the JSON into a "Navigation" object. Then, takes the
+	 * "steps" array from the JSON and creates "Step" objects with the elements on the array.
+	 * Finally, adds the "Step" object to the ArrayList of "Step" at the created "Navigation" object.
+	 * 
+	 * @return Integer result code (ERROR: -1 | SUCCESS: 0)
+	 */
+	public int parseNav() {
 		try {
 			obj = new JSONObject(data);
 			if (obj.getString("status").equals("OK")) {
@@ -69,13 +88,19 @@ public class JSON {
 				}
 			} else {
 				System.out.println("JSON - ERROR: Estado de ruta no válido.");
-			}
+			} return 0;
 		} catch (JSONException e) {
 			System.out.println("JSON - ERROR: JSON no válido.");
-			e.printStackTrace();
+			return -1;
 		}
 	}
 	
+	/**
+	 * This xtracts the JSON text from an URL. 
+	 * 
+	 * @return The string with the complete data of the JSON.
+	 * @throws IOException
+	 */
 	private String URLToString() throws IOException {
 		Scanner scan = new Scanner(url.openStream());
 		String data = scan.nextLine();

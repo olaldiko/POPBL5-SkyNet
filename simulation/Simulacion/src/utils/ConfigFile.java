@@ -11,7 +11,9 @@ import java.io.IOException;
 import data.Definitions;
 
 /**
- * Clase que escribe / lee la configuracion del recurso.
+ * ConfigFile
+ * 
+ * This class reads and writes the config file.
  * 
  * @author Skynet Team
  *

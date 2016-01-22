@@ -25,9 +25,10 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
 /**
- * Esta clase controlara la UI del recurso. Iniciaremos una primera pantalla con las opciones del recurso y después
- * lanzaremos la UI principal (esta clase)
+ * MainUI
  * 
+ * This class will manage the main UI interface. This UI will be initialize by the "Resoruce" class.
+ *  
  * @author Skynet Team
  *
  */
@@ -50,7 +51,11 @@ public class MainUI extends Thread {
 	private boolean loaded = false;
 	
 	private String mapURL = "file:///"+new File("map.html").getAbsolutePath();
-		
+	
+	/** 
+	 * Constructor creates the Main Frame and creates the needed semaphores.
+	 * Additionally, the method creates the Scene (The JavaFX panel that contains the WebView)
+	 */
 	public MainUI() {
 		window = new JFrame();
 		window.setTitle("Panel de control de Recurso");
@@ -64,6 +69,9 @@ public class MainUI extends Thread {
 		candado = new Semaphore(1);
 	}
 	
+	/**
+	 * At start, the UI sets the JLabels and loads the map in the WebView.
+	 */
 	@Override
 	public void run() {
 		resetNav();
@@ -72,6 +80,11 @@ public class MainUI extends Thread {
 		updateMap(Definitions.lat, Definitions.lng);
 	}
 	
+	/**
+	 * Main panel is a BorderLayout panel with another 3 panels located in the north, center and south of the UI.
+	 * 
+	 * @return The main panel of the MainUI
+	 */
 	private Container createMainPanel() {
 		JPanel panel = new JPanel(new BorderLayout());
 		panel.add(createNorthPanel(), BorderLayout.NORTH);
@@ -80,6 +93,11 @@ public class MainUI extends Thread {
 		return panel;
 	}
 	
+	/**
+	 * The north panel creates all the JLabels to show the information to the user.
+	 * 
+	 * @return The north panel of the MainUI
+	 */
 	private Container createNorthPanel() {
 		JPanel panel = new JPanel(new GridLayout(1, 5, 0, 0));
 		JPanel panel1 = new JPanel(new BorderLayout());
@@ -97,11 +115,11 @@ public class MainUI extends Thread {
 		lLng = new JLabel("--", SwingConstants.CENTER);
 		panel3.add(lLng, BorderLayout.CENTER);
 		JPanel panel4 = new JPanel(new BorderLayout());
-		panel4.setBorder(BorderFactory.createTitledBorder("URL del Servidor"));
+		panel4.setBorder(BorderFactory.createTitledBorder("IP del Servidor"));
 		lURL = new JLabel("--", SwingConstants.CENTER);
 		panel4.add(lURL);
 		JPanel panel5 = new JPanel(new BorderLayout());
-		panel5.setBorder(BorderFactory.createTitledBorder("Nº de Socket"));
+		panel5.setBorder(BorderFactory.createTitledBorder("Nº de Puerto"));
 		lSocket = new JLabel("--", SwingConstants.CENTER);
 		panel5.add(lSocket);
 		panel.add(panel1);
@@ -112,6 +130,11 @@ public class MainUI extends Thread {
 		return panel;
 	}
 	
+	/**
+	 * South panel fills the panel (GridLayout) with a combination of panels to show alert and route information.
+	 * 
+	 * @return The south panel of the MainUI
+	 */
 	private Container createSouthPanel() {
 		JPanel panel = new JPanel(new GridLayout(1, 2, 0, 0));
 		JPanel panel1 = new JPanel(new BorderLayout());
@@ -149,11 +172,19 @@ public class MainUI extends Thread {
 		return panel;
 	}
 	
+	/**
+	 * This method creates the JFXPanel to show the WebView.
+	 * 
+	 * @return JFXPanel for the JavaFX elements.
+	 */
 	private Component mapView() {
 		panel = new JFXPanel();
 		return panel;
 	}
 	
+	/**
+	 * Creating the Scene means to create and set the WebView into the JFXPanel.
+	 */
 	private void createScene() {
 		Platform.runLater(new Runnable() {
 
@@ -167,6 +198,9 @@ public class MainUI extends Thread {
 		});
 	}
 	
+	/**
+	 * This method reloads the map of the WebView.
+	 */
 	public void reload() {
 		try {
 			candado.acquire();
@@ -178,6 +212,10 @@ public class MainUI extends Thread {
 		loadURL();
 	}
 	
+	/**
+	 * This method loads the map in the WebView. To avoid problems with the Google Maps API of JavaScript,
+	 * the method uses a listener to unlock a Semaphore when the page is 100% loaded.
+	 */
 	private void loadURL() {
 		try {
 			candado.acquire();
@@ -204,6 +242,9 @@ public class MainUI extends Thread {
 		candado.release();
 	}
 	
+	/**
+	 * The thread that need to interact with the WebView will check if the HTML is completely loaded with this class.
+	 */
 	private void check() {
 		if (!loaded) {
 			try {
@@ -212,6 +253,13 @@ public class MainUI extends Thread {
 		}
 	}
 	
+	/**
+	 * This method interacts with the HTML web page and adds a marker using a JavaScript function in the HTML file.
+	 * The funtion sends the command to create the marker to the JavaFX thread.
+	 * 
+	 * @param lat Double latitude of the marker.
+	 * @param lng Double longitude of the marker.
+	 */
 	public void addPointer(double lat, double lng) {
 		try {
 			candado.acquire();
@@ -223,6 +271,13 @@ public class MainUI extends Thread {
 		candado.release();
 	}
 	
+	/**
+	 * This method interacts with the HTML web page and updates a existing marker using a JavaScript function in the
+	 * HTML file. The funtion sends the command to update the marker to the JavaFX thread.
+	 * 
+	 * @param lat Double latitude of the marker.
+	 * @param lng Double longitude of the marker.
+	 */
 	public void updatePointer(double lat, double lng) {
 		try {
 			candado.acquire();
@@ -235,6 +290,13 @@ public class MainUI extends Thread {
 		candado.release();
 	}
 	
+	/**
+	 * This method interacts with the HTML web page and moves the mark to a position using a JavaScript function in
+	 * the HTML file. The funtion sends the command to move the map to the JavaFX thread.
+	 * 
+	 * @param lat Double latitude of the marker.
+	 * @param lng Double longitude of the marker.
+	 */
 	public void updateMap(double lat, double lng) {
 		try {
 			candado.acquire();
@@ -246,14 +308,27 @@ public class MainUI extends Thread {
 		candado.release();
 	}
 	
+	/**
+	 * This method adds a text line to the alert text area.
+	 * 
+	 * @param text String text to write in the text area.
+	 */
 	public void addAlertText(String text) {
 		alertArea.append("ALERTA: "+text+"\n");
 	}
 	
+	/**
+	 * This method adds a text line to the navigation text area.
+	 * 
+	 * @param text String text to write in the text area.
+	 */
 	public void addNavText(String text) {
 		navArea.append("NAVEGADOR: "+text+"\n");
 	}
 	
+	/**
+	 * This method cclears the navigation text area.
+	 */
 	public void clearNavText() {
 		navArea.setText("");
 	}
@@ -262,6 +337,11 @@ public class MainUI extends Thread {
 		lID.setText(String.valueOf(id));
 	}
 	
+	/**
+	 * Sets the state JLabel depending on the state number.
+	 * 
+	 * @param estado Integer state number.
+	 */
 	public void setEstado(int estado) {
 		if (estado == 0) {
 			lEstado.setText("LIBRE");
@@ -285,6 +365,9 @@ public class MainUI extends Thread {
 		lSocket.setText(String.valueOf(socket));
 	}
 
+	/**
+	 * Resets all the JLabels at the north panel.
+	 */
 	public void resetNav() {
 		lDuracionTotal.setText("--");
 		lDuracionRest.setText("--");

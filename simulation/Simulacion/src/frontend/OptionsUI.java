@@ -21,7 +21,9 @@ import data.Definitions;
 import utils.ConfigFile;
 
 /**
- * Esta clase controlara la UI de inicio del programa, que modifica las variables de inicio del recurso.
+ * OptionsUI
+ * 
+ * This method will create a start window to set the variables of the "Definitions" class.
  * 
  * @author Skynet Team
  *
@@ -37,6 +39,11 @@ public class OptionsUI implements ActionListener {
 	
 	Semaphore stop;
 	
+	/**
+	 * The constructor takes the semaphore to unlock the main thread when the user clicks in "OK" button.
+	 * 
+	 * @param stop Semaphore lock.
+	 */
 	public OptionsUI(Semaphore stop) {
 		this.stop = stop;
 		window = new JFrame();
@@ -47,10 +54,16 @@ public class OptionsUI implements ActionListener {
 		initData();
 	}
 	
+	/**
+	 * Sets the window visible to the user.
+	 */
 	public void start() {
 		window.setVisible(true);
 	}
 	
+	/**
+	 * Loads the data from the config file.
+	 */
 	private void initData() {
 		file = new ConfigFile();
 		if (file.check()) {
@@ -59,6 +72,11 @@ public class OptionsUI implements ActionListener {
 		}
 	}
 	
+	/**
+	 * Creates the main panel where the JTextFields are placed.
+	 * 
+	 * @return The main panel of the OptionsUI.
+	 */
 	private Container createMainPanel() {
 		mainPanel = new JPanel(new BorderLayout());
 		mainPanel.add(createTitle(), BorderLayout.NORTH);
@@ -67,6 +85,11 @@ public class OptionsUI implements ActionListener {
 		return mainPanel;
 	}
 	
+	/**
+	 * Creates the panel with the JTextFields.
+	 * 
+	 * @return The center panel of the OptionsUI.
+	 */
 	private Container createOptionsPanel() {
 		optionsPanel = new JPanel(new GridLayout(3, 2, 5, 5));
 		optionsPanel.add(new JLabel("URL del servidor:", SwingConstants.RIGHT));
@@ -78,12 +101,23 @@ public class OptionsUI implements ActionListener {
 		return optionsPanel;
 	}
 	
+	/**
+	 * Creates the title placed in the north panel.
+	 * 
+	 * @return JLabel with the title.
+	 */
 	private Component createTitle() {
 		JLabel title =  new JLabel("Opciones iniciales del Recurso", SwingConstants.CENTER);
 		title.setFont(new Font("Arial", Font.BOLD, 20));
 		return title;
 	}
 	
+	/**
+	 * Creates the button "OK".
+	 * This button has a action command ("save")
+	 * 
+	 * @return JButton OK
+	 */
 	private Component createButton() {
 		JButton button = new JButton();
 		button.setText("OK");
@@ -92,6 +126,10 @@ public class OptionsUI implements ActionListener {
 		return button;
 	}
 
+	/**
+	 * The action perfmormed ("save") will set the variables in "Definitions" class and unlock the semaphore
+	 * to go on with the main thread.
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("save")) {

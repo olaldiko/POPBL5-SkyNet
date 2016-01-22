@@ -2,6 +2,14 @@ package simulation;
 
 import java.util.ArrayList;
 
+/**
+ * Navigation
+ * 
+ * This class is used by the "Simulation" class to simulate a route on Google Maps.
+ * 
+ * @author Skynet Team
+ *
+ */
 public class Navigation {
 
 	private String distance;

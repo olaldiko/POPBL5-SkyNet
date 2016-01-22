@@ -4,11 +4,9 @@ import data.Resource;
 import socket.Dispatcher;
 
 /**
- * SenderRunnable es un Runnable que envía un mensaje concreto con los datos de Resource.
- * Tipo de datos:
- * 		- ID.
- * 		- LOC.
- * 		- ESTADO.
+ * SenderRunnable
+ * 
+ * SenderRunnable sends the location of the resource each X seconds.
  * 
  * @author Skynet Team
  *
@@ -34,7 +32,7 @@ public class SenderRunnable extends Thread {
 				break;
 			default: System.out.println("SENDER RUNNABLE - ERROR: Tipo de mensaje no valido; tipo: "+type+".");
 		}
-		d.send(r.getID(), type, data);
+		if ((r.getLat() != -1) && (r.getLng() != -1)) d.send(r.getID(), type, data);
 	}
 
 }

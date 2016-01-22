@@ -8,8 +8,10 @@ import data.Definitions;
 import frontend.DebuggingUI;
 
 /**
- * Dispatcher sera la clase que controle todo lo que concierne a Sockets. La clase dividira y notificara al hilo principal
- * de todos los mensajes entrantes.
+ * Dispatcher
+ * 
+ * Dispatcher is the that manage the socket communications. This class will be the one who tries to reconnect when
+ * the conection is lost.
  * 
  * @author Skynet Team
  *
@@ -29,6 +31,9 @@ public class Dispatcher extends Thread {
 	
 	private DebuggingUI dUI;
 	
+	/**
+	 * Dispatcher constructor creates the mailboxes.
+	 */
 	public Dispatcher() {
 		receiverBuzon = new Buzon<>(1000);
 		senderBuzon = new Buzon<>(1000);
@@ -37,7 +42,7 @@ public class Dispatcher extends Thread {
 	}
 	
 	/**
-	 * Dispatcher se encarga de iniciar y reconectar con el servidor en caso de fallo.
+	 * Dispatcher thread creates the needed threads to use sockets and, if fails, tries to reconnect.
 	 */
 	@Override
 	public void run() {
@@ -55,12 +60,10 @@ public class Dispatcher extends Thread {
 		} dUI.println("DISPATCHER: Fin del hilo.");
 	}
 	
+	/**
+	 * This method creates the "Socket" object.
+	 */
 	private void initConnection() {
-		if ((Definitions.socketAddres.equals("127.0.0.1")) || (Definitions.socketAddres.equals("localhost"))) {
-			try {
-				Runtime.getRuntime().exec("nc -l "+Definitions.socketNumber);
-			} catch (IOException e) {}
-		}
 		try {
 			socket = new Socket(Definitions.socketAddres, Definitions.socketNumber);
 		} catch (UnknownHostException e) {
@@ -108,12 +111,13 @@ public class Dispatcher extends Thread {
 	}
 	
 	/**
-	 * Con esta clase deberiamos enviar...
+	 * With this method the programs sends...
 	 * 		- ID
 	 * 		- IDREQUEST
 	 * 
-	 * @param type
-	 * @param data
+	 * @param id Integer ID.
+	 * @param type String type.
+	 * @param data Integer data.
 	 */
 	public void send(int id, String type, int data) {
 		try {
@@ -124,12 +128,13 @@ public class Dispatcher extends Thread {
 	}
 	
 	/**
-	 * Con esta clase deberiamos enviar...
+	 * With this method the programs sends...
 	 * 		- LOCATION
 	 * 		- ESTADO
 	 * 
-	 * @param type
-	 * @param data
+	 * @param id Integer ID.
+	 * @param type String type.
+	 * @param data String data.
 	 */
 	public void send(int id, String type, String data) {
 		try {
@@ -140,13 +145,13 @@ public class Dispatcher extends Thread {
 	}
 	
 	/**
-	 * Con esta clase deberiamos recivir...
+	 * With this method the programs sends...
 	 * 		- IDASSING
 	 * 		- ALERT
 	 * 		- ROUTE
 	 * 
-	 * @param type
-	 * @return
+	 * @param type String type.
+	 * @return Message message.
 	 */
 	public Message receive(String type) {
 		try {
