@@ -1,7 +1,15 @@
 package domain;
 
-public class Incidencia {
+import java.io.Serializable;
+
+public class Incidencia implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private int id;
 	private String tipoincidenciaid;
 	private String fechanotificacion;
 	private String fecharesolucion;
@@ -45,6 +53,14 @@ public class Incidencia {
 		this.resolucion = r.getResult(index, "resolucion");
 	}
 
+	public int getId() {
+		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	public String getTipoincidenciaid() {
 		return tipoincidenciaid;
 	}

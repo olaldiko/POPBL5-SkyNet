@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.postgresql.Driver;
 
@@ -19,15 +20,15 @@ import domain.UserFacade;
 /**
  * Servlet implementation class MapServlet
  */
-@WebServlet("/Registrarse")
-public class RegisterServlet extends HttpServlet {
-	
+@WebServlet("/Editar")
+public class EditServlet extends HttpServlet {
+		
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RegisterServlet() {
+    public EditServlet() {
     	super();
     	try {
 			if (!Driver.isRegistered()) Driver.register();
@@ -40,18 +41,21 @@ public class RegisterServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String next_page = Definitions.registerPage;
+		String next_page = Definitions.profilePage;
 		String event = request.getParameter("action");
+		response.setHeader("Cache-Control", "private, no-store, no-cache, must-revalidate");
 		if (event != null) {
 			switch(event) {
-				case "Registrarse":
+				case "Editar":
 					next_page = Definitions.indexPage;
-					request.setAttribute("mensaje", registrarse(request));
+					request.setAttribute("mensaje", edit(request));
 					break;
 				default: break;
 			}
 		}
-		response.setHeader("Cache-Control", "private, no-store, no-cache, must-revalidate");
+		User u = getUser(request);
+		request.getSession().setAttribute("editedUser", u);
+		request.getSession().setAttribute("user", u);
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(next_page);
 		dispatcher.forward(request, response);
 	}
@@ -63,7 +67,19 @@ public class RegisterServlet extends HttpServlet {
 		doGet(request, response);
 	}
 	
-	public String registrarse(HttpServletRequest request) {
+	public User getUser(HttpServletRequest request) {
+		try {
+			HttpSession s = request.getSession(false);
+			if (s != null) {
+				return new UserFacade().getUser(((User) s.getAttribute("user")).getUsername());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} return null;
+	}
+	
+	public String edit(HttpServletRequest request) {
+		UserFacade uf = null;
 		User user = new User("0",
 							 "0",
 							 request.getParameter("nombre"),
@@ -74,21 +90,20 @@ public class RegisterServlet extends HttpServlet {
 							 request.getParameter("notas"),
 							 request.getParameter("user"),
 							 request.getParameter("password"));
-		UserFacade uf;
 		try {
 			uf = new UserFacade();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return "ERROR: Error al registrar el usuario";
+			return "ERROR: Error al editar el usuario";
 		}
 		if (request.getParameter("password").equals(request.getParameter("password2"))) {
-			int result = uf.register(user);
+			int result = uf.edit(user);
 			if (result == -1) {
-				return "ERROR: Usuario exitente";
+				return "ERROR: El usuario no existe";
 			} else if (result == -2) {
-				return "ERROR: Error al registrar el usuario";
-			} else return "Usuario registrado con exito";
+				return "ERROR: Error al editar el usuario";
+			} else return "Usuario editado con exito";
 		} else return "ERROR: Las contraseñas no coinciden";
 	}
-
+	
 }

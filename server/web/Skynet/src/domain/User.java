@@ -15,8 +15,16 @@ public class User {
 	
 	public User() {}
 	
-	public User(String usuarioId, String privilegios, String nombre, String apellido, String direccion, 
-			String telefono, String DNI, String notas, String username, String password) {
+	public User(String usuarioId,
+				String privilegios,
+				String nombre,
+				String apellido,
+				String direccion, 
+				String telefono,
+				String DNI,
+				String notas,
+				String username,
+				String password) {
 		this.usuarioId = usuarioId;
 		this.privilegios = privilegios;
 		this.nombre = nombre;
