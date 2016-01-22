@@ -9,11 +9,15 @@ import simulation.Simulation;
 import socket.Buzon;
 import socket.Dispatcher;
 import socket.Message;
+import socket.Multicast;
 import tasks.SenderRunnable;
 import utils.ConfigFile;
 
 /**
- * Recurso sera la clase donde guardaremos los datos del recurso que la simulacion mueve.
+ * Resource
+ * 
+ * Resource is the class that manage all the data of the simulation.
+ * NOTE: Setters in this class rewrite config file using "rewrite()" method.
  * 
  * @author Skynet Team
  *
@@ -29,6 +33,8 @@ public class Resource extends Thread {
 	
 	private ScheduledExecutorService scheduler;
 	
+	private Multicast m;
+	
 	private boolean stop = false;
 	
 	public Resource(Dispatcher d) {
@@ -41,6 +47,11 @@ public class Resource extends Thread {
 		initSimulator();
 	}
 	
+	/**
+	 * When the resource thread is running, set's UI variables to be shown to the user.
+	 * Then creates the task running at the background periodically (LOCATION is send each 10 seconds)
+	 * Finnally, start's listening to the mailbox that is storaged the messages.
+	 */
 	@Override
 	public void run() {
 		ui.setURL(Definitions.socketAddres);
@@ -54,29 +65,45 @@ public class Resource extends Thread {
 			switch (msg.getType()) {
 				case "ALERT": ui.addAlertText(msg.getData());
 					break;
-				case "ROUTE": try {
+				case "ROUTE": if (simu != null) {
 						if (simu.getDriving()) {
+							ui.reload();
 							killSimulator();
 							prepareSimulator();
 							initSimulator();
 						}
+					}
+					try {
 						simuBuzon.send(msg.getData());
 					} catch (InterruptedException e) {
 						e.printStackTrace();
-					} break;
-				case "IDASSING": setID(msg.getID());
+					}
+				case "IDASSIGN": setID(msg.getID());
+					break;
+				case "JOIN": Definitions.multicastGroup = msg.getData();
+					if (m != null) {
+						if (m.isAlive()) {
+							m.close();
+						}
+					}
+					m = new Multicast(d.getParserBuzon());
+					m.start();
 					break;
 				default: break;
 			}
 		}
 	}
 	
+	/**
+	 * This method initialize the resource asking for an ID to the server. If the ID is storaged in the configuration file,
+	 * then restores it and set's the resource of the state to 0 if it was waiting or moving to an incident or; if it was
+	 * going back to the base, sends a state 2 to the server to receive the return home route.
+	 */
 	private void init() {
 		if (Definitions.id == -1) {
-			d.send(Definitions.id, "IDREQUEST", "");
-			//setID(d.receive("IDASSING").getID());
-			setID(1005);
-		} d.send(Definitions.id, "CONNECTED", "");
+			d.send(Definitions.id, "IDREQUEST", " ");
+			setID(d.receive("IDASSIGN").getID());
+		} d.send(Definitions.id, "CONNECTED", " ");
 		if (Definitions.estado == 2) {
 			setEstado(2);
 		} else if (Definitions.estado == 1) {
@@ -124,6 +151,9 @@ public class Resource extends Thread {
 		rewrite();
 	}
 
+	/**
+	 * This methods creates a periodical runnable method to send specific data to the server periodically.
+	 */
 	private void createTasks() {
 		scheduler = Executors.newScheduledThreadPool(1);
 		scheduler.scheduleAtFixedRate(new SenderRunnable(this, d, "LOCATION"), 0, 10, TimeUnit.SECONDS);
@@ -141,21 +171,9 @@ public class Resource extends Thread {
 		simu.kill();
 	}
 	
-	public void sendToBuzon(String s) {
-		if (simu.getDriving()) {
-			ui.reload();
-			killSimulator();
-			prepareSimulator();
-			initSimulator();
-		}
-		try {
-			simuBuzon.send(s);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
+	/**
+	 * Rewrite calls "writeAll()" method from "ConfigFile" to write the data with the variables in "Definitions" class.
+	 */
 	private void rewrite() {
 		ConfigFile file = new ConfigFile();
 		file.writeAll();

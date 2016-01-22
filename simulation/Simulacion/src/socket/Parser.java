@@ -6,7 +6,9 @@ import java.util.regex.Pattern;
 import frontend.DebuggingUI;
 
 /**
- * Parser es la clase que se va a ocupar de verificar los mensajes recividos y en convertirlos a un objeto Message.
+ * Parser 
+ * 
+ * Parser class takes a received message with a concrete format and, parsing the Message, creates a "Message" object.
  * 
  * @author Skynet Team
  *
@@ -15,7 +17,8 @@ public class Parser extends Thread {
 	
 	Matcher matcher;
 	
-	private final String regex = "^(\u0002?)([0-9]+)(\u001D?)([A-Z]+)(\u001D?)([\\w\\s]+)(\u0003?)$";
+	//private final String regex = "^\u0002?([0-9]+)\u001D?([\\w]+)\u001D?([\\w\\s\\.]+).*$";
+	private final String regex = "^\u0002?([0-9]+)\u001D?(.*)$";
 	
 	private Buzon<String> in;
 	private Buzon<Message> out;
@@ -24,31 +27,49 @@ public class Parser extends Thread {
 	
 	private DebuggingUI dUI;
 	
+	/**
+	 * The constructor sets the in and out mailbox.
+	 * 
+	 * @param in Buzon in mailbox.
+	 * @param out Buzon out mailbox.
+	 */
 	public Parser(Buzon<String> in, Buzon<Message> out) {
 		this.in = in;
 		this.out = out;
 		dUI = new DebuggingUI("Parser");
 	}
 	
+	/**
+	 * Parser compares the received message, checks the format and, if its correct,
+	 * divides the message and creates a "Message" objects. Finally, it places the
+	 * "Message" object in the output mailbox.
+	 */
 	@Override
 	public void run() {
 		while (!stop) {
 			dUI.print("PARSER: Esperando mensaje... ");
-			matcher = Pattern.compile(regex).matcher(receive());
+			String s = receive();
+			System.out.println(s);
+			matcher = Pattern.compile(regex).matcher(s);
 			dUI.println("OK!");
 			if (matcher.matches()) {
 				dUI.print("PARSER: Parseando mensaje... ");
-				int id = matcher.group(2) != null ? Integer.parseInt(matcher.group(2)): -1;
-				String type = matcher.group(4) != null ? matcher.group(4) : "";
-				String data = matcher.group(6) != null ? matcher.group(6) : "";
-				Message msg = new Message(id, type, data);
+				int id = matcher.group(1) != null ? Integer.parseInt(matcher.group(1)): -1;
+				String data = matcher.group(2) != null ? matcher.group(2) : "";
+				String [] d = data.split("\u001D");
+				Message msg = new Message(id, d[0], d[1]);
 				dUI.print(msg.toString());
 				send(msg);
 				dUI.println(" OK!");
-			} else dUI.println("PARSER - ERROR: El formato del mensaje no es correcto.");
+			} else dUI.println("PARSER - ERROR: El formato del mensaje no es correcto: "+s);
 		} dUI.println("PARSER: Fin del hilo.");
 	}
 	
+	/**
+	 * Receives the string message throught the input mailbox.
+	 * 
+	 * @return line String message text.
+	 */
 	private String receive() {
 		String line = null;
 		try {
@@ -57,6 +78,11 @@ public class Parser extends Thread {
 		return line;
 	}
 	
+	/**
+	 * Sends the message to the output mailbox.
+	 * 
+	 * @param message Message receiverd new message.
+	 */
 	private void send(Message message) {
 		try {
 			out.send(message);

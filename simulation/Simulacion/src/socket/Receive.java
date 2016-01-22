@@ -4,11 +4,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.util.ArrayList;
 
 import frontend.DebuggingUI;
 
 /**
- * Clase que crea un servidor de escucha en un Socket, dado el numero de socket.
+ * Receive
+ * 
+ * This class, using a created socket, receives data throught sockets.
  * 
  * @author Skynet Team
  *
@@ -24,6 +27,12 @@ public class Receive extends Thread {
 	
 	private DebuggingUI dUI;
 	
+	/**
+	 * The constructor receives the "Socket" object and a mailbox to place the new messages received.
+	 * 
+	 * @param Socket socket
+	 * @param Buzon buzon (Mailbox)
+	 */
 	protected Receive(Socket socket, Buzon<String> buzon) {
 		this.socket = socket;
 		this.buzon = buzon;
@@ -31,7 +40,9 @@ public class Receive extends Thread {
 	}
 	
 	/**
-	 * Creamos el BufferedReader utilizando el inputStream del Socket. Nada mas recivir informacion del socket, lo enviamos al buzon del Parser.
+	 * This methods creates a "BufferedReader" object with the "Socket.getInputStream()". Then, the thread
+	 * waits for a new message in the sockte and, when the thread receives a message, it places the message
+	 * in a String mailbox.
 	 */
 	@Override
 	public void run() {
@@ -43,16 +54,24 @@ public class Receive extends Thread {
 		}
 		while (!stop) {
 			dUI.print("RECEIVE: Esperando mensajes... ");
-			String line = null;
+			char [] data = null;
 			try {
-				line = input.readLine();
+				ArrayList<Character> a = new ArrayList<>(); 
+				int value = 0;
+				while ((value = input.read()) != 3) {
+					a.add((char) value);
+				}
+				data = new char[a.size()];
+				for (int i = 0; i < a.size(); i++) {
+					data[i] = a.get(i);
+				}
 			} catch (IOException e) {
 				System.out.println("Conexion cerrada por el servidor.");
 				e.printStackTrace();
 			}
-			if (line != null) {
+			if (data != null) {
 				try {
-					buzon.send(line);
+					buzon.send(String.valueOf(data));
 					dUI.println("Recibido!");
 				} catch (InterruptedException e) {}
 			}
