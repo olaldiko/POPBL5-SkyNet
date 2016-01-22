@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import org.postgresql.Driver;
 
+import data.Definitions;
 import domain.Incidencia;
 import domain.IncidenciaFacade;
 import domain.TCPConnection;
@@ -23,12 +25,8 @@ import domain.User;
  */
 @WebServlet("/Avisos")
 public class RootServlet extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
-	
-	private static final String PAGE_INDEX = "/index.jsp";
-	private static final String PAGE_ERROR = "/pages/mensaje.jsp";
-	private static final String PAGE_MAPA = "/Mapa";
-	
 	private static final byte[] send = {0};
 	private TCPConnection connection;
        
@@ -38,44 +36,40 @@ public class RootServlet extends HttpServlet {
     public RootServlet() {
         super();
         try {
-        	connect();
-        } catch (Exception e) {e.printStackTrace();}
-        try {
-			Driver.register();
-		} catch (Exception e) {}
+        	if (connection == null) connect();
+        	if (!Driver.isRegistered()) Driver.register();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (UnknownHostException e) {
+			//e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		String nextPage = PAGE_INDEX;
+		String nextPage = Definitions.indexPage;
 		String event = request.getParameter("action");
-		
 		response.setHeader("Cache-Control", "private, no-store, no-cache, must-revalidate");
-		
-		if(event != null) {
-			switch(event) {
+		if (event != null) {
+			switch (event) {
 			case "AYUDA":
-				if(reportarIncidencia(request)) {
-					nextPage = PAGE_MAPA;
-					// Forward
+				if (reportarIncidencia(request)) {
+					nextPage = Definitions.mapPageS;
 					response.sendRedirect(request.getContextPath() + nextPage);
 					return;
-				}
-				else {
-					nextPage = PAGE_ERROR;
+				} else {
+					nextPage = Definitions.indexPage;
 					request.setAttribute("mensaje", "Error al enviar la incidencia");
 				}
 				break;
 			}
 		}
-		
-		// Forward
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextPage);
 		dispatcher.forward(request, response);
-		
 	}
 
 	/**
@@ -86,50 +80,49 @@ public class RootServlet extends HttpServlet {
 	}
 	
 	public boolean reportarIncidencia(HttpServletRequest request) {
-		
+		HttpSession s = request.getSession(false);
+		User u = null;
+		if (s != null) {
+			u = (User) s.getAttribute("user");
+		}
+		Double[] loc = new Double[2];
+		loc[0] = Double.parseDouble(request.getParameter("lat"));
+		loc[1] = Double.parseDouble(request.getParameter("lng"));
+		Incidencia incidencia = new Incidencia(request.getParameter("tipo"),
+											   null,
+											   null,
+											   loc[0].toString(),
+											   loc[1].toString(),
+											   u != null ? u.getUsuarioId(): "0",
+											   request.getParameter("telefono"),
+											   request.getParameter("observaciones"),
+											   request.getParameter("gravedad"),
+											   request.getParameter("personas"),
+											   null);
 		IncidenciaFacade ifacade = null;
-		Incidencia incidencia = null;
-		
 		try {
-			//Usuario
-			User u = null;
-			HttpSession s = request.getSession(false);
-			if(s!=null) u = (User)s.getAttribute("user");
-			//Localizacion
-			Double[] loc = obtenerLocalizacion(request.getParameter("lugar"));
-			//Incidencia
-			incidencia = new Incidencia(request.getParameter("tipo"),null,null,
-					loc[0].toString(),loc[1].toString(),u!=null ? u.getUsuarioId():"0",request.getParameter("telefono"),
-					request.getParameter("observaciones"),request.getParameter("gravedad"),request.getParameter("personas"),null);
 			ifacade = new IncidenciaFacade();
-			if (ifacade.reportar(incidencia)) {
-				//Avisar a la aplicación Java
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		if (ifacade.reportar(incidencia)) {
+			if (connection.isConnected()) {
 				try {
 					connection.write(send);
-				} catch(Exception e1) {
+				} catch (IOException e) {
 					try {
 						connection.connect();
-					} catch(Exception e2) {e2.printStackTrace();}
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
 				}
-				return true;
-			}
-		} catch(Exception e){e.printStackTrace();}
-		
-		return false;
+			} return true;			
+		} return false;
 	}
-	
-	public Double[] obtenerLocalizacion(String lugar) {
-		Double[] loc = new Double[2];
-		String[] latlng = lugar.split("[,]");
-		loc[0] = Double.valueOf(latlng[0]);
-		loc[1] = Double.valueOf(latlng[1]);
-		return loc;
-	}
-	
-	//Conexión con aplicación Java
 	
 	public void connect() throws UnknownHostException, IOException {
-		connection = new TCPConnection("127.0.0.1",6969);
+		connection = new TCPConnection(Definitions.tcpAddress, Definitions.tcpPort);
 		connection.connect();
 	}
 

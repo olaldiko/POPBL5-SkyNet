@@ -1,64 +1,45 @@
-
 <%@ page import="domain.User" %>
 <%
 User u = null;
 HttpSession s = request.getSession(false);
-if(s!=null) u = (User)s.getAttribute("user");
+if (s != null) {
+	u = (User) s.getAttribute("user");
+	request.setAttribute("s", s);
+}
 %>
-
-<link href="<%=request.getContextPath()%>/Templates/css/Skynet.css" rel="stylesheet" type="text/css" media="screen" />
-<script type="text/javascript" charset="UTF-8" src="<%=request.getContextPath()%>/js/login.js"></script>
-<div id="header">
-	<h1>Skynet</h1>
-	<form method="post" action="<%=request.getContextPath()%>/Avisos">
-	    <input type="submit" value="Reportar Incidencia">
-	</form>
-	<form method="post" action="<%=request.getContextPath()%>/Mapa">
-	    <input type="submit" value="Ver Mapa">
-	</form>
-	<%if(u!=null && u.getUsername()!=null){%>
-		<div id="logged">
-			<input type="button" value="<%=u.getUsername()%>" onclick="showUserMenu()"/>
-			<div id="userMenu" style="display: none;">
-				<table>
-					<tr>
-						<td>
-							<form method="post" action="<%=request.getContextPath()%>/Logout">
-							    <input type="submit" value="Logout">
-							</form>
-						</td>
-					</tr>
-				</table>
-			</div>
-		</div>
-	<%} else {%>
-		<div id="notlogged">
-			<input type="button" value="Login" onclick="showLogin()"/>
-			<form method="post" action="<%=request.getContextPath()%>/Registrarse">
-			    <input type="submit" value="Registrarse">
-			</form>
-			<div id="login" style="display: none;">
-				<form method="post" action="<%=request.getContextPath()%>/Login">
-					<table>
-						<tr>
-							<td><h4>Usuario:</h4></td>
-							<td><input required type="text" placeholder="Usuario" id="user" class="loginText" name="user" size="30" /> </td>
-						</tr>
-						<tr>
-							<td><h4>Contraseña:</h4></td>
-							<td><input required type="password" placeholder="Contraseña" id="password" class="loginText" name="password" size="30" /> </td>
-						</tr>
-						<tr>
-							<td colspan="2" align="center"><input type="submit" class="loginButton" name="action" value="Entrar"/> </td>
-						</tr>
-					</table>
+<script src="<%= request.getContextPath() %>/js/jquery.min.js"></script>
+<script src="<%= request.getContextPath() %>/js/jquery.scrollzer.min.js"></script>
+<script src="<%= request.getContextPath() %>/js/jquery.scrolly.min.js"></script>
+<script src="<%= request.getContextPath() %>/js/skel.min.js"></script>
+<script src="<%= request.getContextPath() %>/js/util.js"></script>
+<script src="<%= request.getContextPath() %>/js/main.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<section id="header">
+	<header>
+		<span class="image avatar"><img src="" alt="" /></span>
+		<h1 id="logo"><a href="#">Skynet</a></h1>
+		<p></p>
+	</header>
+	<nav id="nav">
+		<ul>
+			<li><a href="<%= request.getContextPath() %>/Avisos">Reportar incidencia</a></li>
+			<li><a href="<%= request.getContextPath() %>/Mapa">Ver mapa</a></li>
+			<% if ((u != null) && (u.getUsername() != null)) { %>
+				<li><a href="<%= request.getContextPath() %>/Editar">Hola, <%= u.getNombre() %></a></li>
+				<form method="post" action="<%= request.getContextPath() %>/Logout">
+				    <li><input type="submit" value="Logout"></li>
 				</form>
-			</div>
-			<%if (request.getSession().getAttribute("loginError")!=null) { %>
-				<h4><%=(String)request.getSession().getAttribute("loginError") %></h4>
-			<%request.getSession().setAttribute("loginError",null);} %>
-		</div>
-	<%}%>
-</div>
-	
+			<% } else { %>
+				<li><a href="#">Iniciar sesion</a></li>
+				<form id="loginForm" method="post" action="<%= request.getContextPath() %>/Login">
+					<li><input required type="text" placeholder="Usuario" id="user" class="loginText" name="user" size="30" /></li>
+					<li><input required type="password" placeholder="Contraseña" id="password" class="loginText" name="password" size="30" /></li>
+					<li><input type="submit" class="loginButton" name="action" value="Entrar"/></li>
+				</form>
+				<li><a href="<%= request.getContextPath() %>/Registrarse">¿Aun no eres usuario? Registrate</a></li>
+			<% } %>
+		</ul>
+	</nav>
+</section>
+				
 	

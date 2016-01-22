@@ -8,11 +8,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import data.Definitions;
+
 /**
  * Servlet implementation class LogoutServlet
  */
 @WebServlet("/Logout")
 public class LogoutServlet extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -26,16 +29,13 @@ public class LogoutServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String nextPage = "/Avisos";
-		if(request.getSession().getAttribute("page")!=null) nextPage = (String)request.getSession().getAttribute("page");
-		
+		String nextPage = Definitions.indexPageS;
+		if (request.getSession().getAttribute("page") != null) {
+			nextPage = (String) request.getSession().getAttribute("page");
+		}
 		request.getSession().setAttribute("user", null);
-		
-		// Forward
 		response.setHeader("Cache-Control", "private, no-store, no-cache, must-revalidate");
 		response.sendRedirect(request.getContextPath()+nextPage);
-		
 	}
 
 	/**

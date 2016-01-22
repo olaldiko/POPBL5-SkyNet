@@ -2,27 +2,24 @@ package domain;
 
 import java.sql.SQLException;
 
+import data.Definitions;
+
 public class IncidenciaFacade {
 
 	public final PostgreSQLConnector c;
-	//public final String password = "9BLKMyQDeYwjCjzVXgSskAM6";
-	public final String password = "dotty2048";
 	
 	public IncidenciaFacade() throws SQLException {
-		c = new PostgreSQLConnector("localhost:5432","Skynet",
-				"postgres", password);
+		c = new PostgreSQLConnector(Definitions.dbAddress+":"+Definitions.dbPort, Definitions.dbName, Definitions.dbUser, Definitions.dbPass);
 	}
 	
 	public boolean reportar(Incidencia i) {
-		try {
-			if(Integer.valueOf(c.query(reportarFunction(i)).getResult(0, 0))>0) return true;
-		} catch(Exception e) {}
-		return false;
+		if (Integer.valueOf(c.query(reportarFunction(i)).getResult(0, 0)) > 0) return true;
+		else return false;
 	}
 	
 	public String reportarFunction(Incidencia i) {
 		String s = "";
-		s += "select f_nueva_incidencia(";
+		s += "SELECT f_nueva_incidencia(";
 		s += i.getTipoincidenciaid()+",";
 		s += i.getUbicacionlat()+",";
 		s += i.getUbicacionlng()+",";
@@ -34,13 +31,29 @@ public class IncidenciaFacade {
 		return s;
 	}
 	
-	public String[][] tiposIncidencia() {
-		try {
-			return c.query("SELECT * FROM f_get_tipos_incidencia()").toStringMatrix();
-		} catch(Exception e) {
-			e.printStackTrace();
-			return new String[0][0];
+	public Incidencia[] getIncidenciasAbiertas() {
+		QueryResult r = c.query("SELECT * FROM f_get_incidencias_abiertas()");
+		Incidencia [] inc = new Incidencia[r.getRows()];
+		if (r.getResult(0, "incidenciaid") == null) {
+			return new Incidencia[0];
 		}
+		for (int i = 0; i < inc.length; i++) {
+			inc[i] = new Incidencia();
+			inc[i].setId(Integer.valueOf(r.getResult(i, "incidenciaid")));
+			inc[i].setTipoincidenciaid(r.getResult(i, "tipoincidenciaid"));
+			inc[i].setNumeroafectados(r.getResult(i, "numeroafectados"));
+			inc[i].setUbicacionlat(r.getResult(i, "ubicacionlat"));
+			inc[i].setUbicacionlng(r.getResult(i, "ubicacionlng"));
+			inc[i].setFechanotificacion(r.getResult(i, "fechanotificacion"));
+			inc[i].setNotas(r.getResult(i, "notas"));
+			inc[i].setFecharesolucion(r.getResult(i, "fecharesolucion"));
+			inc[i].setResolucion(r.getResult(i, "resolucion"));
+			inc[i].setGravedad(r.getResult(i, "gravedad"));
+		} return inc;
+	}
+	
+	public String[][] tiposIncidencia() {
+		return c.query("SELECT * FROM f_get_tipos_incidencia()").toStringMatrix();
 	}
 	
 }

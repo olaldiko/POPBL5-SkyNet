@@ -13,46 +13,53 @@ public class SQLConnector {
 	public String password;
 	
 	public SQLConnector(String url, String database, String user, String password) throws SQLException {
-		this.url=url;
-		this.database=database;
-		this.user=user;
-		this.password=password;
+		this.url = url;
+		this.database = database;
+		this.user = user;
+		this.password = password;
+		try {
+			Class.forName("org.postgresql.Driver");
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		}
 		DriverManager.getConnection(url+"/"+database,user,password);
 	}
 	
 	public QueryResult query(String q) {
+		Connection connection = null;
+		QueryResult r = null;
 		try {
-			Connection connection = DriverManager.getConnection(url+"/"+database,user,password);
-			QueryResult r = new QueryResult(connection.prepareStatement(q).executeQuery());
+			connection = DriverManager.getConnection(url+"/"+database,user,password);
+			r = new QueryResult(connection.prepareStatement(q).executeQuery());
 			connection.close();
-			return r;
-		} catch(Exception e){}
-		return null;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} return r;
 	}
 	
 	public int update(String q) {
+		Connection connection = null;
 		try {
-			Connection connection = DriverManager.getConnection(url+"/"+database,user,password);
+			connection = DriverManager.getConnection(url+"/"+database, user, password);
 			int r = connection.prepareStatement(q).executeUpdate();
 			connection.close();
 			return r;
-		} catch(Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		return -1;
+		} return -1;
 	}
 	
 	public boolean transaction(String q) {
-		String[] s = {q};
+		String [] s = {q};
 		return transaction(s);
 	}
 	
-	public boolean transaction(String[] q) {
+	public boolean transaction(String [] q) {
 		Connection connection = null;
 		PreparedStatement s;
 		boolean b = true;
 		try {
-			connection = DriverManager.getConnection(url+"/"+database,user,password);
+			connection = DriverManager.getConnection(url+"/"+database, user, password);
 			connection.setAutoCommit(false);
 			for(int i = 0 ; i < q.length ; i++) {
 				s = connection.prepareStatement(q[i]);
@@ -60,19 +67,24 @@ public class SQLConnector {
 				s.close();
 			}
 			connection.commit();
-		} catch(Exception e) {
+		} catch (SQLException e) {
 			if (connection != null) {
 				try {
 					connection.rollback();
 					b = false;
-				} catch (SQLException e1) {b = false;}
+				} catch (SQLException e1) {
+					b = false;
+					e1.printStackTrace();
+				}
 			}
 		} finally {
 			if (connection != null) {
 				try {
 					connection.setAutoCommit(true);
 					connection.close();
-				} catch (SQLException e) {}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		return b;
