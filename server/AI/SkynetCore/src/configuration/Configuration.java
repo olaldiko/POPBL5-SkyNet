@@ -11,7 +11,10 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import ui.*;
@@ -25,6 +28,11 @@ public class Configuration implements Serializable {
 	
 	public static Configuration current;
 	
+	/////////////////////DATA/////////////////////
+	private Map<Integer,Recurso> recursos;
+	private Map<Integer,Incidencia> recursoIncidencia;
+	/////////////////////DATA/////////////////////
+	
 	/////////////////////SOLVER/////////////////////
 	private static final int[] defaultWindowSettings = {400,150,520,330};
 	public MainWindowSettings windowSettings;
@@ -36,8 +44,11 @@ public class Configuration implements Serializable {
 	public Connection servletConnection;
 	
 	private static final String defaultStationConnection = "connections.TCPConnection";
-	private static final Object[] defaultStationConnectionSettings = {"127.0.0.1","9696"};
+	private static final Object[] defaultStationConnectionSettings = {"127.0.0.1","5000"};
 	public Connection stationConnection;
+	
+	private static final Object[] defaultMulticastConnectionSettings = {MulticastConnection.FIRST_GROUP,"5000",""};
+	public MulticastConnection multicastConnection;
 	/////////////////////CONNECTIONS/////////////////////
 
 	/////////////////////SOLVER/////////////////////
@@ -58,6 +69,9 @@ public class Configuration implements Serializable {
 	/////////////////////DATABASE/////////////////////
 	
 	public Configuration() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
+		setRecursoIncidencia(Collections.synchronizedMap(new HashMap<Integer,Incidencia>(64)));
+		setRecursos(Collections.synchronizedMap(new HashMap<Integer,Recurso>(64)));
+		multicastConnection = MulticastConnection.class.getConstructor(List.class).newInstance(Arrays.asList(defaultMulticastConnectionSettings));
 		windowSettings = new MainWindowSettings(defaultWindowSettings);
 		logger = new Logger(defaultLoggerSettings);
 		solver = (Solver)Class.forName((String)defaultSolver).getConstructor(List.class).newInstance(Arrays.asList(defaultSolverSettings));
@@ -94,11 +108,11 @@ public class Configuration implements Serializable {
 						}
 						else if(line.equalsIgnoreCase("#Fields#")) {
 							fields = in.nextLine().split("[#]");
-							if(fields.length<1 || fields[0].equals("")) fields=null;
+							//if(fields.length<1 || fields[0].equals("")) fields=null;
 						}
 						else if(line.equalsIgnoreCase("#Data#")) {
 							data = in.nextLine().split("[#]");
-							if(data.length<1 || data[0].equals("")) data=null;
+							//if(data.length<1 || data[0].equals("")) data=null;
 						}
 					}
 					if(object!=null && clazz!=null && fields!=null && data!=null) {
@@ -112,6 +126,9 @@ public class Configuration implements Serializable {
 							break;
 						case "stationConnection":
 							current.setStationConnection((Connection)o);
+							break;
+						case "multicastConnection":
+							current.setMulticastConnection((MulticastConnection)o);
 							break;
 						case "solver":
 							current.setSolver((Solver)o);
@@ -227,6 +244,14 @@ public class Configuration implements Serializable {
 		return defaultWindowSettings;
 	}
 
+	public MulticastConnection getMulticastConnection() {
+		return multicastConnection;
+	}
+
+	public void setMulticastConnection(MulticastConnection multicastConnection) {
+		this.multicastConnection = multicastConnection;
+	}
+
 	public void setSolver(Solver solver) {
 		this.solver = solver;
 	}
@@ -249,6 +274,22 @@ public class Configuration implements Serializable {
 
 	public void setWindowSettings(MainWindowSettings windowSettings) {
 		this.windowSettings = windowSettings;
+	}
+
+	public Map<Integer,Recurso> getRecursos() {
+		return recursos;
+	}
+
+	public void setRecursos(Map<Integer,Recurso> recursos) {
+		this.recursos = recursos;
+	}
+
+	public Map<Integer,Incidencia> getRecursoIncidencia() {
+		return recursoIncidencia;
+	}
+
+	public void setRecursoIncidencia(Map<Integer,Incidencia> recursoIncidencia) {
+		this.recursoIncidencia = recursoIncidencia;
 	}
 	
 }

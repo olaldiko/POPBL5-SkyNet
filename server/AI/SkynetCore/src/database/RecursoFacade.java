@@ -1,5 +1,6 @@
 package database;
 
+import ia.Route;
 import configuration.Configuration;
 import configuration.Logger;
 
@@ -25,7 +26,7 @@ public class RecursoFacade {
 				res.tipo = Integer.valueOf(r2.getResult(0,"tiporecursoid"));
 			}
 			else return null;
-			if(r.getResult(0, "estado")!=null) {
+			if(r3.getResult(0, "estado")!=null) {
 				try {
 					res.estado = Integer.valueOf(r3.getResult(0, "estado"));
 					res.lat = Double.valueOf(r3.getResult(0, "lat"));
@@ -62,17 +63,30 @@ public class RecursoFacade {
 				return res;
 			}
 		}
+		log.log("Creacion de nuevo recurso fallida: ESTACION = "+estacion,Logger.DEBUG);
 		return null;
 	}
 	
 	public int actualizarRecurso(int id, int estado, double lat, double lng) {
-		log.log("Recurso "+id+": "+estado+"#"+lat+"#"+lng,Logger.DEBUG);
-		return Integer.valueOf(dao.query("SELECT * FROM f_actualizar_posicion("+id+","+estado+","+lat+","+lng+")").getResult(0,0));
+		int res = Integer.valueOf(dao.query("SELECT * FROM f_actualizar_posicion("+id+","+estado+","+lat+","+lng+")").getResult(0,0));
+		log.log("f_actualizar_posicion("+id+","+estado+","+lat+","+lng+") = "+res,Logger.DEBUG);
+		return res;
 	}
 	
-	public Estacion getEstacionMasCercana(Recurso rec) {
-		
-		return null;
+	public Route getRutaEstacionMasCercana(Recurso rec) {
+		Estacion[] estaciones = Estacion.getEstaciones(dao.query("SELECT * FROM f_get_estaciones("+rec.tipo+")"));
+		Route rCercana = null, rActual;
+		try {
+			rCercana = new Route(rec,estaciones[0]);
+			rActual = rCercana;
+			for(int i = 1 ; i < estaciones.length ; i++) {
+				rActual = new Route(rec,estaciones[i]);
+				if(rActual.getTime()<rCercana.getTime()) rCercana = rActual;
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return rCercana;
 	}
 	
 }

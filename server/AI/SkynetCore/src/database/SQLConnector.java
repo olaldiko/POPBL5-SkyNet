@@ -23,7 +23,8 @@ public class SQLConnector implements Serializable {
 		this.database=database;
 		this.user=user;
 		this.password=password;
-		DriverManager.getConnection(url+"/"+database,user,password);
+		//DriverManager.setLoginTimeout(5);
+		//DriverManager.getConnection(url+"/"+database,user,password);
 	}
 	
 	public QueryResult query(String q) {

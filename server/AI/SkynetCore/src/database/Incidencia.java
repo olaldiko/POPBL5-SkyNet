@@ -6,6 +6,7 @@ public class Incidencia {
 	public int tipo;
 	public int afectados;
 	public int resolucion;
+	public int prioridad;
 	public double lat;
 	public double lng;
 	
@@ -16,7 +17,8 @@ public class Incidencia {
 	}
 	
 	public Integer getPrioridad() {
-		return ifac.getPrioridad(id);
+		prioridad = ifac.getPrioridad(id);
+		return prioridad;
 	}
 	
 	public Integer personaRecogida() {
@@ -25,6 +27,10 @@ public class Incidencia {
 	
 	public String toString() {
 		return id+"#"+lat+"#"+lng;
+	}
+	
+	public void cerrarIncidencia() {
+		ifac.finIncidencia(id);
 	}
 	
 }

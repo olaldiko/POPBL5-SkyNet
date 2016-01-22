@@ -1,5 +1,6 @@
 package database;
 
+import ia.Route;
 import connections.MessageParser;
 
 public class Recurso {
@@ -41,7 +42,7 @@ public class Recurso {
 	public int actualizarposicion(String msg) {
 		String[] pos = null;
 		try {
-			pos = msg.split("[#]");
+			pos = msg.split("[,]");
 			return actualizarposicion(Double.valueOf(pos[0]),Double.valueOf(pos[1]));
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -55,6 +56,10 @@ public class Recurso {
 
 	public void setConnection(MessageParser connection) {
 		this.connection = connection;
+	}
+	
+	public Route getRutaEstacionMasCercana() {
+		return rf.getRutaEstacionMasCercana(this);
 	}
 	
 }
