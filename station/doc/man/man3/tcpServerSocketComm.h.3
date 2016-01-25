@@ -1,4 +1,4 @@
-.TH "rasPi-EmergencyStation/tcpServerSocketComm.h" 3 "Thu Jan 21 2016" "Version 0.1" "Emergency station" \" -*- nroff -*-
+.TH "rasPi-EmergencyStation/tcpServerSocketComm.h" 3 "Mon Jan 25 2016" "Version 0.1" "Skynet - Emergency station" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -36,15 +36,19 @@ rasPi-EmergencyStation/tcpServerSocketComm.h \- Server connection related functi
 .ti -1c
 .RI "#define \fBSSC_SRV_ADDRESS\fP   'ayerdi'"
 .br
+.RI "\fIserver's domain name\&. \fP"
 .ti -1c
 .RI "#define \fBSSC_SRV_PORT\fP   5000"
 .br
+.RI "\fIserver port\&. \fP"
 .ti -1c
 .RI "#define \fBSSC_SRV_BUFLEN\fP   1024"
 .br
+.RI "\fIReceive buffer's size\&. \fP"
 .ti -1c
 .RI "#define \fBSSC_RCV_MAXLEN\fP   1020"
 .br
+.RI "\fIMax size of the received message\&. \fP"
 .in -1c
 .SS "Functions"
 
@@ -102,12 +106,20 @@ Server connection related function definitions\&.
 .PP 
 .SS "#define SSC_RCV_MAXLEN   1020"
 
+.PP
+Max size of the received message\&. (Each pass) 
 .SS "#define SSC_SRV_ADDRESS   'ayerdi'"
 
+.PP
+server's domain name\&. 
 .SS "#define SSC_SRV_BUFLEN   1024"
 
+.PP
+Receive buffer's size\&. 
 .SS "#define SSC_SRV_PORT   5000"
 
+.PP
+server port\&. 
 .SH "Function Documentation"
 .PP 
 .SS "void SSC_initBuffers ()"
@@ -152,4 +164,4 @@ Structure containing all the parameters for the connection to the server and it'
 Outbox for the messages to be sent to the server\&. 
 .SH "Author"
 .PP 
-Generated automatically by Doxygen for Emergency station from the source code\&.
+Generated automatically by Doxygen for Skynet - Emergency station from the source code\&.

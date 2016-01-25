@@ -96,7 +96,7 @@ void MCM_initStationGroup() {
  **/
 void MCM_initGeneralGroup() {
 	struct sockaddr_in bindSock;
-	//inet_aton("10.8.0.4", &bindSock.sin_addr);
+	//inet_aton("172.17.16.252", &bindSock.sin_addr);
 	bindSock.sin_addr.s_addr = htonl(INADDR_ANY);
 	bindSock.sin_family = AF_INET;
 	bindSock.sin_port = htons(MCM_GEN_PORT);

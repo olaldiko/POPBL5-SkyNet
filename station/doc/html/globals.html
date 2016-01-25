@@ -77,7 +77,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow3" class="tabs2">
     <ul class="tablist">
       <li class="current"><a href="globals.html"><span>All</span></a></li>
+      <li><a href="globals_func.html"><span>Functions</span></a></li>
+      <li><a href="globals_vars.html"><span>Variables</span></a></li>
       <li><a href="globals_type.html"><span>Typedefs</span></a></li>
+      <li><a href="globals_defs.html"><span>Macros</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow4" class="tabs3">
+    <ul class="tablist">
+      <li><a href="#index_e"><span>e</span></a></li>
+      <li><a href="#index_m"><span>m</span></a></li>
+      <li><a href="#index_p"><span>p</span></a></li>
+      <li><a href="#index_r"><span>r</span></a></li>
+      <li><a href="#index_s"><span>s</span></a></li>
+      <li class="current"><a href="#index_v"><span>v</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -110,15 +123,113 @@ $(document).ready(function(){initNavTree('globals.html','');});
 </div>
 
 <div class="contents">
-<div class="textblock">Here is a list of all functions, variables, defines, enums, and typedefs with links to the files they belong to:</div><ul>
+<div class="textblock">Here is a list of all functions, variables, defines, enums, and typedefs with links to the files they belong to:</div>
+
+<h3><a class="anchor" id="index_e"></a>- e -</h3><ul>
+<li>exitCond
+: <a class="el" href="main_8c.html#a834e2647b3f549f1d845777db9956388">main.c</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_m"></a>- m -</h3><ul>
+<li>main()
+: <a class="el" href="main_8c.html#ac0f2228420376f4db7e1274f2b41667c">main.c</a>
+</li>
+<li>MB_getMessage()
+: <a class="el" href="msg_buffers_8c.html#a2bc61492dcc33dc1712d77d383b1e33d">msgBuffers.c</a>
+, <a class="el" href="msg_buffers_8h.html#a2bc61492dcc33dc1712d77d383b1e33d">msgBuffers.h</a>
+</li>
+<li>MB_initBuffer()
+: <a class="el" href="msg_buffers_8c.html#a15ca8d0fea842defceb1611616a64560">msgBuffers.c</a>
+, <a class="el" href="msg_buffers_8h.html#a15ca8d0fea842defceb1611616a64560">msgBuffers.h</a>
+</li>
+<li>MB_putMessage()
+: <a class="el" href="msg_buffers_8c.html#a94d8920e20c5150892cf23b81eb1dfd6">msgBuffers.c</a>
+, <a class="el" href="msg_buffers_8h.html#a89a3267a1dc19bbffe04a6bca8264bf6">msgBuffers.h</a>
+</li>
+<li>mcastConnControlThread()
+: <a class="el" href="main_8c.html#a82a03c8bafdc8925bacf4693a1c5e794">main.c</a>
+</li>
+<li>MCM_BUFFSIZE
+: <a class="el" href="mcast_messaging_8h.html#ab33288a7b770e357bc20b1f9e2e32de2">mcastMessaging.h</a>
+</li>
+<li>MCM_calcStationAddress()
+: <a class="el" href="mcast_messaging_8c.html#ab72d654feaaf6ca97ec5c605445154bb">mcastMessaging.c</a>
+, <a class="el" href="mcast_messaging_8h.html#ab72d654feaaf6ca97ec5c605445154bb">mcastMessaging.h</a>
+</li>
+<li>MCM_GEN_PORT
+: <a class="el" href="mcast_messaging_8h.html#a32f623ef7b7dc548989d4bb8aff3e035">mcastMessaging.h</a>
+</li>
+<li>MCM_GENERAL_GRP
+: <a class="el" href="mcast_messaging_8h.html#ad94bd4dda155400b7be19125ffbad803">mcastMessaging.h</a>
+</li>
+<li>MCM_initGeneralGroup()
+: <a class="el" href="mcast_messaging_8c.html#ac5fae8e7dd4561321e0311a2bd76ac63">mcastMessaging.c</a>
+, <a class="el" href="mcast_messaging_8h.html#ac5fae8e7dd4561321e0311a2bd76ac63">mcastMessaging.h</a>
+</li>
+<li>MCM_initMcastServer()
+: <a class="el" href="mcast_messaging_8c.html#a4fd8b31a6cdd8fa515f1b3680a754def">mcastMessaging.c</a>
+, <a class="el" href="mcast_messaging_8h.html#a4fd8b31a6cdd8fa515f1b3680a754def">mcastMessaging.h</a>
+</li>
+<li>MCM_initSockets()
+: <a class="el" href="mcast_messaging_8c.html#ad5775544efb4010edd675f4fabbacdfb">mcastMessaging.c</a>
+, <a class="el" href="mcast_messaging_8h.html#ad5775544efb4010edd675f4fabbacdfb">mcastMessaging.h</a>
+</li>
+<li>MCM_initStationGroup()
+: <a class="el" href="mcast_messaging_8c.html#a672a537fdc193c0ce1d7175b9f26e3cf">mcastMessaging.c</a>
+, <a class="el" href="mcast_messaging_8h.html#a672a537fdc193c0ce1d7175b9f26e3cf">mcastMessaging.h</a>
+</li>
+<li>MCM_listenerThread()
+: <a class="el" href="mcast_messaging_8c.html#ab9bc9b5c01c8c3a09c75e662eb019f04">mcastMessaging.c</a>
+, <a class="el" href="mcast_messaging_8h.html#ab9bc9b5c01c8c3a09c75e662eb019f04">mcastMessaging.h</a>
+</li>
+<li>MCM_MAXMSGSIZE
+: <a class="el" href="mcast_messaging_8h.html#abde2f0f8d51b43b08c3db243ddb3f5d6">mcastMessaging.h</a>
+</li>
+<li>MCM_senderThread()
+: <a class="el" href="mcast_messaging_8c.html#a82322ed09bb5d8af36d46860d2f49e2d">mcastMessaging.c</a>
+, <a class="el" href="mcast_messaging_8h.html#a82322ed09bb5d8af36d46860d2f49e2d">mcastMessaging.h</a>
+</li>
 <li>MCM_serverStats
 : <a class="el" href="structures_8h.html#aefefd0a5bf78ba65346d7bf98e23da39">structures.h</a>
+</li>
+<li>MCM_shutdownMcastServer()
+: <a class="el" href="mcast_messaging_8c.html#a197c2b5442d03afeb798d31b9ffaa3d7">mcastMessaging.c</a>
+, <a class="el" href="mcast_messaging_8h.html#a197c2b5442d03afeb798d31b9ffaa3d7">mcastMessaging.h</a>
+</li>
+<li>MCM_STATION_PORT
+: <a class="el" href="mcast_messaging_8h.html#a0aca9247ae9f72e25004d2160e5171b5">mcastMessaging.h</a>
 </li>
 <li>MCM_threadStruct
 : <a class="el" href="structures_8h.html#a7bb2976cd92c29fded809cd8061a44e2">structures.h</a>
 </li>
+<li>mcmServerStats
+: <a class="el" href="mcast_messaging_8c.html#a6d26c0a446e128139e6f54cf41a552b6">mcastMessaging.c</a>
+, <a class="el" href="mcast_messaging_8h.html#a6d26c0a446e128139e6f54cf41a552b6">mcastMessaging.h</a>
+</li>
 <li>MESSAGE
 : <a class="el" href="structures_8h.html#a534dcb02eaa445e2901b89fa7945607f">structures.h</a>
+</li>
+<li>MP_initMsgStruc()
+: <a class="el" href="message_parser_8c.html#a0026bd717404e4c2f9df87d137721377">messageParser.c</a>
+, <a class="el" href="message_parser_8h.html#a0026bd717404e4c2f9df87d137721377">messageParser.h</a>
+</li>
+<li>MP_initParser()
+: <a class="el" href="message_parser_8c.html#a0a5ee1ec225573ebc80059d6bce9e0d6">messageParser.c</a>
+, <a class="el" href="message_parser_8h.html#a0a5ee1ec225573ebc80059d6bce9e0d6">messageParser.h</a>
+</li>
+<li>MP_messageReceiver()
+: <a class="el" href="message_parser_8c.html#a1e095af9fe3f1bd7c5a708d797e52bb9">messageParser.c</a>
+, <a class="el" href="message_parser_8h.html#a1e095af9fe3f1bd7c5a708d797e52bb9">messageParser.h</a>
+</li>
+<li>MP_parseMessage()
+: <a class="el" href="message_parser_8c.html#a37ec21f46c51967253a4e2da9ab6f063">messageParser.c</a>
+, <a class="el" href="message_parser_8h.html#a37ec21f46c51967253a4e2da9ab6f063">messageParser.h</a>
+</li>
+<li>MP_ParserThread()
+: <a class="el" href="message_parser_8c.html#a995d4c39c3939fa306e45d06589bf8c0">messageParser.c</a>
+, <a class="el" href="message_parser_8h.html#a995d4c39c3939fa306e45d06589bf8c0">messageParser.h</a>
 </li>
 <li>MP_PRECEIVERSTR
 : <a class="el" href="structures_8h.html#ab6908a2dec484ac1b7b183d749a4d800">structures.h</a>
@@ -126,11 +237,32 @@ $(document).ready(function(){initNavTree('globals.html','');});
 <li>MP_RECEIVERSTR
 : <a class="el" href="structures_8h.html#a2f14a874f2265338cad48666d071903d">structures.h</a>
 </li>
+<li>MP_shutdownParser()
+: <a class="el" href="message_parser_8c.html#ae5f28facce1e0541ab164f4881792705">messageParser.c</a>
+</li>
+<li>MP_wipeMessage()
+: <a class="el" href="message_parser_8c.html#a1e487e587ff3244c0808f4602ec6f1f7">messageParser.c</a>
+, <a class="el" href="message_parser_8h.html#a1e487e587ff3244c0808f4602ec6f1f7">messageParser.h</a>
+</li>
+<li>MSG_IDSIZE
+: <a class="el" href="message_parser_8h.html#a51f8ef09a7b440fbef11726003ef7343">messageParser.h</a>
+</li>
+<li>MSG_TYPESIZE
+: <a class="el" href="message_parser_8h.html#a23516e280737fa3a7ddd505634d20141">messageParser.h</a>
+</li>
 <li>MSGBUFF
 : <a class="el" href="structures_8h.html#af5599e0224112e20fb5a7df6340583d2">structures.h</a>
 </li>
 <li>MSGQUEUE
 : <a class="el" href="structures_8h.html#aad1387d081fc61365e361999c38c69f5">structures.h</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_p"></a>- p -</h3><ul>
+<li>parserState
+: <a class="el" href="message_parser_8c.html#a30d441725b34d11fee03d9b4afdcc505">messageParser.c</a>
+, <a class="el" href="message_parser_8h.html#a30d441725b34d11fee03d9b4afdcc505">messageParser.h</a>
 </li>
 <li>PMESSAGE
 : <a class="el" href="structures_8h.html#ab0e2403c2d12c3cd1b983b120f9d29f7">structures.h</a>
@@ -141,6 +273,38 @@ $(document).ready(function(){initNavTree('globals.html','');});
 <li>PMSGQUEUE
 : <a class="el" href="structures_8h.html#a4ecdada3b9e10b862f0d6d24c30b7c01">structures.h</a>
 </li>
+</ul>
+
+
+<h3><a class="anchor" id="index_r"></a>- r -</h3><ul>
+<li>receivedMsgBuff
+: <a class="el" href="message_parser_8c.html#ab95895c4239db10d402c2b18aae1afea">messageParser.c</a>
+, <a class="el" href="message_parser_8h.html#ab95895c4239db10d402c2b18aae1afea">messageParser.h</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_s"></a>- s -</h3><ul>
+<li>SA_addVehicleToList()
+: <a class="el" href="station_actions_8c.html#adef80b5aef5924633f2ef4b37eecc820">stationActions.c</a>
+, <a class="el" href="station_actions_8h.html#adef80b5aef5924633f2ef4b37eecc820">stationActions.h</a>
+</li>
+<li>SA_countVehiclesInList()
+: <a class="el" href="station_actions_8c.html#a37799774c2d1bb58759b36bb9d82817e">stationActions.c</a>
+, <a class="el" href="station_actions_8h.html#a37799774c2d1bb58759b36bb9d82817e">stationActions.h</a>
+</li>
+<li>SA_getVehicleByIndex()
+: <a class="el" href="station_actions_8c.html#ace989dc2c9246744d4361436398b4075">stationActions.c</a>
+, <a class="el" href="station_actions_8h.html#ace989dc2c9246744d4361436398b4075">stationActions.h</a>
+</li>
+<li>SA_initVehicle()
+: <a class="el" href="station_actions_8c.html#ac5974717372c28efe7b4e33f68ef895b">stationActions.c</a>
+, <a class="el" href="station_actions_8h.html#ac5974717372c28efe7b4e33f68ef895b">stationActions.h</a>
+</li>
+<li>SA_initVehicleList()
+: <a class="el" href="station_actions_8c.html#afd7a98007f57d5cc8f066ce673c6daf8">stationActions.c</a>
+, <a class="el" href="station_actions_8h.html#afd7a98007f57d5cc8f066ce673c6daf8">stationActions.h</a>
+</li>
 <li>SA_PVEHICLE_DATA
 : <a class="el" href="structures_8h.html#ab60a043206ae138fbd2fd16397e926a6">structures.h</a>
 </li>
@@ -149,6 +313,62 @@ $(document).ready(function(){initNavTree('globals.html','');});
 </li>
 <li>SA_PVEHICLE_QUEUE
 : <a class="el" href="structures_8h.html#a11a882e602b3777610c1bc513c17a652">structures.h</a>
+</li>
+<li>SA_searchVehicleById()
+: <a class="el" href="station_actions_8c.html#a78fa797ba2873bacdac3f25506fdca3b">stationActions.c</a>
+, <a class="el" href="station_actions_8h.html#a78fa797ba2873bacdac3f25506fdca3b">stationActions.h</a>
+</li>
+<li>SA_searchVehicleByInboxThread()
+: <a class="el" href="station_actions_8c.html#aeca7876f4e4aa4da84f9d5598995916c">stationActions.c</a>
+, <a class="el" href="station_actions_8h.html#aeca7876f4e4aa4da84f9d5598995916c">stationActions.h</a>
+</li>
+<li>SA_searchVehicleBySocket()
+: <a class="el" href="station_actions_8c.html#ad32eaec7f38945a0256977ee21f1318d">stationActions.c</a>
+, <a class="el" href="station_actions_8h.html#ad32eaec7f38945a0256977ee21f1318d">stationActions.h</a>
+</li>
+<li>SA_sendConnectedMsg()
+: <a class="el" href="station_actions_8c.html#a2be0d823bd5a676ce32b74e8f1b12dc2">stationActions.c</a>
+, <a class="el" href="station_actions_8h.html#a2be0d823bd5a676ce32b74e8f1b12dc2">stationActions.h</a>
+</li>
+<li>SA_sendDisconnectedMsg()
+: <a class="el" href="station_actions_8c.html#a62de0824fbc9e952d2f17577d16d38d1">stationActions.c</a>
+, <a class="el" href="station_actions_8h.html#a62de0824fbc9e952d2f17577d16d38d1">stationActions.h</a>
+</li>
+<li>SA_sendJoinMessage()
+: <a class="el" href="station_actions_8c.html#afbf777498692d2ce2582ab9228b11063">stationActions.c</a>
+, <a class="el" href="station_actions_8h.html#afbf777498692d2ce2582ab9228b11063">stationActions.h</a>
+</li>
+<li>SA_treatAlertMessage()
+: <a class="el" href="station_actions_8c.html#abec412b1329832ff70968ddd70b18f3e">stationActions.c</a>
+, <a class="el" href="station_actions_8h.html#abec412b1329832ff70968ddd70b18f3e">stationActions.h</a>
+</li>
+<li>SA_treatIDAssign()
+: <a class="el" href="station_actions_8c.html#a2194e68556b58027350c53533996f78a">stationActions.c</a>
+, <a class="el" href="station_actions_8h.html#a2194e68556b58027350c53533996f78a">stationActions.h</a>
+</li>
+<li>SA_treatIDMessage()
+: <a class="el" href="station_actions_8c.html#a6aebd614595a0cd43b4f3dae79904502">stationActions.c</a>
+, <a class="el" href="station_actions_8h.html#a6aebd614595a0cd43b4f3dae79904502">stationActions.h</a>
+</li>
+<li>SA_treatIDReqMessage()
+: <a class="el" href="station_actions_8c.html#a508d1d36f16f6dee4c28344426c929f0">stationActions.c</a>
+, <a class="el" href="station_actions_8h.html#a508d1d36f16f6dee4c28344426c929f0">stationActions.h</a>
+</li>
+<li>SA_treatListMessage()
+: <a class="el" href="station_actions_8c.html#a1e710f6898a01da9a953e7fed354c358">stationActions.c</a>
+, <a class="el" href="station_actions_8h.html#a1e710f6898a01da9a953e7fed354c358">stationActions.h</a>
+</li>
+<li>SA_treatLOCMessage()
+: <a class="el" href="station_actions_8c.html#a1e0a9c39b59131a6b19a9d44544543ab">stationActions.c</a>
+, <a class="el" href="station_actions_8h.html#a1e0a9c39b59131a6b19a9d44544543ab">stationActions.h</a>
+</li>
+<li>SA_treatRouteMessage()
+: <a class="el" href="station_actions_8c.html#a5e1c0855b4fc05bdfb48c63ee97d728e">stationActions.c</a>
+, <a class="el" href="station_actions_8h.html#a5e1c0855b4fc05bdfb48c63ee97d728e">stationActions.h</a>
+</li>
+<li>SA_treatStatusMessage()
+: <a class="el" href="station_actions_8c.html#a5db92a163307a895ded7d4c6d9627c3f">stationActions.c</a>
+, <a class="el" href="station_actions_8h.html#a5db92a163307a895ded7d4c6d9627c3f">stationActions.h</a>
 </li>
 <li>SA_VEHICLE_DATA
 : <a class="el" href="structures_8h.html#afebcc1df34d37d0e89e7dcd7cf3e1e6c">structures.h</a>
@@ -159,14 +379,130 @@ $(document).ready(function(){initNavTree('globals.html','');});
 <li>SA_VEHICLE_LIST
 : <a class="el" href="structures_8h.html#af99384b6bdf35a5dad25bbde6c22593d">structures.h</a>
 </li>
+<li>serverConnControlThread()
+: <a class="el" href="main_8c.html#aea1c0564829983a4a1da026f1640f762">main.c</a>
+</li>
+<li>serverSocketStat
+: <a class="el" href="tcp_server_socket_comm_8c.html#a14f5752a27e37a812a55657f99b0408d">tcpServerSocketComm.c</a>
+, <a class="el" href="tcp_server_socket_comm_8h.html#a14f5752a27e37a812a55657f99b0408d">tcpServerSocketComm.h</a>
+</li>
+<li>sig_handler()
+: <a class="el" href="main_8c.html#a4f31a6fd48ee5d4579ae4aaaa3cae285">main.c</a>
+</li>
+<li>SSC_initBuffers()
+: <a class="el" href="tcp_server_socket_comm_8c.html#ae12d709dd8d0c5c39e8949dfa433dff4">tcpServerSocketComm.c</a>
+, <a class="el" href="tcp_server_socket_comm_8h.html#ae12d709dd8d0c5c39e8949dfa433dff4">tcpServerSocketComm.h</a>
+</li>
+<li>SSC_initServerConnection()
+: <a class="el" href="tcp_server_socket_comm_8c.html#a64aaa41ac5e2fbe7f8ba88c053b49ff9">tcpServerSocketComm.c</a>
+, <a class="el" href="tcp_server_socket_comm_8h.html#a64aaa41ac5e2fbe7f8ba88c053b49ff9">tcpServerSocketComm.h</a>
+</li>
+<li>SSC_initServerConnThreads()
+: <a class="el" href="tcp_server_socket_comm_8c.html#aefcfff31ea3a9b0d92a83ab83c9874f9">tcpServerSocketComm.c</a>
+, <a class="el" href="tcp_server_socket_comm_8h.html#aefcfff31ea3a9b0d92a83ab83c9874f9">tcpServerSocketComm.h</a>
+</li>
+<li>SSC_listenToServerMsg()
+: <a class="el" href="tcp_server_socket_comm_8c.html#abe2574d5f7dd2457b0d09df7f29643a9">tcpServerSocketComm.c</a>
+</li>
+<li>SSC_makeServerConnection()
+: <a class="el" href="tcp_server_socket_comm_8c.html#a71368ed7199c8c4f010605207359f972">tcpServerSocketComm.c</a>
+, <a class="el" href="tcp_server_socket_comm_8h.html#a71368ed7199c8c4f010605207359f972">tcpServerSocketComm.h</a>
+</li>
+<li>SSC_msgListenerThreadFunc()
+: <a class="el" href="tcp_server_socket_comm_8c.html#ae54218394dd621113d0f73ec6ef8f873">tcpServerSocketComm.c</a>
+, <a class="el" href="tcp_server_socket_comm_8h.html#ae54218394dd621113d0f73ec6ef8f873">tcpServerSocketComm.h</a>
+</li>
+<li>SSC_msgSenderThreadFunc()
+: <a class="el" href="tcp_server_socket_comm_8c.html#ab46f3e041cae487562197067e220af3b">tcpServerSocketComm.c</a>
+, <a class="el" href="tcp_server_socket_comm_8h.html#ab46f3e041cae487562197067e220af3b">tcpServerSocketComm.h</a>
+</li>
 <li>SSC_PSTAT
 : <a class="el" href="structures_8h.html#a42631eac73090a95e68dc7086747b2e3">structures.h</a>
+</li>
+<li>SSC_RCV_MAXLEN
+: <a class="el" href="tcp_server_socket_comm_8h.html#a54a7ebfc80906662a1d6011d2401e269">tcpServerSocketComm.h</a>
+</li>
+<li>SSC_sendMessageToServer()
+: <a class="el" href="tcp_server_socket_comm_8c.html#a5cfbc3e4116f51d09d4416ce81a420a9">tcpServerSocketComm.c</a>
+, <a class="el" href="tcp_server_socket_comm_8h.html#a4207c38ca4a5d4585ba185514a38f594">tcpServerSocketComm.h</a>
+</li>
+<li>SSC_serverSendBuffer
+: <a class="el" href="tcp_server_socket_comm_8c.html#a4a90a0c7abbee73d223b3d00b3f46454">tcpServerSocketComm.c</a>
+, <a class="el" href="tcp_server_socket_comm_8h.html#a4a90a0c7abbee73d223b3d00b3f46454">tcpServerSocketComm.h</a>
+</li>
+<li>SSC_SRV_ADDRESS
+: <a class="el" href="tcp_server_socket_comm_8h.html#a129b09429d113acb51cfdd588a5813ec">tcpServerSocketComm.h</a>
+</li>
+<li>SSC_SRV_BUFLEN
+: <a class="el" href="tcp_server_socket_comm_8h.html#ab492d14b137163790b6b38fd9184cda4">tcpServerSocketComm.h</a>
+</li>
+<li>SSC_SRV_PORT
+: <a class="el" href="tcp_server_socket_comm_8h.html#a7ad7354d7e5952d98174c0567a5d5feb">tcpServerSocketComm.h</a>
 </li>
 <li>SSC_STAT
 : <a class="el" href="structures_8h.html#ae7a1eb73cbc7d30d3e2887f8c8244beb">structures.h</a>
 </li>
+<li>SSC_stopServerConn()
+: <a class="el" href="tcp_server_socket_comm_8c.html#a764e95eb0d9780103d96fe17901cafae">tcpServerSocketComm.c</a>
+, <a class="el" href="tcp_server_socket_comm_8h.html#a764e95eb0d9780103d96fe17901cafae">tcpServerSocketComm.h</a>
+</li>
+<li>stationID
+: <a class="el" href="station_actions_8c.html#ac587286b9f763555084055c69d456426">stationActions.c</a>
+, <a class="el" href="station_actions_8h.html#ac587286b9f763555084055c69d456426">stationActions.h</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_v"></a>- v -</h3><ul>
+<li>vehicleConnControlThread()
+: <a class="el" href="main_8c.html#ae346112f7679ae0199c3158f6624fd8b">main.c</a>
+</li>
+<li>vehicleList
+: <a class="el" href="station_actions_8c.html#af74319933cbe8928ebca4386f4850f2b">stationActions.c</a>
+, <a class="el" href="station_actions_8h.html#af74319933cbe8928ebca4386f4850f2b">stationActions.h</a>
+</li>
+<li>vehicleServerStat
+: <a class="el" href="tcp_vehicle_socket_comm_8c.html#a4761d6baa79afa32a3cffc33901bbd55">tcpVehicleSocketComm.c</a>
+, <a class="el" href="tcp_vehicle_socket_comm_8h.html#a4761d6baa79afa32a3cffc33901bbd55">tcpVehicleSocketComm.h</a>
+</li>
+<li>VSC_acceptConnections()
+: <a class="el" href="tcp_vehicle_socket_comm_8c.html#a3ec3f2c1297ab45cb0ad39f925a4bce5">tcpVehicleSocketComm.c</a>
+, <a class="el" href="tcp_vehicle_socket_comm_8h.html#a3ec3f2c1297ab45cb0ad39f925a4bce5">tcpVehicleSocketComm.h</a>
+</li>
+<li>VSC_inboundHandlerThreadFunc()
+: <a class="el" href="tcp_vehicle_socket_comm_8c.html#a919ad3564e41afca64d17244390cfba7">tcpVehicleSocketComm.c</a>
+, <a class="el" href="tcp_vehicle_socket_comm_8h.html#a919ad3564e41afca64d17244390cfba7">tcpVehicleSocketComm.h</a>
+</li>
+<li>VSC_initVehicleServer()
+: <a class="el" href="tcp_vehicle_socket_comm_8c.html#a49fe9e8bc1bd13ac909ae2b7d2391886">tcpVehicleSocketComm.c</a>
+, <a class="el" href="tcp_vehicle_socket_comm_8h.html#a49fe9e8bc1bd13ac909ae2b7d2391886">tcpVehicleSocketComm.h</a>
+</li>
+<li>VSC_MAXPENDING
+: <a class="el" href="tcp_vehicle_socket_comm_8h.html#a273ec2e27c00bbfc1a2c8d334bfb3cda">tcpVehicleSocketComm.h</a>
+</li>
+<li>VSC_MAXRCV_LEN
+: <a class="el" href="tcp_vehicle_socket_comm_8h.html#a43eb2cb699f41a78b3c96b034dac51e9">tcpVehicleSocketComm.h</a>
+</li>
+<li>VSC_outboundHandlerThreadFunc()
+: <a class="el" href="tcp_vehicle_socket_comm_8c.html#a8a9cd2f1bfdc3aada6f66fbddee2aa39">tcpVehicleSocketComm.c</a>
+, <a class="el" href="tcp_vehicle_socket_comm_8h.html#a8a9cd2f1bfdc3aada6f66fbddee2aa39">tcpVehicleSocketComm.h</a>
+</li>
 <li>VSC_PSTAT
 : <a class="el" href="structures_8h.html#afd8b4c89a806ef240d38e29c6e61c95f">structures.h</a>
+</li>
+<li>VSC_SendMessageToVehicle()
+: <a class="el" href="tcp_vehicle_socket_comm_8c.html#a1c76ab448a30a8498f76e22546c81047">tcpVehicleSocketComm.c</a>
+, <a class="el" href="tcp_vehicle_socket_comm_8h.html#ab11d138f26a1dd8226ab5bca29cfdbbc">tcpVehicleSocketComm.h</a>
+</li>
+<li>VSC_shutdownVehicleServer()
+: <a class="el" href="tcp_vehicle_socket_comm_8c.html#ad670ed989fdade07d91fd3f1bc38ae03">tcpVehicleSocketComm.c</a>
+, <a class="el" href="tcp_vehicle_socket_comm_8h.html#ad670ed989fdade07d91fd3f1bc38ae03">tcpVehicleSocketComm.h</a>
+</li>
+<li>VSC_SOCKBUF_LEN
+: <a class="el" href="tcp_vehicle_socket_comm_8h.html#af913d826f2e3ef7dab5fdb8030978513">tcpVehicleSocketComm.h</a>
+</li>
+<li>VSC_SRV_PORT
+: <a class="el" href="tcp_vehicle_socket_comm_8h.html#a598b254727449d2497c9246f8802694d">tcpVehicleSocketComm.h</a>
 </li>
 <li>VSC_STAT
 : <a class="el" href="structures_8h.html#a03640706455fee54764e786db44f1d4a">structures.h</a>
