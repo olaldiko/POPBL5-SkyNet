@@ -1,0 +1,9 @@
+<map id="VSC_outboundHandlerThreadFunc" name="VSC_outboundHandlerThreadFunc">
+<area shape="rect" id="node2" href="$station_actions_8h.html#ac5974717372c28efe7b4e33f68ef895b" title="Function to initialize a new vehicle structure. " alt="" coords="284,5,390,31"/>
+<area shape="rect" id="node3" href="$station_actions_8h.html#adef80b5aef5924633f2ef4b37eecc820" title="Add a new vehicle to the vehicle list. " alt="" coords="438,5,585,31"/>
+<area shape="rect" id="node4" href="$message_parser_8h.html#a37ec21f46c51967253a4e2da9ab6f063" title="Message parser main function. " alt="" coords="829,5,965,31"/>
+<area shape="rect" id="node8" href="$station_actions_8h.html#a1e710f6898a01da9a953e7fed354c358" title="Function to treat the initial vehicle list message. " alt="" coords="633,31,781,56"/>
+<area shape="rect" id="node5" href="$message_parser_8h.html#a995d4c39c3939fa306e45d06589bf8c0" title="Thread function for the parser thread. " alt="" coords="1013,5,1143,31"/>
+<area shape="rect" id="node6" href="$message_parser_8h.html#a0a5ee1ec225573ebc80059d6bce9e0d6" title="Parser thread initializer. " alt="" coords="1191,5,1296,31"/>
+<area shape="rect" id="node7" href="$main_8c.html#ac0f2228420376f4db7e1274f2b41667c" title="main" alt="" coords="1344,5,1395,31"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="VSC_shutdownVehicleServer" name="VSC_shutdownVehicleServer">
+<area shape="rect" id="node2" href="$station_actions_8c.html#a37799774c2d1bb58759b36bb9d82817e" title="Count the vehicles on the vehicle list. " alt="" coords="249,5,410,31"/>
+<area shape="rect" id="node3" href="$station_actions_8c.html#ace989dc2c9246744d4361436398b4075" title="Get the vehicle that is on the n&#45;th position in the list. " alt="" coords="251,55,407,80"/>
+</map>

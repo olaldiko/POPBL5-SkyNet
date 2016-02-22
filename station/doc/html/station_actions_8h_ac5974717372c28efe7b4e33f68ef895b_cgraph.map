@@ -1,0 +1,7 @@
+<map id="SA_initVehicle" name="SA_initVehicle">
+<area shape="rect" id="node2" href="$msg_buffers_8c.html#a15ca8d0fea842defceb1611616a64560" title="Create a new buffer or mailbox and initialize it for n values. " alt="" coords="225,5,326,31"/>
+<area shape="rect" id="node3" href="$tcp_vehicle_socket_comm_8c.html#a8a9cd2f1bfdc3aada6f66fbddee2aa39" title="Thread to send the messages to the vehicle. " alt="" coords="160,55,390,80"/>
+<area shape="rect" id="node4" href="$msg_buffers_8c.html#a2bc61492dcc33dc1712d77d383b1e33d" title="Get a message from the buffer. " alt="" coords="477,29,598,55"/>
+<area shape="rect" id="node5" href="$tcp_vehicle_socket_comm_8c.html#a1c76ab448a30a8498f76e22546c81047" title="Send a message to a vehicle. " alt="" coords="438,79,637,104"/>
+<area shape="rect" id="node6" href="$message_parser_8c.html#a1e487e587ff3244c0808f4602ec6f1f7" title="Message wiping function. " alt="" coords="685,79,815,104"/>
+</map>

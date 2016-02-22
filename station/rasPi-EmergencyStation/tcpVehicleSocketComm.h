@@ -3,9 +3,6 @@
 #ifndef tcpVehicleSocketComm_h
 #define tcpVehicleSocketComm_h
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
@@ -13,8 +10,6 @@
 #include <netdb.h>
 #include "structures.h"
 #include "msgBuffers.h"
-#include "messageParser.h"
-#include "stationActions.h"
 
 
 #define VSC_SRV_PORT 6000 /**< Port of where the vehicle connection server will listen definition*/

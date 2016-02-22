@@ -1,0 +1,7 @@
+<map id="SA_sendDisconnectedMsg" name="SA_sendDisconnectedMsg">
+<area shape="rect" id="node2" href="$tcp_vehicle_socket_comm_8h.html#a919ad3564e41afca64d17244390cfba7" title="Thread to handle the inbound messages from the vehicles. " alt="" coords="235,5,457,31"/>
+<area shape="rect" id="node3" href="$tcp_vehicle_socket_comm_8h.html#a3ec3f2c1297ab45cb0ad39f925a4bce5" title="Accept the new connections from vehicles. " alt="" coords="505,5,675,31"/>
+<area shape="rect" id="node4" href="$tcp_vehicle_socket_comm_8h.html#a49fe9e8bc1bd13ac909ae2b7d2391886" title="Initialize the vehicle comunication server. " alt="" coords="723,5,878,31"/>
+<area shape="rect" id="node5" href="$main_8c.html#ae346112f7679ae0199c3158f6624fd8b" title="Thread for controlling the vehicle server initialization and shutdown. " alt="" coords="926,5,1106,31"/>
+<area shape="rect" id="node6" href="$main_8c.html#ac0f2228420376f4db7e1274f2b41667c" title="main" alt="" coords="1154,5,1204,31"/>
+</map>

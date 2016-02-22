@@ -1,0 +1,4 @@
+<map id="MSGBUFF" name="MSGBUFF">
+<area shape="rect" id="node2" href="$struct_m_s_g_q_u_e_u_e.html" title="Node element structure of the message mailbox/buffer. " alt="" coords="5,92,104,117"/>
+<area shape="rect" id="node3" href="$struct_m_e_s_s_a_g_e.html" title="Structure where the messages are stored. " alt="" coords="11,5,99,31"/>
+</map>

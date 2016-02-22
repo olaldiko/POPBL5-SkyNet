@@ -1,0 +1,15 @@
+<map id="SSC_initServerConnection" name="SSC_initServerConnection">
+<area shape="rect" id="node2" href="$tcp_server_socket_comm_8c.html#ae12d709dd8d0c5c39e8949dfa433dff4" title="Initialize the buffers involved in the server communication. " alt="" coords="272,5,388,31"/>
+<area shape="rect" id="node4" href="$tcp_server_socket_comm_8c.html#a71368ed7199c8c4f010605207359f972" title="Create the connection to the server. " alt="" coords="723,56,919,81"/>
+<area shape="rect" id="node5" href="$tcp_server_socket_comm_8c.html#aefcfff31ea3a9b0d92a83ab83c9874f9" title="Start the threads for listening and sending messages to the server. " alt="" coords="233,107,427,132"/>
+<area shape="rect" id="node3" href="$msg_buffers_8c.html#a15ca8d0fea842defceb1611616a64560" title="Create a new buffer or mailbox and initialize it for n values. " alt="" coords="524,5,625,31"/>
+<area shape="rect" id="node6" href="$tcp_server_socket_comm_8c.html#ae54218394dd621113d0f73ec6ef8f873" title="Thread to listen to messages coming from the server. " alt="" coords="475,107,675,132"/>
+<area shape="rect" id="node11" href="$tcp_server_socket_comm_8c.html#ab46f3e041cae487562197067e220af3b" title="Thread to send the messages stored in the outbox to the server. " alt="" coords="477,180,673,205"/>
+<area shape="rect" id="node7" href="$tcp_server_socket_comm_8c.html#abe2574d5f7dd2457b0d09df7f29643a9" title="Listen to the messages coming to the server. " alt="" coords="738,105,904,131"/>
+<area shape="rect" id="node8" href="$message_parser_8c.html#a1e095af9fe3f1bd7c5a708d797e52bb9" title="Message decoupler and receiver function. " alt="" coords="967,80,1122,105"/>
+<area shape="rect" id="node10" href="$msg_buffers_8c.html#a94d8920e20c5150892cf23b81eb1dfd6" title="Put a message into the buffer. " alt="" coords="984,129,1105,155"/>
+<area shape="rect" id="node9" href="$message_parser_8c.html#a0026bd717404e4c2f9df87d137721377" title="Message structure initializer. " alt="" coords="1170,80,1292,105"/>
+<area shape="rect" id="node12" href="$msg_buffers_8c.html#a2bc61492dcc33dc1712d77d383b1e33d" title="Get a message from the buffer. " alt="" coords="760,155,882,180"/>
+<area shape="rect" id="node13" href="$tcp_server_socket_comm_8c.html#a5cfbc3e4116f51d09d4416ce81a420a9" title="Send a message to the server. " alt="" coords="725,204,917,229"/>
+<area shape="rect" id="node14" href="$message_parser_8c.html#a1e487e587ff3244c0808f4602ec6f1f7" title="Message wiping function. " alt="" coords="756,253,886,279"/>
+</map>

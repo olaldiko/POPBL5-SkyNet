@@ -1,0 +1,5 @@
+<map id="SA_sendJoinMessage" name="SA_sendJoinMessage">
+<area shape="rect" id="node2" href="$station_actions_8c.html#a78fa797ba2873bacdac3f25506fdca3b" title="Search a vehicle by ID. " alt="" coords="207,5,364,31"/>
+<area shape="rect" id="node3" href="$message_parser_8c.html#a0026bd717404e4c2f9df87d137721377" title="Message structure initializer. " alt="" coords="224,55,347,80"/>
+<area shape="rect" id="node4" href="$msg_buffers_8c.html#a94d8920e20c5150892cf23b81eb1dfd6" title="Put a message into the buffer. " alt="" coords="225,104,346,129"/>
+</map>

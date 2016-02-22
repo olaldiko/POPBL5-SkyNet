@@ -1,0 +1,24 @@
+<map id="MP_ParserThread" name="MP_ParserThread">
+<area shape="rect" id="node2" href="$msg_buffers_8c.html#a2bc61492dcc33dc1712d77d383b1e33d" title="Get a message from the buffer. " alt="" coords="1286,18,1408,43"/>
+<area shape="rect" id="node3" href="$message_parser_8c.html#a37ec21f46c51967253a4e2da9ab6f063" title="Message parser main function. " alt="" coords="184,294,320,319"/>
+<area shape="rect" id="node4" href="$station_actions_8c.html#a5e1c0855b4fc05bdfb48c63ee97d728e" title="Function to treat the route messages sent by the server. " alt="" coords="369,294,532,319"/>
+<area shape="rect" id="node5" href="$station_actions_8c.html#a78fa797ba2873bacdac3f25506fdca3b" title="Search a vehicle by ID. " alt="" coords="596,245,752,270"/>
+<area shape="rect" id="node8" href="$station_actions_8c.html#abec412b1329832ff70968ddd70b18f3e" title="Function to treat the Alert messages coming from the server. " alt="" coords="373,442,528,467"/>
+<area shape="rect" id="node9" href="$station_actions_8c.html#a2194e68556b58027350c53533996f78a" title="Function to treat the ID Assign messages. " alt="" coords="387,590,514,615"/>
+<area shape="rect" id="node11" href="$station_actions_8c.html#a1e710f6898a01da9a953e7fed354c358" title="Function to treat the initial vehicle list message. " alt="" coords="376,93,524,118"/>
+<area shape="rect" id="node12" href="$station_actions_8c.html#adef80b5aef5924633f2ef4b37eecc820" title="Add a new vehicle to the vehicle list. " alt="" coords="601,94,747,119"/>
+<area shape="rect" id="node18" href="$station_actions_8c.html#a2be0d823bd5a676ce32b74e8f1b12dc2" title="Send the vehicle connected message to the server. " alt="" coords="368,343,533,369"/>
+<area shape="rect" id="node19" href="$station_actions_8c.html#afbf777498692d2ce2582ab9228b11063" title="Send the Join multicast group message to the vehicle. " alt="" coords="373,245,527,270"/>
+<area shape="rect" id="node20" href="$station_actions_8c.html#a6aebd614595a0cd43b4f3dae79904502" title="SA_treatIDMessage" alt="" coords="380,43,521,69"/>
+<area shape="rect" id="node21" href="$station_actions_8c.html#a508d1d36f16f6dee4c28344426c929f0" title="Function to treat the ID Request Messages. " alt="" coords="368,491,533,517"/>
+<area shape="rect" id="node22" href="$station_actions_8c.html#a1e0a9c39b59131a6b19a9d44544543ab" title="Function to treat the Location messages. " alt="" coords="373,541,528,566"/>
+<area shape="rect" id="node23" href="$station_actions_8c.html#a5db92a163307a895ded7d4c6d9627c3f" title="Function to treat the Status messages coming from the vehicle. " alt="" coords="368,393,533,418"/>
+<area shape="rect" id="node6" href="$message_parser_8c.html#a0026bd717404e4c2f9df87d137721377" title="Message structure initializer. " alt="" coords="613,294,735,319"/>
+<area shape="rect" id="node7" href="$msg_buffers_8c.html#a94d8920e20c5150892cf23b81eb1dfd6" title="Put a message into the buffer. " alt="" coords="613,418,735,443"/>
+<area shape="rect" id="node10" href="$station_actions_8c.html#ad32eaec7f38945a0256977ee21f1318d" title="Search a vehicle by socket number. " alt="" coords="581,590,767,615"/>
+<area shape="rect" id="node13" href="$station_actions_8c.html#ac5974717372c28efe7b4e33f68ef895b" title="Function to initialize a new vehicle structure. " alt="" coords="815,94,921,119"/>
+<area shape="rect" id="node14" href="$msg_buffers_8c.html#a15ca8d0fea842defceb1611616a64560" title="Create a new buffer or mailbox and initialize it for n values. " alt="" coords="1034,43,1135,69"/>
+<area shape="rect" id="node15" href="$tcp_vehicle_socket_comm_8c.html#a8a9cd2f1bfdc3aada6f66fbddee2aa39" title="Thread to send the messages to the vehicle. " alt="" coords="969,93,1200,118"/>
+<area shape="rect" id="node16" href="$tcp_vehicle_socket_comm_8c.html#a1c76ab448a30a8498f76e22546c81047" title="Send a message to a vehicle. " alt="" coords="1248,93,1446,118"/>
+<area shape="rect" id="node17" href="$message_parser_8c.html#a1e487e587ff3244c0808f4602ec6f1f7" title="Message wiping function. " alt="" coords="1494,93,1625,118"/>
+</map>

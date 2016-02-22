@@ -1,0 +1,5 @@
+<map id="SA_treatRouteMessage" name="SA_treatRouteMessage">
+<area shape="rect" id="node2" href="$station_actions_8c.html#a78fa797ba2873bacdac3f25506fdca3b" title="Search a vehicle by ID. " alt="" coords="216,5,372,31"/>
+<area shape="rect" id="node3" href="$message_parser_8c.html#a0026bd717404e4c2f9df87d137721377" title="Message structure initializer. " alt="" coords="233,55,355,80"/>
+<area shape="rect" id="node4" href="$msg_buffers_8c.html#a94d8920e20c5150892cf23b81eb1dfd6" title="Put a message into the buffer. " alt="" coords="234,104,355,129"/>
+</map>

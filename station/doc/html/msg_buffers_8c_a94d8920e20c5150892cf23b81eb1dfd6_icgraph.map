@@ -1,0 +1,27 @@
+<map id="MB_putMessage" name="MB_putMessage">
+<area shape="rect" id="node2" href="$mcast_messaging_8h.html#ab9bc9b5c01c8c3a09c75e662eb019f04" title="Thread for listening to messages coming from the general multicast group. " alt="" coords="193,5,338,31"/>
+<area shape="rect" id="node6" href="$station_actions_8h.html#a508d1d36f16f6dee4c28344426c929f0" title="Function to treat the ID Request Messages. " alt="" coords="183,55,348,80"/>
+<area shape="rect" id="node10" href="$station_actions_8h.html#a2194e68556b58027350c53533996f78a" title="Function to treat the ID Assign messages. " alt="" coords="202,104,329,129"/>
+<area shape="rect" id="node11" href="$station_actions_8h.html#a1e0a9c39b59131a6b19a9d44544543ab" title="Function to treat the Location messages. " alt="" coords="188,153,343,179"/>
+<area shape="rect" id="node12" href="$station_actions_8h.html#a5e1c0855b4fc05bdfb48c63ee97d728e" title="Function to treat the route messages sent by the server. " alt="" coords="184,203,347,228"/>
+<area shape="rect" id="node13" href="$station_actions_8h.html#a5db92a163307a895ded7d4c6d9627c3f" title="Function to treat the Status messages coming from the vehicle. " alt="" coords="183,252,348,277"/>
+<area shape="rect" id="node14" href="$station_actions_8h.html#abec412b1329832ff70968ddd70b18f3e" title="Function to treat the Alert messages coming from the server. " alt="" coords="188,301,343,327"/>
+<area shape="rect" id="node15" href="$station_actions_8h.html#a2be0d823bd5a676ce32b74e8f1b12dc2" title="Send the vehicle connected message to the server. " alt="" coords="183,351,348,376"/>
+<area shape="rect" id="node16" href="$station_actions_8h.html#a62de0824fbc9e952d2f17577d16d38d1" title="Send the vehicle disconnected message to the server. " alt="" coords="175,449,356,475"/>
+<area shape="rect" id="node17" href="$tcp_vehicle_socket_comm_8h.html#a919ad3564e41afca64d17244390cfba7" title="Thread to handle the inbound messages from the vehicles. " alt="" coords="404,449,626,475"/>
+<area shape="rect" id="node21" href="$station_actions_8h.html#afbf777498692d2ce2582ab9228b11063" title="Send the Join multicast group message to the vehicle. " alt="" coords="188,400,342,425"/>
+<area shape="rect" id="node22" href="$tcp_server_socket_comm_8c.html#abe2574d5f7dd2457b0d09df7f29643a9" title="Listen to the messages coming to the server. " alt="" coords="183,551,348,576"/>
+<area shape="rect" id="node3" href="$mcast_messaging_8h.html#a4fd8b31a6cdd8fa515f1b3680a754def" title="Intialize the multicast UDP listener and sender. " alt="" coords="439,104,591,129"/>
+<area shape="rect" id="node4" href="$main_8c.html#a82a03c8bafdc8925bacf4693a1c5e794" title="Thread for controlling the multicast server initialization and shutdown. " alt="" coords="1147,211,1321,236"/>
+<area shape="rect" id="node5" href="$main_8c.html#ac0f2228420376f4db7e1274f2b41667c" title="main" alt="" coords="1371,324,1422,349"/>
+<area shape="rect" id="node7" href="$message_parser_8h.html#a37ec21f46c51967253a4e2da9ab6f063" title="Message parser main function. " alt="" coords="447,252,583,277"/>
+<area shape="rect" id="node8" href="$message_parser_8h.html#a995d4c39c3939fa306e45d06589bf8c0" title="Thread function for the parser thread. " alt="" coords="706,257,836,283"/>
+<area shape="rect" id="node9" href="$message_parser_8h.html#a0a5ee1ec225573ebc80059d6bce9e0d6" title="Parser thread initializer. " alt="" coords="953,271,1058,296"/>
+<area shape="rect" id="node18" href="$tcp_vehicle_socket_comm_8h.html#a3ec3f2c1297ab45cb0ad39f925a4bce5" title="Accept the new connections from vehicles. " alt="" coords="686,441,856,467"/>
+<area shape="rect" id="node19" href="$tcp_vehicle_socket_comm_8h.html#a49fe9e8bc1bd13ac909ae2b7d2391886" title="Initialize the vehicle comunication server. " alt="" coords="928,376,1083,401"/>
+<area shape="rect" id="node20" href="$main_8c.html#ae346112f7679ae0199c3158f6624fd8b" title="Thread for controlling the vehicle server initialization and shutdown. " alt="" coords="1144,367,1323,392"/>
+<area shape="rect" id="node23" href="$tcp_server_socket_comm_8h.html#ae54218394dd621113d0f73ec6ef8f873" title="Thread to listen to messages coming from the server. " alt="" coords="415,524,616,549"/>
+<area shape="rect" id="node24" href="$tcp_server_socket_comm_8h.html#aefcfff31ea3a9b0d92a83ab83c9874f9" title="Start the threads for listening and sending messages to the server. " alt="" coords="674,503,868,528"/>
+<area shape="rect" id="node25" href="$tcp_server_socket_comm_8h.html#a64aaa41ac5e2fbe7f8ba88c053b49ff9" title="Initialize the connection to the server. " alt="" coords="916,499,1096,524"/>
+<area shape="rect" id="node26" href="$main_8c.html#aea1c0564829983a4a1da026f1640f762" title="Thread for controlling the server client initialization and shutdown. " alt="" coords="1146,452,1321,477"/>
+</map>

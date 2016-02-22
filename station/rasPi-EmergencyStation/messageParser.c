@@ -115,7 +115,7 @@ void MP_wipeMessage(PMESSAGE msg) {
  * @return Returns a message structure if a valid message has been read. Else returns NULL.
  **/
 PMESSAGE MP_messageReceiver(MP_PRECEIVERSTR rec) {
-	PMESSAGE msg;
+	PMESSAGE msg = NULL;
 		if (rec->msgLength < rec->maxMsgLength && rec->inMsg == 0) {
 			if (((rec->stxPos = strchr(rec->clientBuff, '\x02')) != NULL) && ((rec->etxPos  = strchr(rec->clientBuff, '\x03')) != NULL)) {
 				msg = calloc(1, sizeof(MESSAGE));
@@ -129,17 +129,17 @@ PMESSAGE MP_messageReceiver(MP_PRECEIVERSTR rec) {
 			}
 		} else {
 			if (rec->inMsg == 0 && rec->stxFound == 0) {
-				if((rec->stxPos = strchr(rec->clientBuff, '\x02')) != NULL) {	//If STX found, copy socket buffer to inner buffer and start reading
+				if((rec->stxPos = strchr(rec->clientBuff, '\x02')) != NULL) {
 					rec->inMsg = 1;
 					rec->msgBuff = calloc(rec->bufferLength, sizeof(char));
 					strcpy(rec->msgBuff, rec->stxPos);
 					memset(rec->clientBuff, 0, rec->bufferLength);
 					rec->stxFound = 1;
 				} else {
-					memset(rec->clientBuff, 0, rec->bufferLength);				// If not STX found and not in MSG, discard the Junk
+					memset(rec->clientBuff, 0, rec->bufferLength);
 				}
-			} else if(rec->inMsg == 1 && rec->stxFound == 1) {								//If we are reading a message
-				if ((rec->etxPos = strchr(rec->clientBuff, '\x03')) != NULL) {   //If we found ETX, copy contents and end reading.
+			} else if(rec->inMsg == 1 && rec->stxFound == 1) {
+				if ((rec->etxPos = strchr(rec->clientBuff, '\x03')) != NULL) {
 					rec->msgBuff = realloc(rec->msgBuff, ((strlen(rec->msgBuff)*sizeof(char) + 1) + strlen(rec->clientBuff)));
 					strncat(rec->msgBuff, rec->clientBuff, ((rec->etxPos)+1 - rec->clientBuff));
 					rec->inMsg = 0;
@@ -150,7 +150,7 @@ PMESSAGE MP_messageReceiver(MP_PRECEIVERSTR rec) {
 					msg->msgSize = strlen(msg->fullMsg);
 					free(rec->msgBuff);
 					return msg;
-				} else {															//Else copy all contents and continue reading.
+				} else {
 					rec->msgBuff = realloc(rec->msgBuff, ((strlen(rec->msgBuff)*sizeof(char) + 1) + rec->bufferLength));
 					strcat(rec->msgBuff, rec->clientBuff);
 					memset(rec->clientBuff, 0, rec->bufferLength);

@@ -1,0 +1,15 @@
+<map id="mcastConnControlThread" name="mcastConnControlThread">
+<area shape="rect" id="node2" href="$mcast_messaging_8c.html#a4fd8b31a6cdd8fa515f1b3680a754def" title="Intialize the multicast UDP listener and sender. " alt="" coords="247,129,400,155"/>
+<area shape="rect" id="node14" href="$mcast_messaging_8c.html#a197c2b5442d03afeb798d31b9ffaa3d7" title="Close the sockets and stop all threads of multicast comunication. " alt="" coords="227,179,420,204"/>
+<area shape="rect" id="node3" href="$msg_buffers_8c.html#a15ca8d0fea842defceb1611616a64560" title="Create a new buffer or mailbox and initialize it for n values. " alt="" coords="498,5,599,31"/>
+<area shape="rect" id="node4" href="$mcast_messaging_8c.html#ad5775544efb4010edd675f4fabbacdfb" title="Initialize the sockets for multicast communication. " alt="" coords="486,55,611,80"/>
+<area shape="rect" id="node5" href="$mcast_messaging_8c.html#ac5fae8e7dd4561321e0311a2bd76ac63" title="Initialize the general groups. " alt="" coords="468,104,630,129"/>
+<area shape="rect" id="node6" href="$mcast_messaging_8c.html#a672a537fdc193c0ce1d7175b9f26e3cf" title="Sets the station group to the one that we have calculated first. " alt="" coords="471,153,627,179"/>
+<area shape="rect" id="node8" href="$mcast_messaging_8c.html#ab9bc9b5c01c8c3a09c75e662eb019f04" title="Thread for listening to messages coming from the general multicast group. " alt="" coords="476,203,622,228"/>
+<area shape="rect" id="node12" href="$mcast_messaging_8c.html#a82322ed09bb5d8af36d46860d2f49e2d" title="Thread for sending the messages to the station multicast group. " alt="" coords="477,264,621,289"/>
+<area shape="rect" id="node7" href="$mcast_messaging_8c.html#ab72d654feaaf6ca97ec5c605445154bb" title="Caltulate address for the multicast group. " alt="" coords="678,140,853,165"/>
+<area shape="rect" id="node9" href="$message_parser_8c.html#a1e095af9fe3f1bd7c5a708d797e52bb9" title="Message decoupler and receiver function. " alt="" coords="688,189,843,215"/>
+<area shape="rect" id="node11" href="$msg_buffers_8c.html#a94d8920e20c5150892cf23b81eb1dfd6" title="Put a message into the buffer. " alt="" coords="705,239,826,264"/>
+<area shape="rect" id="node10" href="$message_parser_8c.html#a0026bd717404e4c2f9df87d137721377" title="Message structure initializer. " alt="" coords="901,189,1023,215"/>
+<area shape="rect" id="node13" href="$msg_buffers_8c.html#a2bc61492dcc33dc1712d77d383b1e33d" title="Get a message from the buffer. " alt="" coords="705,288,826,313"/>
+</map>

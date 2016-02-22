@@ -1,0 +1,6 @@
+<map id="SSC_msgListenerThreadFunc" name="SSC_msgListenerThreadFunc">
+<area shape="rect" id="node2" href="$tcp_server_socket_comm_8h.html#aefcfff31ea3a9b0d92a83ab83c9874f9" title="Start the threads for listening and sending messages to the server. " alt="" coords="254,5,447,31"/>
+<area shape="rect" id="node3" href="$tcp_server_socket_comm_8h.html#a64aaa41ac5e2fbe7f8ba88c053b49ff9" title="Initialize the connection to the server. " alt="" coords="495,5,675,31"/>
+<area shape="rect" id="node4" href="$main_8c.html#aea1c0564829983a4a1da026f1640f762" title="Thread for controlling the server client initialization and shutdown. " alt="" coords="723,5,899,31"/>
+<area shape="rect" id="node5" href="$main_8c.html#ac0f2228420376f4db7e1274f2b41667c" title="main" alt="" coords="947,5,997,31"/>
+</map>

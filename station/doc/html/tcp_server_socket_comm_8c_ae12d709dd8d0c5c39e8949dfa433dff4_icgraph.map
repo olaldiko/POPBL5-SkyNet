@@ -1,0 +1,5 @@
+<map id="SSC_initBuffers" name="SSC_initBuffers">
+<area shape="rect" id="node2" href="$tcp_server_socket_comm_8h.html#a64aaa41ac5e2fbe7f8ba88c053b49ff9" title="Initialize the connection to the server. " alt="" coords="169,5,348,31"/>
+<area shape="rect" id="node3" href="$main_8c.html#aea1c0564829983a4a1da026f1640f762" title="Thread for controlling the server client initialization and shutdown. " alt="" coords="396,5,572,31"/>
+<area shape="rect" id="node4" href="$main_8c.html#ac0f2228420376f4db7e1274f2b41667c" title="main" alt="" coords="620,5,670,31"/>
+</map>

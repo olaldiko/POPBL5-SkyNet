@@ -1,0 +1,8 @@
+<map id="rasPi&#45;EmergencyStation/messageParser.h" name="rasPi&#45;EmergencyStation/messageParser.h">
+<area shape="rect" id="node6" href="$structures_8h.html" title="File containing all the structure definitions used in the other modules. " alt="" coords="965,312,1056,337"/>
+<area shape="rect" id="node8" href="$msg_buffers_8h.html" title="File containing the headers of all functions related to the message mailboxes. " alt="" coords="273,239,372,264"/>
+<area shape="rect" id="node10" href="$tcp_vehicle_socket_comm_8h.html" title="Vehicle connection server&#39;s headers. " alt="" coords="773,165,947,191"/>
+<area shape="rect" id="node14" href="$station_actions_8h.html" title="FIle containing all the station action headers. " alt="" coords="450,92,566,117"/>
+<area shape="rect" id="node16" href="$tcp_server_socket_comm_8h.html" title="Server connection related function definitions. " alt="" coords="423,165,593,191"/>
+<area shape="rect" id="node17" href="$mcast_messaging_8h.html" title="FIle containing all the headers of the functions related to multicast communication. " alt="" coords="616,165,749,191"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="SA_sendConnectedMsg" name="SA_sendConnectedMsg">
+<area shape="rect" id="node2" href="$message_parser_8c.html#a0026bd717404e4c2f9df87d137721377" title="Message structure initializer. " alt="" coords="218,5,341,31"/>
+<area shape="rect" id="node3" href="$msg_buffers_8c.html#a94d8920e20c5150892cf23b81eb1dfd6" title="Put a message into the buffer. " alt="" coords="219,55,340,80"/>
+</map>

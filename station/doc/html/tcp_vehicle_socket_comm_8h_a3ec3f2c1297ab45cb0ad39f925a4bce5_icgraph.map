@@ -1,0 +1,5 @@
+<map id="VSC_acceptConnections" name="VSC_acceptConnections">
+<area shape="rect" id="node2" href="$tcp_vehicle_socket_comm_8h.html#a49fe9e8bc1bd13ac909ae2b7d2391886" title="Initialize the vehicle comunication server. " alt="" coords="223,5,378,31"/>
+<area shape="rect" id="node3" href="$main_8c.html#ae346112f7679ae0199c3158f6624fd8b" title="Thread for controlling the vehicle server initialization and shutdown. " alt="" coords="426,5,606,31"/>
+<area shape="rect" id="node4" href="$main_8c.html#ac0f2228420376f4db7e1274f2b41667c" title="main" alt="" coords="654,5,705,31"/>
+</map>

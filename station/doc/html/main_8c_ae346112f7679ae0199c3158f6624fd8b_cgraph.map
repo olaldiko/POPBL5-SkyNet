@@ -1,0 +1,13 @@
+<map id="vehicleConnControlThread" name="vehicleConnControlThread">
+<area shape="rect" id="node2" href="$tcp_vehicle_socket_comm_8c.html#a49fe9e8bc1bd13ac909ae2b7d2391886" title="Initialize the vehicle comunication server. " alt="" coords="253,80,409,105"/>
+<area shape="rect" id="node10" href="$tcp_vehicle_socket_comm_8c.html#ad670ed989fdade07d91fd3f1bc38ae03" title="Shutdown the vehicle comunication server. " alt="" coords="233,129,429,155"/>
+<area shape="rect" id="node3" href="$tcp_vehicle_socket_comm_8c.html#a3ec3f2c1297ab45cb0ad39f925a4bce5" title="Accept the new connections from vehicles. " alt="" coords="477,80,646,105"/>
+<area shape="rect" id="node4" href="$tcp_vehicle_socket_comm_8c.html#a919ad3564e41afca64d17244390cfba7" title="Thread to handle the inbound messages from the vehicles. " alt="" coords="694,80,917,105"/>
+<area shape="rect" id="node5" href="$message_parser_8c.html#a1e095af9fe3f1bd7c5a708d797e52bb9" title="Message decoupler and receiver function. " alt="" coords="997,5,1152,31"/>
+<area shape="rect" id="node7" href="$msg_buffers_8c.html#a94d8920e20c5150892cf23b81eb1dfd6" title="Put a message into the buffer. " alt="" coords="1233,105,1354,131"/>
+<area shape="rect" id="node8" href="$station_actions_8c.html#aeca7876f4e4aa4da84f9d5598995916c" title="Search a vehicle by it&#39;s inbox handling thread. " alt="" coords="965,104,1185,129"/>
+<area shape="rect" id="node9" href="$station_actions_8c.html#a62de0824fbc9e952d2f17577d16d38d1" title="Send the vehicle disconnected message to the server. " alt="" coords="984,55,1165,80"/>
+<area shape="rect" id="node6" href="$message_parser_8c.html#a0026bd717404e4c2f9df87d137721377" title="Message structure initializer. " alt="" coords="1233,31,1355,56"/>
+<area shape="rect" id="node11" href="$station_actions_8c.html#a37799774c2d1bb58759b36bb9d82817e" title="Count the vehicles on the vehicle list. " alt="" coords="481,179,642,204"/>
+<area shape="rect" id="node12" href="$station_actions_8c.html#ace989dc2c9246744d4361436398b4075" title="Get the vehicle that is on the n&#45;th position in the list. " alt="" coords="483,129,640,155"/>
+</map>

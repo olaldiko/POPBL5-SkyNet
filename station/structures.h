@@ -2,7 +2,6 @@
 
 #ifndef structures_h
 #define structures_h
-#include <stdio.h>
 #include <pthread.h>
 #include <netinet/in.h>
 

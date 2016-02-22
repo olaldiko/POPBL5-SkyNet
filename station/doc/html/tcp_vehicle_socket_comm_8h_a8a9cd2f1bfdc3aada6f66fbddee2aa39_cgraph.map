@@ -1,0 +1,5 @@
+<map id="VSC_outboundHandlerThreadFunc" name="VSC_outboundHandlerThreadFunc">
+<area shape="rect" id="node2" href="$msg_buffers_8c.html#a2bc61492dcc33dc1712d77d383b1e33d" title="Get a message from the buffer. " alt="" coords="322,5,444,31"/>
+<area shape="rect" id="node3" href="$tcp_vehicle_socket_comm_8c.html#a1c76ab448a30a8498f76e22546c81047" title="Send a message to a vehicle. " alt="" coords="284,55,482,80"/>
+<area shape="rect" id="node4" href="$message_parser_8c.html#a1e487e587ff3244c0808f4602ec6f1f7" title="Message wiping function. " alt="" coords="530,55,660,80"/>
+</map>

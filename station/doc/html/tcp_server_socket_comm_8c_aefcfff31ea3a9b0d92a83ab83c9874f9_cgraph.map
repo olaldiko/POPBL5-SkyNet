@@ -1,0 +1,12 @@
+<map id="SSC_initServerConnThreads" name="SSC_initServerConnThreads">
+<area shape="rect" id="node2" href="$tcp_server_socket_comm_8c.html#ae54218394dd621113d0f73ec6ef8f873" title="Thread to listen to messages coming from the server. " alt="" coords="247,79,447,104"/>
+<area shape="rect" id="node8" href="$tcp_server_socket_comm_8c.html#ab46f3e041cae487562197067e220af3b" title="Thread to send the messages stored in the outbox to the server. " alt="" coords="249,153,445,179"/>
+<area shape="rect" id="node3" href="$tcp_server_socket_comm_8c.html#abe2574d5f7dd2457b0d09df7f29643a9" title="Listen to the messages coming to the server. " alt="" coords="510,29,676,55"/>
+<area shape="rect" id="node7" href="$tcp_server_socket_comm_8c.html#a71368ed7199c8c4f010605207359f972" title="Create the connection to the server. " alt="" coords="495,79,691,104"/>
+<area shape="rect" id="node4" href="$message_parser_8c.html#a1e095af9fe3f1bd7c5a708d797e52bb9" title="Message decoupler and receiver function. " alt="" coords="739,5,894,31"/>
+<area shape="rect" id="node6" href="$msg_buffers_8c.html#a94d8920e20c5150892cf23b81eb1dfd6" title="Put a message into the buffer. " alt="" coords="756,55,877,80"/>
+<area shape="rect" id="node5" href="$message_parser_8c.html#a0026bd717404e4c2f9df87d137721377" title="Message structure initializer. " alt="" coords="942,5,1064,31"/>
+<area shape="rect" id="node9" href="$msg_buffers_8c.html#a2bc61492dcc33dc1712d77d383b1e33d" title="Get a message from the buffer. " alt="" coords="532,128,654,153"/>
+<area shape="rect" id="node10" href="$tcp_server_socket_comm_8c.html#a5cfbc3e4116f51d09d4416ce81a420a9" title="Send a message to the server. " alt="" coords="497,177,689,203"/>
+<area shape="rect" id="node11" href="$message_parser_8c.html#a1e487e587ff3244c0808f4602ec6f1f7" title="Message wiping function. " alt="" coords="528,227,658,252"/>
+</map>

@@ -1,0 +1,16 @@
+<map id="structures.h" name="structures.h">
+<area shape="rect" id="node2" href="$message_parser_8h.html" title="Message parser function headers. " alt="" coords="284,79,449,117"/>
+<area shape="rect" id="node5" href="$msg_buffers_8h.html" title="File containing the headers of all functions related to the message mailboxes. " alt="" coords="466,165,631,204"/>
+<area shape="rect" id="node6" href="$tcp_vehicle_socket_comm_8h.html" title="Vehicle connection server&#39;s headers. " alt="" coords="121,252,298,291"/>
+<area shape="rect" id="node7" href="$station_actions_8h.html" title="FIle containing all the station action headers. " alt="" coords="472,339,637,377"/>
+<area shape="rect" id="node10" href="$tcp_server_socket_comm_8h.html" title="Server connection related function definitions. " alt="" coords="636,252,809,291"/>
+<area shape="rect" id="node12" href="$mcast_messaging_8h.html" title="FIle containing all the headers of the functions related to multicast communication. " alt="" coords="884,252,1049,291"/>
+<area shape="rect" id="node3" href="$main_8h.html" title="Main file&#39;s headers of the emergency station application. " alt="" coords="206,339,371,377"/>
+<area shape="rect" id="node15" href="$message_parser_8c.html" title="Message parser functions definition. " alt="" coords="102,165,267,204"/>
+<area shape="rect" id="node4" href="$main_8c.html" title="Main file and functions of the emergency station application. " alt="" coords="206,425,371,464"/>
+<area shape="rect" id="node14" href="$msg_buffers_8c.html" title="File containing the definitions of all functions related to the message mailboxes. " alt="" coords="396,252,561,291"/>
+<area shape="rect" id="node9" href="$tcp_vehicle_socket_comm_8c.html" title="Vehicle connection server related function definitions. " alt="" coords="5,339,182,377"/>
+<area shape="rect" id="node8" href="$station_actions_8c.html" title="FIle containing all the station action definitions. " alt="" coords="472,425,637,464"/>
+<area shape="rect" id="node11" href="$tcp_server_socket_comm_8c.html" title="Server connection related function headers. " alt="" coords="662,339,834,377"/>
+<area shape="rect" id="node13" href="$mcast_messaging_8c.html" title="FIle containing all the definition of the functions related to multicast communication. " alt="" coords="884,339,1049,377"/>
+</map>

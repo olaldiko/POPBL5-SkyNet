@@ -1,0 +1,7 @@
+<map id="SA_VEHICLE_QUEUE" name="SA_VEHICLE_QUEUE">
+<area shape="rect" id="node2" href="$struct_s_a___v_e_h_i_c_l_e___e_l_e_m.html" title="Node element structure of the vehicle list. " alt="" coords="11,352,158,377"/>
+<area shape="rect" id="node3" href="$struct_s_a___v_e_h_i_c_l_e___d_a_t_a.html" title="Structure to store the vehicles connected to the station. " alt="" coords="12,265,157,291"/>
+<area shape="rect" id="node4" href="$struct_m_s_g_b_u_f_f.html" title="Message mailbox/buffer main structure. " alt="" coords="41,179,128,204"/>
+<area shape="rect" id="node5" href="$struct_m_s_g_q_u_e_u_e.html" title="Node element structure of the message mailbox/buffer. " alt="" coords="35,92,134,117"/>
+<area shape="rect" id="node6" href="$struct_m_e_s_s_a_g_e.html" title="Structure where the messages are stored. " alt="" coords="41,5,128,31"/>
+</map>

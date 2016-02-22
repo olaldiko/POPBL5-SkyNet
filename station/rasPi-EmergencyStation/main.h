@@ -5,10 +5,7 @@
 
 #include <stdio.h>
 #include <signal.h>
-#include "structures.h"
 #include "messageParser.h"
-#include "msgBuffers.h"
-#include "stationActions.h"
 #include "tcpServerSocketComm.h"
 #include "tcpVehicleSocketComm.h"
 

@@ -1,0 +1,7 @@
+<map id="SSC_sendMessageToServer" name="SSC_sendMessageToServer">
+<area shape="rect" id="node2" href="$tcp_server_socket_comm_8h.html#ab46f3e041cae487562197067e220af3b" title="Thread to send the messages stored in the outbox to the server. " alt="" coords="246,5,442,31"/>
+<area shape="rect" id="node3" href="$tcp_server_socket_comm_8h.html#aefcfff31ea3a9b0d92a83ab83c9874f9" title="Start the threads for listening and sending messages to the server. " alt="" coords="490,5,683,31"/>
+<area shape="rect" id="node4" href="$tcp_server_socket_comm_8h.html#a64aaa41ac5e2fbe7f8ba88c053b49ff9" title="Initialize the connection to the server. " alt="" coords="731,5,911,31"/>
+<area shape="rect" id="node5" href="$main_8c.html#aea1c0564829983a4a1da026f1640f762" title="Thread for controlling the server client initialization and shutdown. " alt="" coords="959,5,1135,31"/>
+<area shape="rect" id="node6" href="$main_8c.html#ac0f2228420376f4db7e1274f2b41667c" title="main" alt="" coords="1183,5,1233,31"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="SSC_msgSenderThreadFunc" name="SSC_msgSenderThreadFunc">
+<area shape="rect" id="node2" href="$msg_buffers_8c.html#a2bc61492dcc33dc1712d77d383b1e33d" title="Get a message from the buffer. " alt="" coords="285,5,407,31"/>
+<area shape="rect" id="node3" href="$tcp_server_socket_comm_8c.html#a5cfbc3e4116f51d09d4416ce81a420a9" title="Send a message to the server. " alt="" coords="250,55,442,80"/>
+<area shape="rect" id="node4" href="$message_parser_8c.html#a1e487e587ff3244c0808f4602ec6f1f7" title="Message wiping function. " alt="" coords="281,104,411,129"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="VSC_initVehicleServer" name="VSC_initVehicleServer">
+<area shape="rect" id="node2" href="$tcp_vehicle_socket_comm_8c.html#a3ec3f2c1297ab45cb0ad39f925a4bce5" title="Accept the new connections from vehicles. " alt="" coords="209,80,378,105"/>
+<area shape="rect" id="node3" href="$tcp_vehicle_socket_comm_8c.html#a919ad3564e41afca64d17244390cfba7" title="Thread to handle the inbound messages from the vehicles. " alt="" coords="426,80,649,105"/>
+<area shape="rect" id="node4" href="$message_parser_8c.html#a1e095af9fe3f1bd7c5a708d797e52bb9" title="Message decoupler and receiver function. " alt="" coords="729,5,884,31"/>
+<area shape="rect" id="node6" href="$msg_buffers_8c.html#a94d8920e20c5150892cf23b81eb1dfd6" title="Put a message into the buffer. " alt="" coords="965,105,1086,131"/>
+<area shape="rect" id="node7" href="$station_actions_8c.html#aeca7876f4e4aa4da84f9d5598995916c" title="Search a vehicle by it&#39;s inbox handling thread. " alt="" coords="697,104,917,129"/>
+<area shape="rect" id="node8" href="$station_actions_8c.html#a62de0824fbc9e952d2f17577d16d38d1" title="Send the vehicle disconnected message to the server. " alt="" coords="716,55,897,80"/>
+<area shape="rect" id="node5" href="$message_parser_8c.html#a0026bd717404e4c2f9df87d137721377" title="Message structure initializer. " alt="" coords="965,31,1087,56"/>
+</map>

@@ -13,7 +13,6 @@
 #include <netdb.h>
 #include "structures.h"
 #include "msgBuffers.h"
-#include "messageParser.h"
 
 #define SSC_SRV_ADDRESS "ayerdi" /**< server's domain name.*/
 #define SSC_SRV_PORT 5000 /**< server port. */

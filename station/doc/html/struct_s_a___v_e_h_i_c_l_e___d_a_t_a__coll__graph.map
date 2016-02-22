@@ -1,0 +1,5 @@
+<map id="SA_VEHICLE_DATA" name="SA_VEHICLE_DATA">
+<area shape="rect" id="node2" href="$struct_m_s_g_b_u_f_f.html" title="Message mailbox/buffer main structure. " alt="" coords="34,179,121,204"/>
+<area shape="rect" id="node3" href="$struct_m_s_g_q_u_e_u_e.html" title="Node element structure of the message mailbox/buffer. " alt="" coords="28,92,127,117"/>
+<area shape="rect" id="node4" href="$struct_m_e_s_s_a_g_e.html" title="Structure where the messages are stored. " alt="" coords="34,5,121,31"/>
+</map>

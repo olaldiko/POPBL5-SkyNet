@@ -1,0 +1,5 @@
+<map id="SA_countVehiclesInList" name="SA_countVehiclesInList">
+<area shape="rect" id="node2" href="$tcp_vehicle_socket_comm_8h.html#ad670ed989fdade07d91fd3f1bc38ae03" title="Shutdown the vehicle comunication server. " alt="" coords="214,5,410,31"/>
+<area shape="rect" id="node3" href="$main_8c.html#ae346112f7679ae0199c3158f6624fd8b" title="Thread for controlling the vehicle server initialization and shutdown. " alt="" coords="458,5,637,31"/>
+<area shape="rect" id="node4" href="$main_8c.html#ac0f2228420376f4db7e1274f2b41667c" title="main" alt="" coords="685,5,736,31"/>
+</map>

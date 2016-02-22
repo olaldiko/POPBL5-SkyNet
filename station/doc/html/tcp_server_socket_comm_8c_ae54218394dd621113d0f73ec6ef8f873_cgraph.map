@@ -1,0 +1,7 @@
+<map id="SSC_msgListenerThreadFunc" name="SSC_msgListenerThreadFunc">
+<area shape="rect" id="node2" href="$tcp_server_socket_comm_8c.html#abe2574d5f7dd2457b0d09df7f29643a9" title="Listen to the messages coming to the server. " alt="" coords="269,29,435,55"/>
+<area shape="rect" id="node6" href="$tcp_server_socket_comm_8c.html#a71368ed7199c8c4f010605207359f972" title="Create the connection to the server. " alt="" coords="254,79,450,104"/>
+<area shape="rect" id="node3" href="$message_parser_8c.html#a1e095af9fe3f1bd7c5a708d797e52bb9" title="Message decoupler and receiver function. " alt="" coords="498,5,653,31"/>
+<area shape="rect" id="node5" href="$msg_buffers_8c.html#a94d8920e20c5150892cf23b81eb1dfd6" title="Put a message into the buffer. " alt="" coords="515,55,636,80"/>
+<area shape="rect" id="node4" href="$message_parser_8c.html#a0026bd717404e4c2f9df87d137721377" title="Message structure initializer. " alt="" coords="701,5,823,31"/>
+</map>

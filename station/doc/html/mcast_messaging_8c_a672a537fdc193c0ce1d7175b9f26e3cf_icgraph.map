@@ -1,0 +1,5 @@
+<map id="MCM_initStationGroup" name="MCM_initStationGroup">
+<area shape="rect" id="node2" href="$mcast_messaging_8h.html#a4fd8b31a6cdd8fa515f1b3680a754def" title="Intialize the multicast UDP listener and sender. " alt="" coords="210,5,362,31"/>
+<area shape="rect" id="node3" href="$main_8c.html#a82a03c8bafdc8925bacf4693a1c5e794" title="Thread for controlling the multicast server initialization and shutdown. " alt="" coords="410,5,584,31"/>
+<area shape="rect" id="node4" href="$main_8c.html#ac0f2228420376f4db7e1274f2b41667c" title="main" alt="" coords="632,5,682,31"/>
+</map>

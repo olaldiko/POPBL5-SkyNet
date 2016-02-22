@@ -1,0 +1,9 @@
+<map id="SA_treatListMessage" name="SA_treatListMessage">
+<area shape="rect" id="node2" href="$station_actions_8c.html#adef80b5aef5924633f2ef4b37eecc820" title="Add a new vehicle to the vehicle list. " alt="" coords="201,29,348,55"/>
+<area shape="rect" id="node3" href="$station_actions_8c.html#ac5974717372c28efe7b4e33f68ef895b" title="Function to initialize a new vehicle structure. " alt="" coords="396,55,503,80"/>
+<area shape="rect" id="node4" href="$msg_buffers_8c.html#a15ca8d0fea842defceb1611616a64560" title="Create a new buffer or mailbox and initialize it for n values. " alt="" coords="615,5,716,31"/>
+<area shape="rect" id="node5" href="$tcp_vehicle_socket_comm_8c.html#a8a9cd2f1bfdc3aada6f66fbddee2aa39" title="Thread to send the messages to the vehicle. " alt="" coords="551,55,781,80"/>
+<area shape="rect" id="node6" href="$msg_buffers_8c.html#a2bc61492dcc33dc1712d77d383b1e33d" title="Get a message from the buffer. " alt="" coords="868,29,989,55"/>
+<area shape="rect" id="node7" href="$tcp_vehicle_socket_comm_8c.html#a1c76ab448a30a8498f76e22546c81047" title="Send a message to a vehicle. " alt="" coords="829,79,1027,104"/>
+<area shape="rect" id="node8" href="$message_parser_8c.html#a1e487e587ff3244c0808f4602ec6f1f7" title="Message wiping function. " alt="" coords="1075,79,1206,104"/>
+</map>
