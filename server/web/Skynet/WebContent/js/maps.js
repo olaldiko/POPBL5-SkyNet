@@ -1,8 +1,8 @@
 var map, marker;
 var lat = 0, lng = 0;
 var zoom = 11;
-var markers = [], j = 0;
-var resources = [], h = 0;
+var markers = [];
+var resources = [];
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
@@ -25,71 +25,53 @@ function createMarker(lat, lng) {
 	marker.setMap(map);
 	updateMap(lat, lng);
 }
+function deleteNU() {
+	for (var i = 0; i < markers.length; i++) {
+		markers[i].setMap(null);
+	}
+	markers = [];
+	console.log("MARKER: All markers deleted");
+}
+function deleteNUR() {
+	for (var i = 0; i < resources.length; i++) {
+		resources[i].setMap(null);
+	}
+	resources = [];
+	console.log("MARKER: All markers deleted");
+}
 function createMarkerNU(lat, lng, text, i) {
-	var exists = 1, h = 0;
-	if (j != 0) {
-		for (h = 0; h < j; h++) {
-			var aux = markers[h];
-			if (aux.get("id") != i) exists = 0;
-		}
-	} else {
-		exists = 0;
-	}
-	if (exists == 0) {
-		var image = '../Skynet/img/warning.png';
-		var m = new google.maps.Marker({
-			position: new google.maps.LatLng(lat, lng),
-			map: map,
-			icon: image
-		});
-		var infowindow = new google.maps.InfoWindow({
-		    content: text
-		});
-		m.addListener('click', function() {
-		    infowindow.open(map, m);
-		});
-		m.set("id", i);
-		markers[j] = m;
-		j = j + 1;
-	} else {
-		console.log("No añadimos marcador repetido.");
-	}
+	var image = '../Skynet/img/warning.png';
+	var m = new google.maps.Marker({
+		position: new google.maps.LatLng(lat, lng),
+		map: map,
+		icon: image
+	});
+	var infowindow = new google.maps.InfoWindow({
+	    content: text
+	});
+	m.addListener('click', function() {
+	    infowindow.open(map, m);
+	});
+	m.set("id", i);
+	console.log("MARKER: Maker " + i + " added.");
+	markers.push(m);
 }
 function createMarkerNUR(lat, lng, text, i) {
-	var exists = 1, h = 0;
-	if (h != 0) {
-		for (j = 0; j < h; j++) {
-			var aux = resources[j];
-			if (aux.get("id") != i) exists = 0;
-		}
-	} else {
-		exists = 0;
-	}
-	if (exists == 0) {
-		var image = '../Skynet/img/ambulance.png';
-		var m = new google.maps.Marker({
-			position: new google.maps.LatLng(lat, lng),
-			map: map,
-			icon: image
-		});
-		var infowindow = new google.maps.InfoWindow({
-		    content: text
-		});
-		m.addListener('click', function() {
-		    infowindow.open(map, m);
-		});
-		m.set("id", i);
-		resources[h] = m;
-		h = h + 1;
-	} else {
-		console.log("Actualizamos marcador repetido.");
-		for (j = 0; j < h; j++) {
-			var aux = resources[j];
-			if (aux.get("id") == i) {
-				aux.setPosition(new google.maps.LatLng(lat, lng));
-			}
-		}
-	}
+	var image = '../Skynet/img/ambulance.png';
+	var m = new google.maps.Marker({
+		position: new google.maps.LatLng(lat, lng),
+		map: map,
+		icon: image
+	});
+	var infowindow = new google.maps.InfoWindow({
+	    content: text
+	});
+	m.addListener('click', function() {
+	    infowindow.open(map, m);
+	});
+	m.set("id", i);
+	console.log("MARKER: Maker " + i + " added.");
+	resources.push(m);
 }
 function changePositionMarker(lat, lng) {
 	marker.setPosition(new google.maps.LatLng(lat, lng));
@@ -104,7 +86,7 @@ function setVars(lat, lng) {
 }
 function loadMap() {
 	var mapOptions = {
-		center: new google.maps.LatLng(43.062991, -2.506180),
+		center: new google.maps.LatLng(43.276639, -1.987208),
 		scrollwheel: false,
 		zoom: zoom
 	};

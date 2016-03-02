@@ -25,6 +25,7 @@
 								       "<b>Fecha de resolucion</b>: "+fechaResolucion+"</p>"+
 							       "</div>"+
 						       "</div>";
+		deleteNU();
 		createMarkerNU(lat, lng, contentString, incidenciaID); <%
 	}
 } %>
@@ -40,6 +41,7 @@
 							       	   "<p><b>Fecha de actualizacion</b>: <%= data[1] %></p>"+
 						       "</div>"+
 						       "</div>";
+		deleteNUR();
 		createMarkerNUR(<%= data[2] %>, <%= data[3] %>, contentString, <%= data[0] %>); <%
 	}
 } %>

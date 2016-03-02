@@ -30,7 +30,7 @@ public class LoginServlet extends HttpServlet {
     public LoginServlet() {
         super();
         try {
-			if (!Driver.isRegistered()) Driver.register();
+        	if (!Driver.isRegistered()) Driver.register();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

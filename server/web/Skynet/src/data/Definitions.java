@@ -3,9 +3,9 @@ package data;
 public class Definitions {
 	
 	public static final String dbUser = "postgres";
-	public static final String dbPass = "9BLKMyQDeYwjCjzVXgSskAM6"; // "9BLKMyQDeYwjCjzVXgSskAM6"
+	public static final String dbPass = "postgres"; // "9BLKMyQDeYwjCjzVXgSskAM6"
 	
-	public static final String dbAddress = "10.8.0.1";
+	public static final String dbAddress = "localhost";
 	public static final int dbPort = 5432;
 	
 	public static final String tcpAddress = "127.0.0.1";
